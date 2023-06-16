@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { default: mongoose } = require("mongoose");
 const app = express();
-const User = require('./src/models/user');
+const User = require('./src/models/userModel');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -11,8 +11,8 @@ mongoose.connect('mongodb://localhost:27017/E-commerce',{ useNewUrlParser: true}
 
 
 //routes
-app.use('/',require(__dirname+'/src/routes/login'));
-app.use('/',require(__dirname+'/src/routes/register'));
+app.use('/',require(__dirname+'/src/routes/loginRoute'));
+app.use('/',require(__dirname+'/src/routes/registerRoute'));
 
 
 
