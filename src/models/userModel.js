@@ -12,7 +12,7 @@ var UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    lowercase: true, // email is not case sensitive so:  abc@g.com and ABC@g.com are the same!!
+    lowercase:true,// email is not case sensitive so:  abc@g.com and ABC@g.com are the same!!
     required: [true, "can't be blank"],
     match: [/\S+@\S+\.\S+/, 'is invalid'],
   },
