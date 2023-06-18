@@ -6,6 +6,7 @@ const app = express();
 const User = require('./src/models/userModel');
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/src/views/public'));
 app.use('/jsFiles', express.static(__dirname + '/src/views/jsFiles'));
