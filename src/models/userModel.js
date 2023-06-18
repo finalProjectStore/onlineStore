@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt'); // To generate and validate hashes, bcrypt library that comes with Node.
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
   username: {
@@ -12,22 +12,26 @@ var UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
+    lowercase: true, // email is not case sensitive so:  abc@g.com and ABC@g.com are the same!!
     required: [true, "can't be blank"],
     match: [/\S+@\S+\.\S+/, 'is invalid'],
   },
   age: { type: Number, required: [true, "can't be blank"] },
-  hash_password: String,
+
+  password: {
+    type: String,
+    require: true,
+  },
 
   created: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 UserSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.hash_password);
 };
-
 
 const User = mongoose.model('User', UserSchema); // create User DB with UserSchema collection
 
