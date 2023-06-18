@@ -1,40 +1,79 @@
-alert()
-$('form').submit(function (){
-    
-    $.post('/Users/yonatan/Downloads/onlineStore/src/routes/register.js'),
-    { 
-        password1: "Donald Duck",
-        password2: "Duckburg"
-    },
-    function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
+
+
+
+
+
+
+$(document).ready(function()
+{
+
+
+    const createAlert = function(error)
+    {
+            
+            if ($("#div_alert").find("strong"))
+            {
+                $("#div_alert").find("strong").remove();
+            }
+
+            $('#div_alert')
+            .addClass('alert alert-info')
+            .append('<strong> '+error +', try again</string>');
+            return true;
     }
+
+
+
+
+
+    $("#btn_register").click(function(event)
+    {
+        let username = $.trim($('#username').val());
+        let age = $.trim($('#age').val());
+        let email = $.trim($('#email').val());
+        let pwd1 = $.trim($('#pwd1').val());
+        let pwd2 = $.trim($('#pwd2').val());
+        
+      if (username === '' ||age === '' ||email === '' ||pwd1 === '' ||pwd2 === '') 
+      {
+        
+
+        if (createAlert("All fields are required"))
+        {
+            return false;
+        }
+
+      }
+    
+
+
+        event.preventDefault();
+        $.ajax(
+            {
+                url : "/register",
+                method :"POST",
+                data : JSON.stringify({username:username,email:email,age:age,password1:pwd1,password2:pwd2}),
+                contentType : "application/json",
+
+                success:function(res)
+                {
+                   
+                    
+                    if (res.response === "wrong password")
+                    {
+                        createAlert("Passwords not match, try again")
+                    }
+                }
+            })
+
+    })
 });
 
 
-    //   let username = $.trim($('#username').val());
-    //   let age = $.trim($('#age').val());
-    //   let email = $.trim($('#email').val());
-    //   let pwd1 = $.trim($('#pwd1').val());
-    //   let pwd2 = $.trim($('#pwd2').val());
 
-    //   if (
-    //     username === '' ||
-    //     age === '' ||
-    //     email === '' ||
-    //     pwd1 === '' ||
-    //     pwd2 === ''
-    //   ) {
-    //     // Check if div class is exist if not, create alert
-    //     let n = document.getElementsByClassName('alert alert-info').length;
 
-    //     if (n === 1) {
-    //       return false;
-    //     }
 
-    //     $('#div_alert')
-    //       .addClass('alert alert-info')
-    //       .append('<strong>All fields are required, try again</string>');
-    //     return false;
-    //   }
-    // });
+
+
+
+
