@@ -13,18 +13,17 @@ app.use('/cssFiles', express.static(__dirname + '/src/views/cssFiles'));
 
 
 
-mongoose.connect('mongodb://localhost:27017/E-commerce',{ useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost:27017/E-commerce', { useNewUrlParser: true });
 
 
 //routes
-app.use('/',require(__dirname+'/src/routes/loginRoute'));
-app.use('/',require(__dirname+'/src/routes/registerRoute'));
-app.use('/',require(__dirname+'/src/routes/mainPageRoute'))
+app.use('/', require(__dirname + '/src/routes/loginRoute'));
+app.use('/', require(__dirname + '/src/routes/registerRoute'));
+app.use('/', require(__dirname + '/src/routes/mainPageRoute'))
+app.use('/', require(__dirname + '/src/routes/cartRoute'));
 
 
 
-
-app.listen(3000,function()
-{
+app.listen(3000, function () {
   console.log("Server listening");
 })
