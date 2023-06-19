@@ -1,34 +1,36 @@
+const { response } = require('express');
 var mongoose = require('mongoose');
+const User = require('../models/userModel');
+
+const checkPasswordsMatch = function (password, password2) {
+  if (password === password2) {
+    return true;
+  }
+  return false;
+};
+
+const createUser = async function (username, email, age, password1, password2) {
+  if (!checkPasswordsMatch(password1, password2)) {
+    return 'wrong password';
+  }
+
+  const doesExist = await User.findOne({ email: email});
+  if(doesExist) {return 'choose different email';}
+
+  const newUser = new User({
+    username:username,
+    email:email,
+    age:age,
+    password:password1
+});
+  const savedUser = await newUser.save(); //take time to load the user into the db
+  
+    return "";
+};
 
 
-
-
-const checkIfValid = function(password,password2)
-{
-    if (password === password2)
-    {
-        return true;
-    }
-    return false;
+const userLogin = async function (username, password) {
+  /// ADD CHECK PASSWORD IN THE SERVER ///
 }
 
-
-
-
-
-
-const createUser = function(username,email,age,password1,password2) 
-{
-    if (!checkIfValid(password1,password2))
-    {
-        return "wrong password";
-    }
-
-
-
-
-
-}
-
-
-module.exports = {createUser};
+module.exports = { createUser };
