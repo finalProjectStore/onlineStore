@@ -77,7 +77,7 @@ $(document).ready(function () {
   var input = $('<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">');
   var button = $('<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>');
   var cartContainer = $('<div class="cart-container"></div>');
-  var cartIcon = $('<i class="fas fa-shopping-cart cart-icon"></i>');
+  var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter">0</span>');
 
   form.append(input, button);
@@ -121,22 +121,26 @@ $(document).ready(function () {
   var cardContainer = $('.card-container');
   var filteredData = data;
 
+  $("#cartBtn").click(function () {
+    location.href = 'cart';
+  });
+
   function filterData() {
     var selectedPriceSort = $('#price-sort').val();
     var selectedProductType = $('#product-type').val();
     var selectedColor = $('#color').val();
-  
+
     filteredData = data.filter(function (item) {
       var productTypeCondition =
         selectedProductType === 'all' ||
         item.type === selectedProductType ||
         item.color === selectedProductType;
-  
+
       var colorCondition = selectedColor === 'all' || item.color === selectedColor;
-  
+
       return productTypeCondition && colorCondition;
     });
-  
+
     if (selectedPriceSort === 'high-low') {
       filteredData.sort(function (a, b) {
         return b.price - a.price; // Sort in descending order of price
@@ -146,11 +150,11 @@ $(document).ready(function () {
         return a.price - b.price; // Sort in ascending order of price
       });
     }
-  
+
     renderCards();
   }
-  
-  
+
+
 
   function renderCards() {
     cardContainer.empty();
