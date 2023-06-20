@@ -49,7 +49,7 @@
         </div>
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <form id="frm" action="#" method="post">
+          <form id="frm">
             <div class="form-group">
               <label>Username:</label>
               <span class="input-group-addon"
@@ -114,25 +114,8 @@
       </div>
     </div>
 
-    <script>
-      $('#btn_register').click(function () {
-        location.href = 'register';
-      });
-
-      // Check fields before submit
-      $('form').submit(function () {
-        let username = $.trim($('#username').val());
-        let password = $.trim($('#password').val());
-
-        if (username === '' || password === '') {
-          $('#div_alert')
-            .addClass('alert alert-info')
-            .append(
-              '<strong>Username or password is incorrect, try again</string>'
-            );
-          return false;
-        }
-      });
+    <script src="/jsFiles/login.js">
+     
     </script>
   </body>
 </html>

@@ -3,26 +3,23 @@ const router = express.Router();
 const path = require('path');
 const User = require('../models/userModel');
 
+const userController = require('../controllers/userController');
+
 
 
   
-router.post('/', function(req,res) {
-  console.log(req.body.username);
-  
-  
-  // var username = req.body.username.trim();
-  // var email = req.body.email.trim();
-  // var age = req.body.age.trim();
-  // var password = req.body.password;
-  // var password2 = req.body.password2;
+router.post('/', async function(req,res) {
 
-  // const newUser = new User ({
-  //   username: req.body.username.trim(),
-  //   email: req.body.email.trim(),
-  //   age: req.body.age.trim(),
-  //   hash_password: req.body.password,
-  // });
-  // newUser.save();
+  try {
+    const {username, password } = req.body;
+    const result = await userController.userLogin(username,password);
+    res.send({response: result, name:username});
+  } catch (error) {
+    console.log(error);
+  }
+  
+  
+  
 
   res.sendFile(path.join(__dirname,'../views/public/login.html')) // Solve route error. check what is path.join().
 
