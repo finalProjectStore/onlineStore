@@ -1,3 +1,6 @@
+@import 'global.css';
+
+
 body {
   margin-top: 80px;
 }
@@ -38,11 +41,11 @@ body {
 
 .card-title {
   font-size: 18px;
+  font-family: var(--homepage-font);
   font-weight: bold;
 }
 
 .card-details {
-  font-style: italic;
   margin-bottom: 10px;
 }
 
@@ -79,4 +82,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn.btn-primary {
+  background-color: var(--purple-btn-color);
 }

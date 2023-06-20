@@ -1,0 +1,16 @@
+:root {
+    /* font for cart page*/
+    --font: 'Poppins';
+    --input-border: 1px solid #4658FF;
+    --input-border-radius: 7px;
+    
+    /*use this color for all buttons*/
+    --purple-btn-color: #4658FF;
+
+    /*use this color to containers of payement,login and signin*/
+    --gray-div: #EBE7E7;
+
+    /*you can use this font for login and homepage*/
+    --homepage-font: 'Roboto';
+
+}
