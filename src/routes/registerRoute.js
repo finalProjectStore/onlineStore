@@ -12,20 +12,16 @@ router.use(bodyParser.json());
 
 
 
-router.post('/register', function(req, res)
+router.post('/register',async function(req, res)
 {
-
-  let username = req.body.username;
-  let email = req.body.email;
-  let age = req.body.age;
-  let password1 = req.body.password1;
-  let password2 = req.body.password2;
-
+  try {
+    const {username, email, age, password1, password2 } = req.body;
+    const result = await userController.createUser(username,email,age,password1,password2);
+    res.send({response: result});
+  } catch (error) {
+    console.log(error);
+  }
  
-
-   let result = userController.createUser(username,email,age,password1,password2);
-   
-   res.send({response: result});
 });
 
 

@@ -29,8 +29,21 @@ var UserSchema = new mongoose.Schema({
   },
 });
 
+
+///////  excrypt username password  ////////////
+UserSchema.pre('save', async function() {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashedPassword;
+    
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 UserSchema.methods.comparePassword = function (password) {
-  return bcrypt.compareSync(password, this.hash_password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 const User = mongoose.model('User', UserSchema); // create User DB with UserSchema collection
