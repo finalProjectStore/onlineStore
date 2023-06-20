@@ -1,18 +1,22 @@
+@import 'global.css';
+
+
 body {
   margin-top: 80px;
 }
 
 .filter-menu-container {
-  background-color: #f8f9fa;
   padding: 20px 0;
   margin-bottom: 20px;
   text-align: center;
+  margin-top: 60px;
 }
 
 #filter-menu-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 }
 
 #filter-menu-row .col-md-2 {
@@ -38,11 +42,11 @@ body {
 
 .card-title {
   font-size: 18px;
+  font-family: var(--homepage-font);
   font-weight: bold;
 }
 
 .card-details {
-  font-style: italic;
   margin-bottom: 10px;
 }
 
@@ -79,4 +83,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn.btn-primary {
+  background-color: var(--purple-btn-color);
 }
