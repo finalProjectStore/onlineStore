@@ -6,16 +6,17 @@ body {
 }
 
 .filter-menu-container {
-  background-color: #f8f9fa;
   padding: 20px 0;
   margin-bottom: 20px;
   text-align: center;
+  margin-top: 60px;
 }
 
 #filter-menu-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 }
 
 #filter-menu-row .col-md-2 {
