@@ -103,6 +103,9 @@ $(document).ready(function () {
 
   ];
 
+  const name = sessionStorage.getItem("name");
+  const username = $('#username').append('<strong> Hello ' + name + '</string>');
+
   var cartCounter = 0;
 
   // Generate the navbar
@@ -116,7 +119,7 @@ $(document).ready(function () {
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter">0</span>');
 
   form.append(input, button);
-  navbar.append(brand, form, cartContainer);
+  navbar.append(brand,username, form, cartContainer);
   cartContainer.append(cartIcon, cartCounterElement);
   $('#navbar-container').append(navbar);
 
@@ -128,13 +131,13 @@ $(document).ready(function () {
     { id: 'color', label: 'Color:', options: ['all', 'red', 'blue', 'green', 'white', 'gold'] },
   ];
 
-  filterMenuItems.forEach(function (item) {
+  filterMenuItems.forEach(function (data) {
     var col = $('<div class="col-md-2"></div>');
     var formGroup = $('<div class="form-group"></div>');
-    var label = $('<label for="' + item.id + '">' + item.label + '</label>');
-    var select = $('<select class="form-control" id="' + item.id + '"></select>');
+    var label = $('<label for="' + data.id + '">' + data.label + '</label>');
+    var select = $('<select class="form-control" id="' + data.id + '"></select>');
 
-    item.options.forEach(function (option) {
+    data.options.forEach(function (option) {
       var optionElement = $('<option value="' + option + '">' + option + '</option>');
       select.append(optionElement);
     });
@@ -154,34 +157,34 @@ $(document).ready(function () {
 
   // Generate the cards
   var cardContainer = $('.card-container');
-  var filteredData = data;
+  var filtereditem = data;
 
   $("#cartBtn").click(function () {
     location.href = 'cart';
   });
 
-  function filterData() {
+  function filteritem() {
     var selectedPriceSort = $('#price-sort').val();
     var selectedProductType = $('#product-type').val();
     var selectedColor = $('#color').val();
 
-    filteredData = data.filter(function (item) {
+    filtereditem = data.filter(function (data) {
       var productTypeCondition =
         selectedProductType === 'all' ||
-        item.type === selectedProductType ||
-        item.color === selectedProductType;
+        data.type === selectedProductType ||
+        data.color === selectedProductType;
 
-      var colorCondition = selectedColor === 'all' || item.color === selectedColor;
+      var colorCondition = selectedColor === 'all' || data.color === selectedColor;
 
       return productTypeCondition && colorCondition;
     });
 
     if (selectedPriceSort === 'high-low') {
-      filteredData.sort(function (a, b) {
+      filtereditem.sort(function (a, b) {
         return b.price - a.price; // Sort in descending order of price
       });
     } else if (selectedPriceSort === 'low-high') {
-      filteredData.sort(function (a, b) {
+      filtereditem.sort(function (a, b) {
         return a.price - b.price; // Sort in ascending order of price
       });
     }
@@ -194,15 +197,15 @@ $(document).ready(function () {
   function renderCards() {
     cardContainer.empty();
 
-    filteredData.forEach(function (item) {
-      var card = $('<div class="card card-item"></div>');
-      card.attr('data-id', item.id); // Add data-id attribute with item ID
-      var image = $('<img src="' + item.image + '" class="card-img-top" alt="Card Image">');
+    filtereditem.forEach(function (data) {
+      var card = $('<div class="card card-data"></div>');
+      card.attr('data-id', data.id); // Add data-id attribute with data ID
+      var image = $('<img src="' + data.image + '" class="card-img-top" alt="Card Image">');
       var cardBody = $('<div class="card-body"></div>');
-      var title = $('<h5 class="card-title">' + item.title + '</h5>');
-      var description = $('<p class="card-text">' + item.description + '</p>');
-      var details = $('<p class="card-details">' + item.details + '</p>');
-      var price = $('<p class="card-price">$' + item.price + '</p>');
+      var title = $('<h5 class="card-title">' + data.title + '</h5>');
+      var description = $('<p class="card-text">' + data.description + '</p>');
+      var details = $('<p class="card-details">' + data.details + '</p>');
+      var price = $('<p class="card-price">$' + data.price + '</p>');
       var addToCartButton = $(
         '<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>'
       );
@@ -219,7 +222,7 @@ $(document).ready(function () {
   }
 
   filterButton.click(function () {
-    filterData();
+    filteritem();
     updateAddToCartButtons();
   });
 
@@ -228,17 +231,18 @@ $(document).ready(function () {
     addToCartButtons.off('click'); // Remove previous click event handlers
 
     addToCartButtons.click(function () {
-      var item = $(this).closest('.card-item');
-      var itemId = item.data('id');
-      var itemData = data.find(function (item) {
-        return item.id === itemId;
+      var data = $(this).closest('.card-data');
+      var itemId = data.data('id');
+      var itemitem = data.find(function (data) {
+        return data.id === itemId;
       });
 
       cartCounter++;
       cartCounterElement.text(cartCounter);
-      alert('Item added to cart! Item ID: ' + itemId + ', Item: ' + itemData.title);
+      alert('Item added to cart! Item ID: ' + itemId + ', Item: ' + itemitem.title);
     });
   }
+
 
 
 
@@ -263,6 +267,7 @@ $(document).ready(function () {
   }
 
   filterData();
+
   updateAddToCartButtons();
 
 
