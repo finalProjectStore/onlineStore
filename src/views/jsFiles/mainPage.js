@@ -168,6 +168,7 @@ $(document).ready(function () {
     var selectedProductType = $('#product-type').val();
     var selectedColor = $('#color').val();
 
+
     filtereditem = data.filter(function (data) {
       var productTypeCondition =
         selectedProductType === 'all' ||
