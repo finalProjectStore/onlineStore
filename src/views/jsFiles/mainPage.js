@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
   var data = [
     {
       id: 1,
@@ -119,7 +120,7 @@ $(document).ready(function () {
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter">0</span>');
 
   form.append(input, button);
-  navbar.append(brand,username, form, cartContainer);
+  navbar.append(brand, username, form, cartContainer);
   cartContainer.append(cartIcon, cartCounterElement);
   $('#navbar-container').append(navbar);
 
@@ -244,7 +245,7 @@ $(document).ready(function () {
     });
   }
 
-
+  renderCards(); // render the cards immediately when the page loads
 
 
   // add search functionality
