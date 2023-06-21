@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+
+  <!-- font awesome key -->
+  <script src="https://kit.fontawesome.com/35b1bd6e9b.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../cssFiles/cart.css" />
+  <title>Product Card</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-primary ml-2" id="home-btn"><i class="fas fa-arrow-left"></i></button>
+          <h2 class="cart-title">Shopping Continue</h2>
+
+        </div>
+        <div>
+          <hr class="line">
+        </div>
+        <div>
+          <h2 class="cart-title-2">Shopping Cart</h2>
+          <h3 class="cart-num-of-items"> You have <span id="num-of-items"></span> items in your cart</h3>
+
+        </div>
+        <div id="card-container"></div>
+      </div>
+      <div class="col-md-4" id="payment-container"></div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="../jsFiles/cart.js"></script>
+</body>
+
+</html>
