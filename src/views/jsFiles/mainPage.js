@@ -125,32 +125,27 @@ $(document).ready(function () {
     var selectedPriceSort = $('#price-sort').val();
     var selectedProductType = $('#product-type').val();
     var selectedColor = $('#color').val();
-  
+
     filteredData = data.filter(function (item) {
+      var priceCondition =
+        selectedPriceSort === 'all' ||
+        (selectedPriceSort === 'low-high' && item.price < 500) ||
+        (selectedPriceSort === 'high-low' && item.price >= 500);
       var productTypeCondition =
         selectedProductType === 'all' ||
         item.type === selectedProductType ||
         item.color === selectedProductType;
-  
       var colorCondition = selectedColor === 'all' || item.color === selectedColor;
-  
-      return productTypeCondition && colorCondition;
+
+      return (
+        priceCondition &&
+        productTypeCondition &&
+        colorCondition
+      );
     });
-  
-    if (selectedPriceSort === 'high-low') {
-      filteredData.sort(function (a, b) {
-        return b.price - a.price; // Sort in descending order of price
-      });
-    } else if (selectedPriceSort === 'low-high') {
-      filteredData.sort(function (a, b) {
-        return a.price - b.price; // Sort in ascending order of price
-      });
-    }
-  
+
     renderCards();
   }
-  
-  
 
   function renderCards() {
     cardContainer.empty();

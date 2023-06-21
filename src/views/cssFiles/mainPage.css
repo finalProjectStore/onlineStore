@@ -6,17 +6,6 @@ body {
   background-color: #f8f9fa;
   padding: 20px 0;
   margin-bottom: 20px;
-  text-align: center;
-}
-
-#filter-menu-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-#filter-menu-row .col-md-2 {
-  margin-bottom: 10px;
 }
 
 .card-container {
@@ -79,4 +68,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} 
+
+
