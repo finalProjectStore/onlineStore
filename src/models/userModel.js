@@ -1,4 +1,3 @@
-const express = require('express');
 const bcrypt = require('bcrypt'); // To generate and validate hashes, bcrypt library that comes with Node.
 const mongoose = require('mongoose');
 
@@ -46,6 +45,6 @@ UserSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-const User = mongoose.model('User', UserSchema); // create User DB with UserSchema collection
+const User = mongoose.model('User', UserSchema); // create User collection
 
 module.exports = User;
