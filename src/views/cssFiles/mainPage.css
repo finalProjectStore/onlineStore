@@ -108,6 +108,10 @@ body {
   background-color: var(--purple-btn-color);
 }
 
+#username{
+  position: absolute;
+  left: 80px;
+}
 /* Responsive Styles */
 
 @media screen and (max-width: 992px) {
