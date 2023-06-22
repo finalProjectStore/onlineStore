@@ -109,15 +109,15 @@ body {
   left: 80px;
 }
 
-#search_input{
+#search-input{
   position: absolute;
   left: 580px;
 } 
 
-#search-btn
+#search-button
 {
   position: absolute;
-  left: 100px;
+  left: 790px;
 
 }
 /* Responsive Styles */

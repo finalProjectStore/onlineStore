@@ -105,7 +105,7 @@ $(document).ready(function () {
   ];
 
   const name = sessionStorage.getItem("name");
-  const username = $('#username').append('<strong> Hello ' + name + '</string>');
+  const username = $('#username').append('<strong> Hello ' + name + '</strong>');
 
   var cartCounter = 0;
 
@@ -113,13 +113,15 @@ $(document).ready(function () {
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
   var brand = $('<a class="navbar-brand" href="#">LOGO</a>');
   var form = $('<form class="form-inline"></form>');
-  var input = $('<input class="form-control mr-sm-2" id="search_input" type="search" placeholder="Search" aria-label="Search">');
+  // var input = $('<input class="form-control mr-sm-2" id="search_input" type="search" placeholder="Search" aria-label="Search">');
+  var searchInput = $('<input class="form-control mr-sm-2" id="search-input" type="search" placeholder="Search" aria-label="Search">');
+  var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="search-button" type="submit">Search</button>');
   var button = $('<button class="btn btn-outline-success my-2 my-sm-0" type="submit id="search-btn">Search</button>');
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter">0</span>');
 
-  form.append(input, button);
+  form.append(searchInput, searchButton);
   navbar.append(brand, username, form, cartContainer);
   cartContainer.append(cartIcon, cartCounterElement);
   $('#navbar-container').append(navbar);
@@ -267,6 +269,12 @@ $(document).ready(function () {
 
     renderCards();
   }
+
+  searchButton.click(function (event) {
+    event.preventDefault(); // prevent form submission
+    var searchTerm = searchInput.val(); // get the search term from the input field
+    searchItems(searchTerm); // call the searchItems function with the search term
+  });
 
   filterData();
 
