@@ -99,10 +99,6 @@ body {
   margin-right: 10px;
 }
 
-.search-button {
-  background-color: var(--purple-btn-color);
-  color: white;
-}
 
 .btn.btn-primary {
   background-color: var(--purple-btn-color);
@@ -111,6 +107,18 @@ body {
 #username{
   position: absolute;
   left: 80px;
+}
+
+#search_input{
+  position: absolute;
+  left: 580px;
+} 
+
+#search-btn
+{
+  position: absolute;
+  left: 100px;
+
 }
 /* Responsive Styles */
 

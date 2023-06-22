@@ -113,8 +113,8 @@ $(document).ready(function () {
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
   var brand = $('<a class="navbar-brand" href="#">LOGO</a>');
   var form = $('<form class="form-inline"></form>');
-  var input = $('<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">');
-  var button = $('<button class="btn btn-outline-success my-2 my-sm-0" type="submit id="search-btn"">Search</button>');
+  var input = $('<input class="form-control mr-sm-2" id="search_input" type="search" placeholder="Search" aria-label="Search">');
+  var button = $('<button class="btn btn-outline-success my-2 my-sm-0" type="submit id="search-btn">Search</button>');
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter">0</span>');
