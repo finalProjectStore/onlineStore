@@ -1,6 +1,5 @@
 @import 'global.css';
 
-
 body {
   margin-top: 80px;
 }
@@ -8,7 +7,6 @@ body {
 .filter-menu-container {
   padding: 20px 0;
   margin-bottom: 20px;
-
   text-align: center;
   margin-top: 60px;
 }
@@ -22,18 +20,20 @@ body {
 
 #filter-menu-row .col-md-2 {
   margin-bottom: 10px;
-
 }
 
 .card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 0 10px;
 }
 
 .card {
-  width: calc(33% - 20px);
-  margin-bottom: 20px;
+  flex: 0 0 calc(33.33% - 20px);
+  margin: 10px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .card-img-top {
@@ -63,8 +63,12 @@ body {
 }
 
 .cart-container {
-  position: relative;
-  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  z-index: 9999;
 }
 
 .cart-icon {
@@ -72,9 +76,6 @@ body {
 }
 
 .cart-counter {
-  position: absolute;
-  top: -8px;
-  right: -8px;
   background-color: red;
   color: white;
   font-size: 12px;
@@ -87,7 +88,36 @@ body {
   align-items: center;
 }
 
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.search-input {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.search-button {
+  background-color: var(--purple-btn-color);
+  color: white;
+}
+
 .btn.btn-primary {
   background-color: var(--purple-btn-color);
 }
 
+/* Responsive Styles */
+
+@media screen and (max-width: 992px) {
+  .card {
+    flex-basis: calc(50% - 20px);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card {
+    flex-basis: calc(100% - 20px);
+  }
+}
