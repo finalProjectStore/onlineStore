@@ -3,16 +3,21 @@ $('#btn_register').click(function () {
   location.href = 'register';
 });
 
-const createAlert = function (error) {
+
+
+const createAlert = function (error) 
+{
   if ($('#div_alert').find('strong')) {
     $('#div_alert').find('strong').remove();
   }
 
   $('#div_alert')
     .addClass('alert alert-info')
-    .append('<strong> ' + error + ', try again</string>');
+    .append('<p><strong> ' + error + ', try again</strong></p>');
   return true;
 };
+
+
 
 function showGreetingMessage(message) {
   if ($('#div_alert').find('strong')) {
@@ -32,8 +37,7 @@ $('form').submit(function (event) {
 
   if (username === '' || password === '') {
     $('#div_alert')
-      .addClass('alert alert-info')
-      .append('<strong>Username or password is incorrect, try again</string>');
+    createAlert("Username or password is incorrect, try again");
     return false;
   }
 

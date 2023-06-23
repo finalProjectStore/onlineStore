@@ -104,6 +104,14 @@ $(document).ready(function () {
 
   ];
 
+
+
+
+
+
+
+
+
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
 
@@ -214,9 +222,22 @@ $(document).ready(function () {
         '<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>'
       );
 
-      addToCartButton.click(function () {
+      addToCartButton.click(function (event) {
         cartCounter++;
         cartCounterElement.text(cartCounter);
+
+
+            
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+            // let data = event.target.parentElement.children;
+            // for(var i =0;i<data.length;i++)
+            // {
+            //     console.log(data[i].text);
+            // }
+          
+        
+
+
       });
 
       cardBody.append(title, description, details, price, addToCartButton);
@@ -281,4 +302,10 @@ $(document).ready(function () {
   updateAddToCartButtons();
 
 
+
 });
+
+
+
+
+

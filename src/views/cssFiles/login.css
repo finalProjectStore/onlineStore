@@ -1,0 +1,76 @@
+@import 'global.css';
+
+body {
+    font-family: 'Poppins';
+    text-align: center;
+    font-size: 2rem;
+}
+
+.btn-primary {
+    background-color: var(--purple-btn-color);
+}
+
+.form-control 
+{
+    border-radius: 7px;
+    font-size: 2rem;
+}
+
+h2 {
+    margin-top: 40px;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+}
+
+p
+{
+    font-size: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-top: 60px;
+    margin-block-end: 10px;
+}
+
+
+.container {
+    width: 500px;
+    height: 600px;
+    top: 145px;
+    left: 418px;
+    border-radius: 50px;
+    background-color: #EBE7E7;
+}
+
+.btn
+{
+    display: block;
+    padding: 15px;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    cursor: pointer;
+    border-radius: 2em;
+    color: #fff;
+    background: linear-gradient(to right, #5027b0, #3bafc4);
+}
+
+
+.sign {
+    padding-top: 40px;
+    color:  var(--purple-btn-color);
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+}
