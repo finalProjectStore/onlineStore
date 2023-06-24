@@ -528,15 +528,14 @@ $(document).ready(function () {
 
   //When you click on the button it will take us to the home page of the site
 
-  // var homePageUrl = "src/views/public/mainPage.html"; //TODO - change to the url of home page
 
   $("#home-btn").click(function () {
     location.href = 'mainpage';
   });
 
 
-  // counter for products - use quantity and card length
-  var countProducts = cardsData.length;
+  const cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
+
 
 
   var cardContainer = $('#card-container');
@@ -547,9 +546,34 @@ $(document).ready(function () {
   /////////////////////////////////////////////////////////
 
 
+  // Initialize a flag variable
+  var cardExists = false;
+
+
+
   // Loop through the card data and create cards dynamically
   for (var i = 0; i < cardsData.length; i++) {
     var cardData = cardsData[i];
+
+
+    // Check if a card with the same title already exists
+    if (cardData.title) {
+      var existingCard = $('.card-title:contains("' + cardData.title + '")').closest('.card');
+      if (existingCard.length > 0) {
+        cardExists = true;
+        var quantityInput = existingCard.find('.quantity-input');
+        var currentValue = parseInt(quantityInput.val());
+        quantityInput.val(currentValue + 1); // Increase the input value by 1
+      }
+    }
+
+    if (cardExists) {
+      // Reset the flag variable and continue to the next iteration
+      cardExists = false;
+      continue;
+    }
+
+
 
     // Create the card
     var card = $('<div>').addClass('card');
@@ -582,11 +606,20 @@ $(document).ready(function () {
         }
       });
 
+
+
     var quantityInputAppend = $('<div>').addClass('input-group-append');
 
     quantityInputGroup.append(quantityInputPrepend, quantityInput, quantityInputAppend);
 
-    var price = $('<p>').addClass('card-text').text('$' + cardData.price);
+    var price = $('<p>').addClass('card-text').text(cardData.price);
+
+    card.attr('data-card-id', i);
+
+
+
+
+
     var trashBtn = $('<button>').addClass('btn btn-outline-secondary trash-btn').attr('type', 'button');
 
     //when there is a click on delete button the product will disable from the cart
@@ -611,16 +644,6 @@ $(document).ready(function () {
   }
 
 
-  /////////////////////////////////////////////////////////////////////////////////////
-  /*create a function that will count the number of product and update it to the screen*/
-  ///////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-  //// TODO
 
 
 
@@ -779,7 +802,7 @@ $(document).ready(function () {
 
   function calculateTotalPrice() {
     var totalPrice = 0;
-    countProducts = 1;
+    var countProducts = 0;
 
 
 
@@ -796,6 +819,7 @@ $(document).ready(function () {
     });
 
     $('.total-price').text('Total Price: $' + totalPrice);
+    $('#num-of-items').text(countProducts);
   }
 
   // Event listener for quantity input change
@@ -803,23 +827,51 @@ $(document).ready(function () {
 
 
 
-  //////////////////////
-  /* Remove Card Item */
-  //////////////////////
+
 
   function removeCardItem() {
-    $(this).closest('.card').remove();
-    calculateTotalPrice();
+    var card = $(this).closest('.card');
+    var title = card.find('.card-title').text();
 
+    // Remove the card from the DOM
+    card.remove();
+
+    // Retrieve the stored cards data from sessionStorage
+    var cardsData = JSON.parse(sessionStorage.getItem('cardsData')) || [];
+
+    // Find the index of the card with the matching title in the cardsData array
+    var cardIndex = -1;
+    for (var i = 0; i < cardsData.length; i++) {
+      if (cardsData[i].title === title) {
+        cardIndex = i;
+        break;
+      }
+    }
+
+    // Remove the card from the cardsData array if found
+    if (cardIndex !== -1) {
+      cardsData.splice(cardIndex, 1);
+
+      // Update the cardsData in sessionStorage
+      sessionStorage.setItem('cardsData', JSON.stringify(cardsData));
+    }
+
+    calculateTotalPrice();
   }
+
 
   // Event listener for trash button click
   $('.trash-btn').on('click', removeCardItem);
+
+
+
 
   /////////////////////
   /* Checkout Button */
   /////////////////////
 
+
+  // fix this btn 
   function checkout() {
     var validInputs = $('.is-valid');
 
