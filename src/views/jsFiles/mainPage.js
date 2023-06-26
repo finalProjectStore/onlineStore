@@ -829,7 +829,7 @@ $(document).ready(function () {
   // Generate the navbar
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
   var brand = $('<a class="navbar-brand" href="#">LOGO</a>');
-  var form = $('<form class="form-inline"></form>');
+  var form = $('<form class="form-inline" id="form-inline"></form>');
   var searchInput = $('<input class="form-control mr-sm-2" id="search-input" type="search" placeholder="Search" aria-label="Search">');
   var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="search-button" type="submit">Search</button>');
   var cartContainer = $('<div class="cart-container"></div>');
@@ -1074,10 +1074,6 @@ $(document).ready(function () {
     // Render the Facebook plugin
     FB.XFBML.parse();
   };
-
-
-
-
 
 
 

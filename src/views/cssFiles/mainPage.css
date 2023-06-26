@@ -1,5 +1,18 @@
 @import 'global.css';
 
+
+@media screen and (max-width: 992px) {
+  .card {
+    flex-basis: calc(50% - 20px);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card {
+    flex-basis: calc(100% - 20px);
+  }
+}
+
 body {
   margin-top: 80px;
 }
@@ -74,9 +87,9 @@ body {
 }
 
 .cart-counter {
-  position: absolute;
-  top: -8px;
-  right: -8px;
+  position: relative;
+  top: -38px;
+  right: -36px;
   background-color: red;
   color: white;
   font-size: 12px;
@@ -117,14 +130,14 @@ body {
   left: 400px;
 }
 
-@media screen and (max-width: 992px) {
-  .card {
-    flex-basis: calc(50% - 20px);
-  }
+#username {
+  position: relative;
+  right: 470px;
+
 }
 
-@media screen and (max-width: 576px) {
-  .card {
-    flex-basis: calc(100% - 20px);
-  }
+#form-inline {
+  right: 360px;
+  position: relative;
+
 }
