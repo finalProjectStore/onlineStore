@@ -814,6 +814,14 @@ $(document).ready(function () {
 
   ];
 
+
+
+
+
+
+
+
+
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
 
@@ -829,9 +837,11 @@ $(document).ready(function () {
   // Generate the navbar
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
   var brand = $('<a class="navbar-brand" href="#">LOGO</a>');
+
   var form = $('<form class="form-inline" id="form-inline"></form>');
   var searchInput = $('<input class="form-control mr-sm-2" id="search-input" type="search" placeholder="Search" aria-label="Search">');
   var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="search-button" type="submit">Search</button>');
+
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + cartCounter + '</span>');
@@ -927,9 +937,22 @@ $(document).ready(function () {
       );
       var footer = $('<div class= "add-btn-cart"></div>');
 
-      addToCartButton.click(function () {
+      addToCartButton.click(function (event) {
         cartCounter++;
         cartCounterElement.text(cartCounter);
+
+
+            
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+            // let data = event.target.parentElement.children;
+            // for(var i =0;i<data.length;i++)
+            // {
+            //     console.log(data[i].text);
+            // }
+          
+        
+
+
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -1003,6 +1026,7 @@ $(document).ready(function () {
 
     renderCards();
   }
+
 
   // Add search functionality to the search button
   $('#search-button').click(function (event) {
@@ -1090,5 +1114,7 @@ $(document).ready(function () {
 
 
 });
+
+
 
 
