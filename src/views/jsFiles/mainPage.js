@@ -3,7 +3,7 @@ $(document).ready(function () {
   var data = [
     {
       id: 1,
-      image: '/appleTV4K.jpeg',
+      image: '/productsImages/appleTV4K.jpeg',
       title: 'Apple TV',
       description: 'Apple TV is the best',
       price: 1000,
@@ -13,7 +13,7 @@ $(document).ready(function () {
     },
     {
       id: 2,
-      image: 'resources/samsungtv.jpg',
+      image: 'productsImages/samsungTV.jpeg',
       title: 'Samsung TV',
       description: 'Experience stunning visuals with Samsung TV',
       price: 1200,
@@ -23,7 +23,7 @@ $(document).ready(function () {
     },
     {
       id: 3,
-      image: 'resources/lgsmarttv.jpg',
+      image: '/productsImages/lgsmarttv.jpeg',
       title: 'LG Smart TV',
       description: 'Get a smart TV experience with LG',
       price: 900,
@@ -33,8 +33,8 @@ $(document).ready(function () {
     },
     {
       id: 4,
-      image: 'resources/appleiphone.jpg',
-      title: 'Apple iPhone',
+      image: 'productsImages/iphone-14-pro-max.jpeg',
+      title: 'Apple iPhone 14 pro max',
       description: 'The latest iPhone with cutting-edge features',
       price: 1200,
       type: 'phone',
@@ -43,8 +43,8 @@ $(document).ready(function () {
     },
     {
       id: 5,
-      image: 'resources/samsungphone.jpg',
-      title: 'Samsung Galaxy',
+      image: '/productsImages/samsung-s22.jpeg',
+      title: 'Samsung Galaxy s22',
       description: 'Powerful performance with Samsung Galaxy',
       price: 1100,
       type: 'phone',
@@ -53,7 +53,7 @@ $(document).ready(function () {
     },
     {
       id: 6,
-      image: 'resources/lgphone.jpg',
+      image: '/productsImages/lgphone.jpeg',
       title: 'LG Smartphone',
       description: 'Enjoy a premium smartphone experience with LG',
       price: 1000,
@@ -63,8 +63,8 @@ $(document).ready(function () {
     },
     {
       id: 7,
-      image: 'resources/applewatch.jpg',
-      title: 'Apple Watch',
+      image: '/productsImages/applewatchsilver.jpeg',
+      title: 'Apple Watch 8 GPS',
       description: 'Stay connected with Apple Watch',
       price: 500,
       type: 'watch',
@@ -73,7 +73,7 @@ $(document).ready(function () {
     },
     {
       id: 8,
-      image: 'resources/samsungwatch.jpg',
+      image: '/productsImages/galaxywatch.jpeg',
       title: 'Samsung Galaxy Watch',
       description: 'Monitor your health with Samsung Galaxy Watch',
       price: 450,
@@ -83,7 +83,7 @@ $(document).ready(function () {
     },
     {
       id: 9,
-      image: 'resources/lgwatch.jpg',
+      image: '/productsImages/lgsmartwatchgold.jpeg',
       title: 'LG Smartwatch',
       description: 'Smart features in a sleek design',
       price: 400,
@@ -93,8 +93,8 @@ $(document).ready(function () {
     },
     {
       id: 10,
-      image: 'resources/appleipad.jpg',
-      title: 'Apple iPad',
+      image: '/productsImages/ipadprospacegary.jpeg',
+      title: 'Apple iPad Pro 13 inch',
       description: 'Powerful and portable with Apple iPad',
       price: 800,
       type: 'tablet',
@@ -103,7 +103,7 @@ $(document).ready(function () {
     },
     {
       id: 11,
-      image: 'resources/samsungtablet.jpg',
+      image: '/productsImages/samsungtablet.jpeg',
       title: 'Samsung Tablet',
       description: 'Immerse yourself in entertainment with Samsung Tablet',
       price: 700,
@@ -113,7 +113,7 @@ $(document).ready(function () {
     },
     {
       id: 12,
-      image: 'resources/lgtablet.jpg',
+      image: '/productsImages/lgtablet.jpeg',
       title: 'LG Tablet',
       description: 'Enhance productivity with LG Tablet',
       price: 600,
@@ -123,8 +123,8 @@ $(document).ready(function () {
     },
     {
       id: 13,
-      image: 'resources/applelaptop.jpg',
-      title: 'Apple MacBook',
+      image: '/productsImages/applemacbookPro.jpeg',
+      title: 'Apple MacBook Pro M2',
       description: 'Unleash your creativity with Apple MacBook',
       price: 2000,
       type: 'laptop',
@@ -134,7 +134,7 @@ $(document).ready(function () {
     {
       id: 14,
       image: 'resources/samsunglaptop.jpg',
-      title: 'Samsung Laptop',
+      title: 'Samsung Laptop i9 512GB',
       description: 'Powerful performance with Samsung Laptop',
       price: 1800,
       type: 'laptop',
@@ -144,7 +144,7 @@ $(document).ready(function () {
     {
       id: 15,
       image: 'resources/lglaptop.jpg',
-      title: 'LG Laptop',
+      title: 'LG Laptop 13 inch',
       description: 'Sleek and efficient LG Laptop',
       price: 1500,
       type: 'laptop',
@@ -154,7 +154,7 @@ $(document).ready(function () {
     {
       id: 16,
       image: 'resources/appleairpods.jpg',
-      title: 'Apple AirPods',
+      title: 'Apple AirPods Pro',
       description: 'Wireless audio with Apple AirPods',
       price: 200,
       type: 'audio',
@@ -942,15 +942,15 @@ $(document).ready(function () {
         cartCounterElement.text(cartCounter);
 
 
-            
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
-            // let data = event.target.parentElement.children;
-            // for(var i =0;i<data.length;i++)
-            // {
-            //     console.log(data[i].text);
-            // }
-          
-        
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+        // let data = event.target.parentElement.children;
+        // for(var i =0;i<data.length;i++)
+        // {
+        //     console.log(data[i].text);
+        // }
+
+
 
 
       });

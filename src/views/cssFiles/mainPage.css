@@ -54,9 +54,9 @@ body {
 }
 
 .card-img-top {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+  max-width: 100%;
+  height: 250px;
+  object-fit: contain;
 }
 
 .card-title {
@@ -95,8 +95,8 @@ body {
 .cart-counter {
 
   position: relative;
-  top: -38px;
-  right: -36px;
+  top: -16px;
+  right: 9px;
 
   background-color: red;
   color: white;
@@ -131,11 +131,13 @@ body {
   background-color: #82e3f6;
   border-radius: 100px;
   padding: 20px;
-  margin-left: 300px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: var(--font);
   color: #333;
   width: 300px;
+  left: 243px;
+  top: 100px;
+  position: relative;
 }
 
 .add-btn-cart {
@@ -147,18 +149,27 @@ body {
 .fb_iframe_widget {
   display: inline-block;
   position: relative;
-  top: 20px;
-  left: 400px;
+  top: 102px;
+  left: 347px;
 }
 
 #username {
   position: relative;
-  right: 470px;
+  right: 700px;
 
 }
 
 #form-inline {
-  right: 360px;
+  right: 850px;
   position: relative;
+
+}
+
+#facebook-logo {
+  object-fit: contain;
+  width: 70px;
+  height: 70px;
+  position: relative;
+  right: -100px;
 
 }
