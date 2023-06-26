@@ -528,15 +528,14 @@ $(document).ready(function () {
 
   //When you click on the button it will take us to the home page of the site
 
-  // var homePageUrl = "src/views/public/mainPage.html"; //TODO - change to the url of home page
 
   $("#home-btn").click(function () {
     location.href = 'mainpage';
   });
 
 
-  // counter for products - use quantity and card length
-  var countProducts = cardsData.length;
+  const cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
+
 
 
   var cardContainer = $('#card-container');
@@ -547,9 +546,34 @@ $(document).ready(function () {
   /////////////////////////////////////////////////////////
 
 
+  // Initialize a flag variable
+  var cardExists = false;
+
+
+
   // Loop through the card data and create cards dynamically
   for (var i = 0; i < cardsData.length; i++) {
     var cardData = cardsData[i];
+
+
+    // Check if a card with the same title already exists
+    if (cardData.title) {
+      var existingCard = $('.card-title:contains("' + cardData.title + '")').closest('.card');
+      if (existingCard.length > 0) {
+        cardExists = true;
+        var quantityInput = existingCard.find('.quantity-input');
+        var currentValue = parseInt(quantityInput.val());
+        quantityInput.val(currentValue + 1); // Increase the input value by 1
+      }
+    }
+
+    if (cardExists) {
+      // Reset the flag variable and continue to the next iteration
+      cardExists = false;
+      continue;
+    }
+
+
 
     // Create the card
     var card = $('<div>').addClass('card');
@@ -582,11 +606,20 @@ $(document).ready(function () {
         }
       });
 
+
+
     var quantityInputAppend = $('<div>').addClass('input-group-append');
 
     quantityInputGroup.append(quantityInputPrepend, quantityInput, quantityInputAppend);
 
-    var price = $('<p>').addClass('card-text').text('$' + cardData.price);
+    var price = $('<p>').addClass('card-text').text(cardData.price);
+
+    card.attr('data-card-id', i);
+
+
+
+
+
     var trashBtn = $('<button>').addClass('btn btn-outline-secondary trash-btn').attr('type', 'button');
 
     //when there is a click on delete button the product will disable from the cart
@@ -611,24 +644,12 @@ $(document).ready(function () {
   }
 
 
-  /////////////////////////////////////////////////////////////////////////////////////
-  /*create a function that will count the number of product and update it to the screen*/
-  ///////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-  //// TODO
 
 
 
   /////////////////////////////////////////////////////
   /*Create the payment block -right side of the sreen*/
   /////////////////////////////////////////////////////
-
-
   var paymentDiv = $('<div>').addClass('payment');
   var paymentTitle = $('<h2>').text('Card Details');
 
@@ -644,25 +665,29 @@ $(document).ready(function () {
   var nameOnCardInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'name-on-card');
+    .attr('id', 'name-on-card')
+    .attr('placeholder', 'Enter name on card');
 
   var cardNumberLabel = $('<label>').text('Card Number:');
   var cardNumberInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'card-number');
+    .attr('id', 'card-number')
+    .attr('placeholder', 'Enter card number');
 
   var expirationDateLabel = $('<label>').text('Expiration Date:');
   var expirationDateInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'expiration-date');
+    .attr('id', 'expiration-date')
+    .attr('placeholder', 'MM/YY');
 
   var cvvLabel = $('<label>').text('CVV:');
   var cvvInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'cvv');
+    .attr('id', 'cvv')
+    .attr('placeholder', 'Enter CVV');
 
   paymentDiv.append(
     paymentTitle,
@@ -677,6 +702,7 @@ $(document).ready(function () {
     cvvLabel,
     cvvInput
   );
+
 
   // create the footer for the button with total price and checkout
   var footerDiv = $('<div>').addClass('footer');
@@ -696,6 +722,21 @@ $(document).ready(function () {
   ///////////////////////////////
   /* Validations of all fields */
   ///////////////////////////////
+  // Validation function for name on card
+  function verifyNameOnCard() {
+    var nameOnCard = $(this).val();
+
+    // Check if the name on card has at least 4 characters
+    if ((nameOnCard.length >= 4) && !/\d/.test(nameOnCard)) {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+    } else {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+    }
+  }
+
+  // Event listener for name on card input
+  nameOnCardInput.on('input', verifyNameOnCard);
+
 
   function verifyCardType() {
     var selectedType = $('#card-type option:selected').text();
@@ -743,13 +784,16 @@ $(document).ready(function () {
   function verifyExpirationDate() {
     var expirationDate = $(this).val();
 
-    // Verify expiration date format (MM/YY)
-    if (/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expirationDate)) {
+    // Verify expiration date format (MM/YY) ans minimum year is 2023
+    if (/^(0[1-9]|1[0-2])\/(2[3-9]|[3-9][0-9])$/.test(expirationDate)) {
       $(this).removeClass('is-invalid').addClass('is-valid');
     } else {
       $(this).removeClass('is-valid').addClass('is-invalid');
     }
   }
+
+
+
 
   function verifyCVV() {
     var cvv = $(this).val();
@@ -779,7 +823,7 @@ $(document).ready(function () {
 
   function calculateTotalPrice() {
     var totalPrice = 0;
-    countProducts = 1;
+    var countProducts = 0;
 
 
 
@@ -796,6 +840,7 @@ $(document).ready(function () {
     });
 
     $('.total-price').text('Total Price: $' + totalPrice);
+    $('#num-of-items').text(countProducts);
   }
 
   // Event listener for quantity input change
@@ -803,35 +848,73 @@ $(document).ready(function () {
 
 
 
-  //////////////////////
-  /* Remove Card Item */
-  //////////////////////
+
 
   function removeCardItem() {
-    $(this).closest('.card').remove();
-    calculateTotalPrice();
+    var card = $(this).closest('.card');
+    var title = card.find('.card-title').text();
 
+    // Remove the card from the DOM
+    card.remove();
+
+    // Retrieve the stored cards data from sessionStorage
+    var cardsData = JSON.parse(sessionStorage.getItem('cardsData')) || [];
+
+    // Find the index of the card with the matching title in the cardsData array
+    var cardIndex = -1;
+    for (var i = 0; i < cardsData.length; i++) {
+      if (cardsData[i].title === title) {
+        cardIndex = i;
+        break;
+      }
+    }
+
+    // Remove the card from the cardsData array if found
+    if (cardIndex !== -1) {
+      cardsData.splice(cardIndex, 1);
+
+      // Update the cardsData in sessionStorage
+      sessionStorage.setItem('cardsData', JSON.stringify(cardsData));
+    }
+
+    calculateTotalPrice();
   }
+
 
   // Event listener for trash button click
   $('.trash-btn').on('click', removeCardItem);
+
+
+
 
   /////////////////////
   /* Checkout Button */
   /////////////////////
 
   function checkout() {
-    var validInputs = $('.is-valid');
+    var cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
 
-    if (validInputs.length === 5) {
-      alert('Checkout Successful!');
+    // Check if the cart is empty
+    if (!cardsData || cardsData.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+    var validInputs = $('.is-valid');
+    var allInputs = $('.form-control');
+
+
+    if (validInputs.length === allInputs.length - 2) {
+      // show a success message 
+      alert('Payment Successful');
+
     } else {
-      alert('Please fill in all the card description correctly.');
+      alert('Please fill in all the card details correctly.');
     }
   }
 
   // Event listener for checkout button click
   checkoutButton.on('click', checkout);
+
 
 
 });
