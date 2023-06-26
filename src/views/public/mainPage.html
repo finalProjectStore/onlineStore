@@ -23,16 +23,25 @@
       <div class="row" id="filter-menu-row"> </div>
       <div id="weather-container">
       </div>
+      <!-- facebook api -->
+      <div class="fb-like" data-href="https://example.com" data-width="" data-layout="standard" data-action="like"
+        data-size="small" data-share="true">
+      </div>
+      <!-- end of facebook api -->
 
-      <!--write here facbook api -->
-      <div id="facebook-container"></div>
-      <!--end facbook api -->
 
 
     </div>
   </div>
   <div class="card-container"></div>
-  <script src="https://sdk.fbsbx.com/js/api.js"></script>
+
+
+  <!-- script facebook -->
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=YOUR_APP_ID&autoLogAppEvents=1"
+    nonce="YOUR_NONCE_VALUE"></script>
+  <!-- end of script facebook -->
+
   <script src="../jsFiles/mainPage.js"></script>
 </body>
 

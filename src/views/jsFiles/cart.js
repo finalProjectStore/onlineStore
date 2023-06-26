@@ -650,8 +650,6 @@ $(document).ready(function () {
   /////////////////////////////////////////////////////
   /*Create the payment block -right side of the sreen*/
   /////////////////////////////////////////////////////
-
-
   var paymentDiv = $('<div>').addClass('payment');
   var paymentTitle = $('<h2>').text('Card Details');
 
@@ -667,25 +665,29 @@ $(document).ready(function () {
   var nameOnCardInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'name-on-card');
+    .attr('id', 'name-on-card')
+    .attr('placeholder', 'Enter name on card');
 
   var cardNumberLabel = $('<label>').text('Card Number:');
   var cardNumberInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'card-number');
+    .attr('id', 'card-number')
+    .attr('placeholder', 'Enter card number');
 
   var expirationDateLabel = $('<label>').text('Expiration Date:');
   var expirationDateInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'expiration-date');
+    .attr('id', 'expiration-date')
+    .attr('placeholder', 'MM/YY');
 
   var cvvLabel = $('<label>').text('CVV:');
   var cvvInput = $('<input>')
     .addClass('form-control')
     .attr('type', 'text')
-    .attr('id', 'cvv');
+    .attr('id', 'cvv')
+    .attr('placeholder', 'Enter CVV');
 
   paymentDiv.append(
     paymentTitle,
@@ -700,6 +702,7 @@ $(document).ready(function () {
     cvvLabel,
     cvvInput
   );
+
 
   // create the footer for the button with total price and checkout
   var footerDiv = $('<div>').addClass('footer');
@@ -719,6 +722,21 @@ $(document).ready(function () {
   ///////////////////////////////
   /* Validations of all fields */
   ///////////////////////////////
+  // Validation function for name on card
+  function verifyNameOnCard() {
+    var nameOnCard = $(this).val();
+
+    // Check if the name on card has at least 4 characters
+    if ((nameOnCard.length >= 4) && !/\d/.test(nameOnCard)) {
+      $(this).removeClass('is-invalid').addClass('is-valid');
+    } else {
+      $(this).removeClass('is-valid').addClass('is-invalid');
+    }
+  }
+
+  // Event listener for name on card input
+  nameOnCardInput.on('input', verifyNameOnCard);
+
 
   function verifyCardType() {
     var selectedType = $('#card-type option:selected').text();
@@ -766,13 +784,16 @@ $(document).ready(function () {
   function verifyExpirationDate() {
     var expirationDate = $(this).val();
 
-    // Verify expiration date format (MM/YY)
-    if (/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expirationDate)) {
+    // Verify expiration date format (MM/YY) ans minimum year is 2023
+    if (/^(0[1-9]|1[0-2])\/(2[3-9]|[3-9][0-9])$/.test(expirationDate)) {
       $(this).removeClass('is-invalid').addClass('is-valid');
     } else {
       $(this).removeClass('is-valid').addClass('is-invalid');
     }
   }
+
+
+
 
   function verifyCVV() {
     var cvv = $(this).val();
@@ -870,20 +891,30 @@ $(document).ready(function () {
   /* Checkout Button */
   /////////////////////
 
-
-  // fix this btn 
   function checkout() {
-    var validInputs = $('.is-valid');
+    var cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
 
-    if (validInputs.length === 5) {
-      alert('Checkout Successful!');
+    // Check if the cart is empty
+    if (!cardsData || cardsData.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+    var validInputs = $('.is-valid');
+    var allInputs = $('.form-control');
+
+
+    if (validInputs.length === allInputs.length - 2) {
+      // show a success message 
+      alert('Payment Successful');
+
     } else {
-      alert('Please fill in all the card description correctly.');
+      alert('Please fill in all the card details correctly.');
     }
   }
 
   // Event listener for checkout button click
   checkoutButton.on('click', checkout);
+
 
 
 });

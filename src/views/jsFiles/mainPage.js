@@ -3,7 +3,7 @@ $(document).ready(function () {
   var data = [
     {
       id: 1,
-      image: 'resources/appletv.jpg',
+      image: '/appleTV4K.jpeg',
       title: 'Apple TV',
       description: 'Apple TV is the best',
       price: 1000,
@@ -1061,6 +1061,21 @@ $(document).ready(function () {
 
 
   ///////////////////* Facebook *////////////////////////- took from ayrshare website
+
+  // Initialize the Facebook SDK
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: 'YOUR_APP_ID',
+      cookie: true,
+      xfbml: true,
+      version: 'v13.0'
+    });
+
+    // Render the Facebook plugin
+    FB.XFBML.parse();
+  };
+
+
 
 
 
