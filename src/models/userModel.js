@@ -39,39 +39,26 @@ var UserSchema = new mongoose.Schema({
 
 
   /// user could change his name
-  UserSchema.methods.changeUsername = function(newUsername){
-    console.log(this.username, newUsername);
-    if(this.username !== newUsername){
-      this.username = newUsername;
-      console.log("going to save new username");
-      return this.save();
-    }
-
-    console.error('new username should be different from the existing username.');
-    // return new Error('new username should be different from the existing username.')
-    
+  UserSchema.methods.changeUsername = function(newUsername)
+  { 
+    this.username = newUsername;
+    return this.save();
   } 
 
   /// user could change his password
   UserSchema.methods.changePassword = function(newPassword){
-    if(!comparePassword(newPassword)){
+    if(!this.comparePassword(newPassword)){
       this.password = newPassword;
       return this.save();
     }
-    console.error('New password should be different from the existing password.');
-    // return new Error('New password should be different from the existing password.')
+    return 'Choose a different password,'
   }
 
   /// user could change his email address
   UserSchema.methods.changeEmail = function(newEmail){
-    console.log(this.email,newEmail);
-    if(this.email !== newEmail){
       this.email = newEmail;
       return this.save();
     }
-    console.error('New email should be different from the existing email.');
-    // return new Error('New email should be dofferent from the existing email.')
-  }
 
   /// retrieve the user's oreders history
   UserSchema.methods.getOrderHistory = function(){
@@ -90,23 +77,23 @@ var UserSchema = new mongoose.Schema({
 
   /// get the total number of orders in the user's order history 
   UserSchema.methods.getTotalOrders = function(){
+    return this.orderHistory.length;
 
   }
   
   /// change the user's status (admin or not)
   UserSchema.methods.changeIsAdmin = function(){
-
+    return !this.isAdmin;
   }
-
-
-
 
 ///////  excrypt username password  ////////////
 UserSchema.pre('save', async function() {
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(this.password, salt);
-    this.password = hashedPassword;
+    if(this.isModified('password')|| this.isNew ){ /// check if the password has been modified or a new user registered
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = bcrypt.hashSync(this.password, salt);
+      this.password = hashedPassword;
+    }
     
   } catch (error) {
     console.log(error);
