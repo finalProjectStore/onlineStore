@@ -19,7 +19,7 @@ app.use('/cssFiles', express.static(__dirname + '/src/views/cssFiles'));
 
 
 
-// mongoose.connect('mongodb://localhost:27017/E-commerce',{ useNewUrlParser: true});
+
 
 
 
@@ -28,6 +28,7 @@ app.use('/', require(__dirname + '/src/routes/loginRoute'));
 app.use('/', require(__dirname + '/src/routes/registerRoute'));
 app.use('/', require(__dirname + '/src/routes/mainPageRoute'))
 app.use('/', require(__dirname + '/src/routes/cartRoute'));
+app.use('/',require(__dirname + '/src/routes/userDetailsRoute'));
 
 
 const port = process.env.PORT;
