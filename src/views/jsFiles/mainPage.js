@@ -3,7 +3,7 @@ $(document).ready(function () {
   var data = [
     {
       id: 1,
-      image: '/appleTV4K.jpeg',
+      image: '/productsImages/appleTV4K.jpeg',
       title: 'Apple TV',
       description: 'Apple TV is the best',
       price: 1000,
@@ -13,7 +13,7 @@ $(document).ready(function () {
     },
     {
       id: 2,
-      image: 'resources/samsungtv.jpg',
+      image: 'productsImages/samsungTV.jpeg',
       title: 'Samsung TV',
       description: 'Experience stunning visuals with Samsung TV',
       price: 1200,
@@ -23,7 +23,7 @@ $(document).ready(function () {
     },
     {
       id: 3,
-      image: 'resources/lgsmarttv.jpg',
+      image: '/productsImages/lgsmarttv.jpeg',
       title: 'LG Smart TV',
       description: 'Get a smart TV experience with LG',
       price: 900,
@@ -33,8 +33,8 @@ $(document).ready(function () {
     },
     {
       id: 4,
-      image: 'resources/appleiphone.jpg',
-      title: 'Apple iPhone',
+      image: 'productsImages/iphone-14-pro-max.jpeg',
+      title: 'Apple iPhone 14 pro max',
       description: 'The latest iPhone with cutting-edge features',
       price: 1200,
       type: 'phone',
@@ -43,8 +43,8 @@ $(document).ready(function () {
     },
     {
       id: 5,
-      image: 'resources/samsungphone.jpg',
-      title: 'Samsung Galaxy',
+      image: '/productsImages/samsung-s22.jpeg',
+      title: 'Samsung Galaxy s22',
       description: 'Powerful performance with Samsung Galaxy',
       price: 1100,
       type: 'phone',
@@ -53,7 +53,7 @@ $(document).ready(function () {
     },
     {
       id: 6,
-      image: 'resources/lgphone.jpg',
+      image: '/productsImages/lgphone.jpeg',
       title: 'LG Smartphone',
       description: 'Enjoy a premium smartphone experience with LG',
       price: 1000,
@@ -63,8 +63,8 @@ $(document).ready(function () {
     },
     {
       id: 7,
-      image: 'resources/applewatch.jpg',
-      title: 'Apple Watch',
+      image: '/productsImages/applewatchsilver.jpeg',
+      title: 'Apple Watch 8 GPS',
       description: 'Stay connected with Apple Watch',
       price: 500,
       type: 'watch',
@@ -73,7 +73,7 @@ $(document).ready(function () {
     },
     {
       id: 8,
-      image: 'resources/samsungwatch.jpg',
+      image: '/productsImages/galaxywatch.jpeg',
       title: 'Samsung Galaxy Watch',
       description: 'Monitor your health with Samsung Galaxy Watch',
       price: 450,
@@ -83,7 +83,7 @@ $(document).ready(function () {
     },
     {
       id: 9,
-      image: 'resources/lgwatch.jpg',
+      image: '/productsImages/lgsmartwatchgold.jpeg',
       title: 'LG Smartwatch',
       description: 'Smart features in a sleek design',
       price: 400,
@@ -93,68 +93,68 @@ $(document).ready(function () {
     },
     {
       id: 10,
-      image: 'resources/appleipad.jpg',
-      title: 'Apple iPad',
+      image: '/productsImages/ipadprospacegary.jpeg',
+      title: 'Apple iPad Pro 13 inch',
       description: 'Powerful and portable with Apple iPad',
       price: 800,
-      type: 'tablet',
+      type: 'tablets',
       color: 'space gray',
       quantity: 1,
     },
     {
       id: 11,
-      image: 'resources/samsungtablet.jpg',
+      image: '/productsImages/samsungtablet.jpeg',
       title: 'Samsung Tablet',
       description: 'Immerse yourself in entertainment with Samsung Tablet',
       price: 700,
-      type: 'tablet',
+      type: 'tablets',
       color: 'black',
       quantity: 1,
     },
     {
       id: 12,
-      image: 'resources/lgtablet.jpg',
+      image: '/productsImages/lgtablet.jpeg',
       title: 'LG Tablet',
       description: 'Enhance productivity with LG Tablet',
       price: 600,
-      type: 'tablet',
+      type: 'tablets',
       color: 'silver',
       quantity: 1,
     },
     {
       id: 13,
-      image: 'resources/applelaptop.jpg',
-      title: 'Apple MacBook',
+      image: '/productsImages/applemacbookPro.jpeg',
+      title: 'Apple MacBook Pro M2',
       description: 'Unleash your creativity with Apple MacBook',
       price: 2000,
-      type: 'laptop',
+      type: 'computers',
       color: 'silver',
       quantity: 1,
     },
     {
       id: 14,
-      image: 'resources/samsunglaptop.jpg',
-      title: 'Samsung Laptop',
+      image: '/productsImages/samsunglaptop.jpeg',
+      title: 'Samsung Laptop i9 512GB',
       description: 'Powerful performance with Samsung Laptop',
       price: 1800,
-      type: 'laptop',
+      type: 'computers',
       color: 'black',
       quantity: 1,
     },
     {
       id: 15,
-      image: 'resources/lglaptop.jpg',
-      title: 'LG Laptop',
+      image: '/productsImages/lglaptop.jpeg',
+      title: 'LG Laptop 13 inch',
       description: 'Sleek and efficient LG Laptop',
       price: 1500,
-      type: 'laptop',
+      type: 'computers',
       color: 'silver',
       quantity: 1,
     },
     {
       id: 16,
-      image: 'resources/appleairpods.jpg',
-      title: 'Apple AirPods',
+      image: '/productsImages/appleairpods.jpeg',
+      title: 'Apple AirPods Pro',
       description: 'Wireless audio with Apple AirPods',
       price: 200,
       type: 'audio',
@@ -163,7 +163,7 @@ $(document).ready(function () {
     },
     {
       id: 17,
-      image: 'resources/samsungearbuds.jpg',
+      image: '/productsImages/SamsungEarbuds.jpeg',
       title: 'Samsung Earbuds',
       description: 'Immersive sound with Samsung Earbuds',
       price: 150,
@@ -173,17 +173,17 @@ $(document).ready(function () {
     },
     {
       id: 18,
-      image: 'resources/lgaudiodevice.jpg',
+      image: '/productsImages/LGAudioDevice.jpeg',
       title: 'LG Audio Device',
       description: 'High-quality audio with LG Audio Device',
       price: 180,
       type: 'audio',
-      color: 'silver',
+      color: 'black',
       quantity: 1,
     },
     {
       id: 19,
-      image: 'resources/applehomepod.jpg',
+      image: '/productsImages/AppleHomePod.jpeg',
       title: 'Apple HomePod',
       description: 'Smart home speaker with Apple HomePod',
       price: 300,
@@ -193,7 +193,7 @@ $(document).ready(function () {
     },
     {
       id: 20,
-      image: 'resources/samsunghomespeaker.jpg',
+      image: '/productsImages/SamsungHomeSpeaker.jpeg',
       title: 'Samsung Home Speaker',
       description: 'Enhance your audio experience with Samsung Home Speaker',
       price: 250,
@@ -203,7 +203,7 @@ $(document).ready(function () {
     },
     {
       id: 21,
-      image: 'resources/lghomespeaker.jpg',
+      image: '/productsImages/LGHomeSpeaker.jpeg',
       title: 'LG Home Speaker',
       description: 'Immerse yourself in music with LG Home Speaker',
       price: 280,
@@ -213,7 +213,7 @@ $(document).ready(function () {
     },
     {
       id: 22,
-      image: 'resources/applemouse.jpg',
+      image: '/productsImages/AppleMouse.jpeg',
       title: 'Apple Mouse',
       description: 'Smooth and precise control with Apple Mouse',
       price: 80,
@@ -223,7 +223,7 @@ $(document).ready(function () {
     },
     {
       id: 23,
-      image: 'resources/samsungmouse.jpg',
+      image: '/productsImages/samsungmouse.jpeg',
       title: 'Samsung Mouse',
       description: 'Ergonomic design for comfortable use',
       price: 70,
@@ -233,7 +233,7 @@ $(document).ready(function () {
     },
     {
       id: 24,
-      image: 'resources/lgmouse.jpg',
+      image: '/productsImages/lgmouse.jpeg',
       title: 'LG Mouse',
       description: 'Sleek and stylish LG Mouse',
       price: 60,
@@ -243,7 +243,7 @@ $(document).ready(function () {
     },
     {
       id: 25,
-      image: 'resources/applekeyboard.jpg',
+      image: 'productsImages/applekeyboard.jpeg',
       title: 'Apple Keyboard',
       description: 'Efficient typing with Apple Keyboard',
       price: 120,
@@ -253,7 +253,7 @@ $(document).ready(function () {
     },
     {
       id: 26,
-      image: 'resources/samsungkeyboard.jpg',
+      image: 'productsImages/samsungkeyboard.jpeg',
       title: 'Samsung Keyboard',
       description: 'Enhance your productivity with Samsung Keyboard',
       price: 100,
@@ -263,7 +263,7 @@ $(document).ready(function () {
     },
     {
       id: 27,
-      image: 'resources/lgkeyboard.jpg',
+      image: 'productsImages/lgkeyboard.jpeg',
       title: 'LG Keyboard',
       description: 'Comfortable typing experience with LG Keyboard',
       price: 90,
@@ -273,7 +273,7 @@ $(document).ready(function () {
     },
     {
       id: 28,
-      image: 'resources/applecharger.jpg',
+      image: 'productsImages/applecharger.jpeg',
       title: 'Apple Charger',
       description: 'Fast and reliable charging with Apple Charger',
       price: 50,
@@ -283,7 +283,7 @@ $(document).ready(function () {
     },
     {
       id: 29,
-      image: 'resources/samsungcharger.jpg',
+      image: 'productsImages/samsungcharger.jpeg',
       title: 'Samsung Charger',
       description: 'Quick charging for your devices',
       price: 40,
@@ -293,7 +293,7 @@ $(document).ready(function () {
     },
     {
       id: 30,
-      image: 'resources/lgcharger.jpg',
+      image: 'productsImages/lgcharger.jpeg',
       title: 'LG Charger',
       description: 'Efficient charging with LG Charger',
       price: 35,
@@ -303,7 +303,7 @@ $(document).ready(function () {
     },
     {
       id: 31,
-      image: 'resources/appleexternaldrive.jpg',
+      image: 'productsImages/appleexternaldrive.jpeg',
       title: 'Apple External Drive',
       description: 'Expand your storage with Apple External Drive',
       price: 150,
@@ -313,7 +313,7 @@ $(document).ready(function () {
     },
     {
       id: 32,
-      image: 'resources/samsungexternaldrive.jpg',
+      image: 'productsImages/samsungexternaldrive.jpeg',
       title: 'Samsung External Drive',
       description: 'Portable storage solution with Samsung External Drive',
       price: 130,
@@ -323,7 +323,7 @@ $(document).ready(function () {
     },
     {
       id: 33,
-      image: 'resources/lgexternaldrive.jpg',
+      image: 'productsImages/lgexternaldrive.jpeg',
       title: 'LG External Drive',
       description: 'Reliable storage for your files',
       price: 120,
@@ -333,7 +333,7 @@ $(document).ready(function () {
     },
     {
       id: 34,
-      image: 'resources/appleheadphones.jpg',
+      image: 'productsImages/appleheadphones.jpeg',
       title: 'Apple Headphones',
       description: 'Immerse yourself in music with Apple Headphones',
       price: 150,
@@ -343,7 +343,7 @@ $(document).ready(function () {
     },
     {
       id: 35,
-      image: 'resources/samsungheadphones.jpg',
+      image: 'productsImages/samsungheadphones.jpeg',
       title: 'Samsung Headphones',
       description: 'High-quality sound with Samsung Headphones',
       price: 120,
@@ -353,7 +353,7 @@ $(document).ready(function () {
     },
     {
       id: 36,
-      image: 'resources/lgheadphones.jpg',
+      image: 'productsImages/lgheadphones.jpeg',
       title: 'LG Headphones',
       description: 'Comfortable and immersive audio experience',
       price: 100,
@@ -363,7 +363,7 @@ $(document).ready(function () {
     },
     {
       id: 37,
-      image: 'resources/applespeakers.jpg',
+      image: 'productsImages/applespeakers.jpeg',
       title: 'Apple Speakers',
       description: 'Enhance your audio setup with Apple Speakers',
       price: 250,
@@ -373,7 +373,7 @@ $(document).ready(function () {
     },
     {
       id: 38,
-      image: 'resources/samsungspeakers.jpg',
+      image: 'productsImages/samsungspeakers.jpeg',
       title: 'Samsung Speakers',
       description: 'Powerful sound for your entertainment',
       price: 200,
@@ -383,7 +383,7 @@ $(document).ready(function () {
     },
     {
       id: 39,
-      image: 'resources/lgspeakers.jpg',
+      image: 'productsImages/lgspeakers.jpeg',
       title: 'LG Speakers',
       description: 'Immersive audio experience with LG Speakers',
       price: 180,
@@ -393,8 +393,8 @@ $(document).ready(function () {
     },
     {
       id: 40,
-      image: 'resources/applesmartwatch.jpg',
-      title: 'Apple Smartwatch',
+      image: 'productsImages/applesmartwatch.jpeg',
+      title: 'Apple Watch Ultra',
       description: 'Stay connected and track your fitness with Apple Smartwatch',
       price: 400,
       type: 'wearable',
@@ -403,8 +403,8 @@ $(document).ready(function () {
     },
     {
       id: 41,
-      image: 'resources/samsungsmartwatch.jpg',
-      title: 'Samsung Smartwatch',
+      image: 'productsImages/samsungsmartwatch.jpeg',
+      title: 'Samsung Galaxy Watch 4',
       description: 'Stay fit and stylish with Samsung Smartwatch',
       price: 350,
       type: 'wearable',
@@ -413,17 +413,17 @@ $(document).ready(function () {
     },
     {
       id: 42,
-      image: 'resources/lgsmartwatch.jpg',
-      title: 'LG Smartwatch',
+      image: 'productsImages/lgsmartwatch.jpeg',
+      title: 'LG G Watch',
       description: 'Track your health and receive notifications with LG Smartwatch',
       price: 300,
       type: 'wearable',
-      color: 'silver',
+      color: 'black',
       quantity: 1,
     },
     {
       id: 43,
-      image: 'resources/appleairtags.jpg',
+      image: 'productsImages/appleairtags.jpeg',
       title: 'Apple AirTags',
       description: 'Keep track of your belongings with Apple AirTags',
       price: 30,
@@ -433,7 +433,7 @@ $(document).ready(function () {
     },
     {
       id: 44,
-      image: 'resources/samsungsmarttag.jpg',
+      image: 'productsImages/samsungsmarttag.jpeg',
       title: 'Samsung SmartTag',
       description: 'Never lose your valuables with Samsung SmartTag',
       price: 25,
@@ -443,17 +443,17 @@ $(document).ready(function () {
     },
     {
       id: 45,
-      image: 'resources/lgtracker.jpg',
+      image: 'productsImages/lgtracker.jpeg',
       title: 'LG Tracker',
       description: 'Track your items with LG Tracker',
       price: 20,
       type: 'accessory',
-      color: 'silver',
+      color: 'black',
       quantity: 1,
     },
     {
       id: 46,
-      image: 'resources/applepowerbank.jpg',
+      image: 'productsImages/applepowerbank.jpeg',
       title: 'Apple Power Bank',
       description: 'Stay powered up on the go with Apple Power Bank',
       price: 80,
@@ -463,17 +463,17 @@ $(document).ready(function () {
     },
     {
       id: 47,
-      image: 'resources/samsungpowerbank.jpg',
+      image: 'productsImages/samsungpowerbank.jpeg',
       title: 'Samsung Power Bank',
       description: 'Portable charging solution with Samsung Power Bank',
       price: 70,
       type: 'accessory',
-      color: 'black',
+      color: 'blue',
       quantity: 1,
     },
     {
       id: 48,
-      image: 'resources/lgpowerbank.jpg',
+      image: 'productsImages/lgpowerbank.jpeg',
       title: 'LG Power Bank',
       description: 'Reliable power backup with LG Power Bank',
       price: 60,
@@ -483,7 +483,7 @@ $(document).ready(function () {
     },
     {
       id: 49,
-      image: 'resources/applemousepad.jpg',
+      image: 'productsImages/applemousepad.jpeg',
       title: 'Apple Mouse Pad',
       description: 'Smooth surface for precise mouse control',
       price: 20,
@@ -493,7 +493,7 @@ $(document).ready(function () {
     },
     {
       id: 50,
-      image: 'resources/samsungmousepad.jpg',
+      image: 'productsImages/samsungmousepad.jpeg',
       title: 'Samsung Mouse Pad',
       description: 'Comfortable mouse usage with Samsung Mouse Pad',
       price: 15,
@@ -503,7 +503,7 @@ $(document).ready(function () {
     },
     {
       id: 51,
-      image: 'resources/lgmousepad.jpg',
+      image: 'productsImages/lgmousepad.jpeg',
       title: 'LG Mouse Pad',
       description: 'Enhance your gaming experience with LG Mouse Pad',
       price: 12,
@@ -513,17 +513,17 @@ $(document).ready(function () {
     },
     {
       id: 52,
-      image: 'resources/appleusbhub.jpg',
+      image: 'productsImages/appleusbhub.jpeg',
       title: 'Apple USB Hub',
       description: 'Connect multiple devices with Apple USB Hub',
       price: 50,
       type: 'accessory',
-      color: 'white',
+      color: 'silver',
       quantity: 1,
     },
     {
       id: 53,
-      image: 'resources/samsungusbhub.jpg',
+      image: 'productsImages/samsungusbhub.jpeg',
       title: 'Samsung USB Hub',
       description: 'Expand your connectivity with Samsung USB Hub',
       price: 40,
@@ -533,7 +533,7 @@ $(document).ready(function () {
     },
     {
       id: 54,
-      image: 'resources/lgusbhub.jpg',
+      image: 'productsImages/lgusbhub.jpeg',
       title: 'LG USB Hub',
       description: 'Convenient USB expansion with LG USB Hub',
       price: 35,
@@ -543,7 +543,7 @@ $(document).ready(function () {
     },
     {
       id: 55,
-      image: 'resources/applemicrophone.jpg',
+      image: 'productsImages/applemicrophone.jpeg',
       title: 'Apple Microphone',
       description: 'Capture professional-grade audio with Apple Microphone',
       price: 150,
@@ -553,7 +553,7 @@ $(document).ready(function () {
     },
     {
       id: 56,
-      image: 'resources/samsungmicrophone.jpg',
+      image: 'productsImages/samsungmicrophone.jpeg',
       title: 'Samsung Microphone',
       description: 'High-quality recording with Samsung Microphone',
       price: 120,
@@ -563,7 +563,7 @@ $(document).ready(function () {
     },
     {
       id: 57,
-      image: 'resources/lgmicrophone.jpg',
+      image: 'productsImages/lgmicrophone.jpeg',
       title: 'LG Microphone',
       description: 'Versatile microphone for various applications',
       price: 100,
@@ -573,37 +573,37 @@ $(document).ready(function () {
     },
     {
       id: 58,
-      image: 'resources/applemousemat.jpg',
+      image: 'productsImages/applemousemat.jpeg',
       title: 'Apple Mouse Mat',
       description: 'Smooth and precise mouse movement with Apple Mouse Mat',
       price: 30,
-      type: 'accessory',
-      color: 'white',
-      quantity: 1,
-    },
-    {
-      id: 59,
-      image: 'resources/samsungmousemat.jpg',
-      title: 'Samsung Mouse Mat',
-      description: 'Optimized surface for accurate mouse tracking',
-      price: 25,
       type: 'accessory',
       color: 'black',
       quantity: 1,
     },
     {
-      id: 60,
-      image: 'resources/lgmousemat.jpg',
-      title: 'LG Mouse Mat',
-      description: 'Enhance your gaming performance with LG Mouse Mat',
-      price: 20,
-      type: 'accessory',
+      id: 59,
+      image: 'productsImages/toaster.jpeg',
+      title: 'Toaster',
+      description: 'Dualit Architect 4 Slice Toaster',
+      price: 25,
+      type: 'litchen',
       color: 'silver',
       quantity: 1,
     },
     {
+      id: 60,
+      image: 'productsImages/LawnMower.jpeg',
+      title: 'American Lawn Mower Company',
+      description: 'Electric lawn mower with a powerful 11 amp engine for cutting all types of grass',
+      price: 900,
+      type: 'garden',
+      color: 'black',
+      quantity: 1,
+    },
+    {
       id: 61,
-      image: 'resources/applesmartpen.jpg',
+      image: 'productsImages/applesmartpen.jpeg',
       title: 'Apple Smart Pen',
       description: 'Draw and write with precision using Apple Smart Pen',
       price: 120,
@@ -613,17 +613,17 @@ $(document).ready(function () {
     },
     {
       id: 62,
-      image: 'resources/samsungsmartpen.jpg',
-      title: 'Samsung Smart Pen',
-      description: 'Seamless writing and drawing experience with Samsung Smart Pen',
-      price: 100,
-      type: 'accessory',
+      image: 'productsImages/samsungmicrowave.jpeg',
+      title: 'Samsung MicroWave',
+      description: 'Samsung MicroWave 40 Liters',
+      price: 300,
+      type: 'kitchen',
       color: 'black',
       quantity: 1,
     },
     {
       id: 63,
-      image: 'resources/lgsmartpen.jpg',
+      image: 'productsImages/lgsmartpen.jpeg',
       title: 'LG Smart Pen',
       description: 'Efficient note-taking with LG Smart Pen',
       price: 90,
@@ -633,37 +633,37 @@ $(document).ready(function () {
     },
     {
       id: 64,
-      image: 'resources/applestylus.jpg',
-      title: 'Apple Stylus',
-      description: 'Enhance your touch screen experience with Apple Stylus',
-      price: 80,
-      type: 'accessory',
-      color: 'white',
-      quantity: 1,
-    },
-    {
-      id: 65,
-      image: 'resources/samsungstylus.jpg',
-      title: 'Samsung Stylus',
-      description: 'Precise and accurate input with Samsung Stylus',
-      price: 70,
+      image: '/productsImages/visionro.jpeg',
+      title: 'Apple Vision Pro',
+      description: 'Apple Vision Pro is an upcoming mixed reality headset developed by Apple',
+      price: 3000,
       type: 'accessory',
       color: 'black',
       quantity: 1,
     },
     {
-      id: 66,
-      image: 'resources/lgstylus.jpg',
-      title: 'LG Stylus',
-      description: 'Versatile stylus for creative expression',
-      price: 60,
+      id: 65,
+      image: 'productsImages/ipod.jpeg',
+      title: 'Apple ipod touch',
+      description: 'The iPod is a discontinued series of portable media players and multi-purpose mobile devices designed and marketed by Apple',
+      price: 700,
       type: 'accessory',
-      color: 'silver',
+      color: 'blue',
+      quantity: 1,
+    },
+    {
+      id: 66,
+      image: 'productsImages/applemacpro.jpeg',
+      title: 'Apple Mac Pro',
+      description: 'Mac Pro is the professional desktop computer reinvented from the inside out.',
+      price: 2500,
+      type: 'computers',
+      color: 'black',
       quantity: 1,
     },
     {
       id: 67,
-      image: 'resources/applesmartcase.jpg',
+      image: 'productsImages/applesmartcase.jpeg',
       title: 'Apple Smart Case',
       description: 'Protection and style for your device with Apple Smart Case',
       price: 50,
@@ -673,7 +673,7 @@ $(document).ready(function () {
     },
     {
       id: 68,
-      image: 'resources/samsungsmartcase.jpg',
+      image: 'productsImages/samsungsmartcase.jpeg',
       title: 'Samsung Smart Case',
       description: 'Durable and stylish protection for your device',
       price: 40,
@@ -683,17 +683,17 @@ $(document).ready(function () {
     },
     {
       id: 69,
-      image: 'resources/lgsmartcase.jpg',
+      image: 'productsImages/lgsmartcase.jpeg',
       title: 'LG Smart Case',
       description: 'Slim and lightweight protection for your device',
       price: 35,
       type: 'accessory',
-      color: 'silver',
+      color: 'red',
       quantity: 1,
     },
     {
       id: 70,
-      image: 'resources/applelaptopstand.jpg',
+      image: 'productsImages/applelaptopstand.jpeg',
       title: 'Apple Laptop Stand',
       description: 'Elevate your laptop for improved ergonomics',
       price: 40,
@@ -703,7 +703,7 @@ $(document).ready(function () {
     },
     {
       id: 71,
-      image: 'resources/samsunglaptopstand.jpg',
+      image: 'productsImages/samsunglaptopstand.jpeg',
       title: 'Samsung Laptop Stand',
       description: 'Sturdy and adjustable stand for your laptop',
       price: 35,
@@ -713,7 +713,7 @@ $(document).ready(function () {
     },
     {
       id: 72,
-      image: 'resources/lglaptopstand.jpg',
+      image: 'productsImages/lglaptopstand.jpeg',
       title: 'LG Laptop Stand',
       description: 'Portable and convenient stand for your laptop',
       price: 30,
@@ -723,7 +723,7 @@ $(document).ready(function () {
     },
     {
       id: 73,
-      image: 'resources/appleprojector.jpg',
+      image: 'productsImages/appleprojector.jpeg',
       title: 'Apple Projector',
       description: 'Enjoy large-screen entertainment with Apple Projector',
       price: 500,
@@ -733,7 +733,7 @@ $(document).ready(function () {
     },
     {
       id: 74,
-      image: 'resources/samsungprojector.jpg',
+      image: 'productsImages/samsungprojector.jpeg',
       title: 'Samsung Projector',
       description: 'High-quality projection for your presentations',
       price: 450,
@@ -743,7 +743,7 @@ $(document).ready(function () {
     },
     {
       id: 75,
-      image: 'resources/lgprojector.jpg',
+      image: 'productsImages/lgprojector.jpeg',
       title: 'LG Projector',
       description: 'Versatile and immersive projection experience',
       price: 400,
@@ -753,7 +753,7 @@ $(document).ready(function () {
     },
     {
       id: 76,
-      image: 'resources/applemonitor.jpg',
+      image: 'productsImages/applemonitor.jpeg',
       title: 'Apple Monitor',
       description: 'Vibrant and detailed display with Apple Monitor',
       price: 600,
@@ -763,7 +763,7 @@ $(document).ready(function () {
     },
     {
       id: 77,
-      image: 'resources/samsungmonitor.jpg',
+      image: 'productsImages/samsungmonitor.jpeg',
       title: 'Samsung Monitor',
       description: 'Enhance your productivity with Samsung Monitor',
       price: 550,
@@ -773,7 +773,7 @@ $(document).ready(function () {
     },
     {
       id: 78,
-      image: 'resources/lgmonitor.jpg',
+      image: 'productsImages/lgmonitor.jpeg',
       title: 'LG Monitor',
       description: 'Immersive visual experience with LG Monitor',
       price: 500,
@@ -783,39 +783,36 @@ $(document).ready(function () {
     },
     {
       id: 79,
-      image: 'resources/appleprinters.jpg',
+      image: 'productsImages/appleprinters.jpeg',
       title: 'Apple Printer',
       description: 'Print documents and photos with ease using Apple Printer',
       price: 200,
-      type: 'accessory',
+      type: 'office',
       color: 'white',
       quantity: 1,
     },
     {
       id: 80,
-      image: 'resources/samsungprinter.jpg',
+      image: 'productsImages/samsungprinter.jpeg',
       title: 'Samsung Printer',
       description: 'Fast and reliable printing with Samsung Printer',
       price: 180,
-      type: 'accessory',
+      type: 'office',
       color: 'black',
       quantity: 1,
     },
     {
       id: 81,
-      image: 'resources/lgprinter.jpg',
+      image: 'productsImages/lgprinter.jpeg',
       title: 'LG Printer',
       description: 'Efficient printing solution for your home or office',
       price: 150,
-      type: 'accessory',
-      color: 'silver',
+      type: 'office',
+      color: 'black',
       quantity: 1,
     }
 
   ];
-
-
-
 
 
 
@@ -855,7 +852,7 @@ $(document).ready(function () {
   var filterMenuRow = $('#filter-menu-row');
   var filterMenuItems = [
     { id: 'price-sort', label: 'Price:', options: ['all', 'low-high', 'high-low'] },
-    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets', 'office', 'kitchen', 'garden'] },
+    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
     { id: 'color', label: 'Color:', options: ['all', 'red', 'blue', 'green', 'white', 'gold', 'black', 'silver', 'gold', 'space gray'] },
   ];
 
@@ -942,15 +939,15 @@ $(document).ready(function () {
         cartCounterElement.text(cartCounter);
 
 
-            
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
-            // let data = event.target.parentElement.children;
-            // for(var i =0;i<data.length;i++)
-            // {
-            //     console.log(data[i].text);
-            // }
-          
-        
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+        // let data = event.target.parentElement.children;
+        // for(var i =0;i<data.length;i++)
+        // {
+        //     console.log(data[i].text);
+        // }
+
+
 
 
       });
