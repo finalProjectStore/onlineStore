@@ -1,5 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require('path');
+
+
+
+
 require('dotenv').config();
 // const { default: mongoose } = require("mongoose");
 require('./helpers/init_mongodb');
@@ -15,7 +20,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/src/views/public'));
 app.use('/jsFiles', express.static(__dirname + '/src/views/jsFiles'));
 app.use('/cssFiles', express.static(__dirname + '/src/views/cssFiles'));
-
+app.use('/productsImages', express.static(path.join(__dirname, 'src/resources/productsImages')));
 
 
 
@@ -29,11 +34,13 @@ app.use('/', require(__dirname + '/src/routes/registerRoute'));
 app.use('/', require(__dirname + '/src/routes/mainPageRoute'))
 app.use('/', require(__dirname + '/src/routes/cartRoute'));
 app.use('/',require(__dirname + '/src/routes/userDetailsRoute'));
+app.use('/', require(__dirname + '/src/routes/succeedRoute'));
+
+
 
 
 const port = process.env.PORT;
-app.listen(port,function()
-{
-  console.log("Server running on port "+port);
+app.listen(port, function () {
+  console.log("Server running on port " + port);
 
 })

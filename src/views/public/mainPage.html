@@ -10,21 +10,43 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <title>Card Page with jQuery</title>
+  <title>Home Page</title>
 </head>
 
 <body>
+
   <div id="navbar-container"></div>
   <div id="username"></div>
   <div class="filter-menu-container">
+
     <div class="container">
-      <div class="row" id="filter-menu-row">
+      <div class="row" id="filter-menu-row"> </div>
+      <div id="weather-container">
       </div>
+      <!-- facebook api -->
+      <div class="fb-like" data-href="https://example.com" data-width="" data-layout="standard" data-action="like"
+        data-size="small" data-share="true">
+
+      </div>
+
+      <!-- end of facebook api -->
+
+
+
     </div>
+    <img src="/productsImages/facebook-logo.jpeg" alt="facebook-logo" id="facebook-logo">
   </div>
   <div class="card-container"></div>
+
+
+  <!-- script facebook -->
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=YOUR_APP_ID&autoLogAppEvents=1"
+    nonce="YOUR_NONCE_VALUE"></script>
+  <!-- end of script facebook -->
+
   <script src="../jsFiles/mainPage.js"></script>
 
 </body>
 
-</html> 
+</html>
