@@ -23,10 +23,12 @@ const addCartToOrder = async function (username,price,products)
 {
 
     let titles = [];
+    productsJson = JSON.parse(products);
 
-    for (let i =0;i<products.length;i++)
+
+    for (let i =0;i<productsJson.length;i++)
     {
-        titles.push(products[i].title);
+        titles.push(productsJson[i].title);
     }
 
 
