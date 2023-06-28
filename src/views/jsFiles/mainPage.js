@@ -815,9 +815,10 @@ $(document).ready(function () {
   ];
 
 
-
-
-
+  // When open mainpage update the counter of the cart  
+  let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
+  $("#cart-counter").text(number_of_products);
+  ////
 
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
@@ -829,7 +830,7 @@ $(document).ready(function () {
   else {
     cartCounter = JSON.parse(sessionStorage.getItem("cardsData")).length;
   }
-  console.log(cartCounter);
+  
 
   // Generate the navbar
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
@@ -842,6 +843,8 @@ $(document).ready(function () {
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + cartCounter + '</span>');
+  
+  
 
   form.append(searchInput, searchButton);
   navbar.append(brand, username, form, cartContainer);
@@ -884,8 +887,17 @@ $(document).ready(function () {
   var cardContainer = $('.card-container');
   var filtereditem = data;
 
-  $("#cartBtn").click(function () {
+  $("#cartBtn").click(function () 
+  {
+
+    // Cancel access to cart without items
+    if (parseInt($("#cart-counter").text()) === 0)
+    {
+      return;  
+    }
+
     location.href = 'cart';
+
   });
 
   function filteritem() {
@@ -929,27 +941,13 @@ $(document).ready(function () {
       var title = $('<h5 class="card-title">' + data.title + '</h5>');
       var description = $('<p class="card-text">' + data.description + '</p>');
       var price = $('<p class="card-price">$' + data.price + '</p>');
-      var addToCartButton = $(
-        '<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>'
-      );
+      var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
       var footer = $('<div class= "add-btn-cart"></div>');
 
-      addToCartButton.click(function (event) {
+      addToCartButton.click(function (event) 
+      {
         cartCounter++;
         cartCounterElement.text(cartCounter);
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
-        // let data = event.target.parentElement.children;
-        // for(var i =0;i<data.length;i++)
-        // {
-        //     console.log(data[i].text);
-        // }
-
-
-
-
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -999,11 +997,18 @@ $(document).ready(function () {
         return data.id === itemId;
       });
 
+
+
       cartCounter++;
       cartCounterElement.text(cartCounter);
-      alert('Item added to cart! Item ID: ' + itemId + ', Item: ' + itemitem.title);
     });
   }
+
+
+
+ 
+
+
 
   renderCards(); // render the cards immediately when the page loads
   updateAddToCartButtons();
