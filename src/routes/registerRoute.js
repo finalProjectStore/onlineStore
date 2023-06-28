@@ -4,6 +4,7 @@ const path = require('path');
 
 //Controller
 const userController = require("../controllers/userController");
+const orderController = require("../controllers/orderController");
 
 
 const bodyParser = require('body-parser');
@@ -14,9 +15,11 @@ router.use(bodyParser.json());
 
 router.post('/register',async function(req, res)
 {
-  try {
+  try 
+  {
     const {username, email, age, password1, password2 } = req.body;
-    const result = await userController.createUser(username,email,age,password1,password2);
+    const result = await userController.createUser(username,email,age,password1,password2); // new user.
+    orderController.newOrder(req.body.username); // new order for user.
     res.send({response: result});
   } catch (error) {
     console.log(error);

@@ -1,0 +1,63 @@
+@import './global.css';
+
+body {
+  font-family: var(--font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+hr{
+  border:none;
+  border-style: solid;
+  border-color: #4658FF;
+  border-width: 2px;
+  opacity: 1;
+}
+
+.title{
+  color: var(--purple-btn-color);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-details {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #EBE7E7;;
+  border-radius:50px;
+  margin-top: 50px;
+  padding: 40px;
+  width: 500px;
+  height: 635px;
+}
+#div_alert{
+  height: 80px;
+}
+
+.form-control {
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
+}
+
+#btn-save {
+  display: block;
+  padding: 15px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  cursor: pointer;
+  border-radius: 2em;
+  color: #fff;
+  background: linear-gradient(to right, #5027b0, #3bafc4);
+}
+
+.footer-container {
+  position: relative;
+  display: flex;
+  justify-content: left;
+}
