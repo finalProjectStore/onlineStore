@@ -41,6 +41,26 @@ app.use('/', require(__dirname + '/src/routes/succeedRoute'));
 
 
 
+var expressWs = require('express-ws')
+expressWs(app);
+
+var users_number_on_site = 0;
+app.ws('/mainpage', (ws, req) =>  // user after login
+{
+  //ws.send("hey");
+  const start = Date.now();
+  users_number_on_site+=1;
+  ws.send(users_number_on_site)
+  console.log("Number of users after login: " + users_number_on_site);
+
+  ws.on('close', function ()  // user exit site
+  {
+    const end = Date.now();
+    var seconds = (((end-start) % 60000) / 1000).toFixed(0);
+    console.log(`Client Time: ${seconds} secnods`);
+  })
+})
+
 
 
 const port = process.env.PORT;

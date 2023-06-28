@@ -19,6 +19,11 @@ const createAlert = function (error)
 
 
 
+
+
+
+
+
 function showGreetingMessage(message) {
   if ($('#div_alert').find('strong')) {
     $('#div_alert').find('strong').remove();
@@ -61,6 +66,17 @@ $('form').submit(function (event) {
         showGreetingMessage('Registration successful!');
         setTimeout(() => {
           sessionStorage.setItem('name',res.name);
+
+
+
+          var ws = new WebSocket('ws://localhost:3000/mainPage');
+          ws.onmessage=function(event)
+          {
+            console.log("Client Number: " + event.data);
+          }
+
+
+
           location.href = '/mainpage';
         }, 2 * 1000);
       }
