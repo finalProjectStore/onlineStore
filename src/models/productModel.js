@@ -27,8 +27,8 @@ const productSchema = new mongoose.Schema({
     
         description:
         {
-        type:String,
-        required:[true,"Enter Product description"]
+            type:String,
+            required:[true,"Enter Product description"]
         },
 
 
@@ -63,6 +63,6 @@ const productSchema = new mongoose.Schema({
 })
 
 
-const Product = mongoose.model('Product', productSchema); // create Product collection
+const Product = mongoose.model('products', productSchema); // create Product collection
 
 module.exports = Product;

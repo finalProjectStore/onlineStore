@@ -840,4 +840,16 @@ const Product = require('../models/productModel');
 
 
 
+const getAllProducts = async function () {
+    const query = Product.find({});
+    const allProducts = await query.exec();
+    return allProducts;
+}
+
+const removeProduct = async function (id) {
+    console.log('removing', id);
+    await Product.deleteOne({ id });
+}
+
+module.exports = { getAllProducts, removeProduct };
 //module.exports = { addProducts };
