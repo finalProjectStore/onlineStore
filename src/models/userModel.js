@@ -21,10 +21,6 @@ var UserSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  orderHistory: [{
-    type: mongoose.Schema.Types.ObjectId, // this is making a connection to the Order schema
-    ref: 'Order',
-  }],
 
   isAdmin: {
     type: Boolean,
@@ -60,26 +56,7 @@ var UserSchema = new mongoose.Schema({
       return this.save();
     }
 
-  /// retrieve the user's oreders history
-  UserSchema.methods.getOrderHistory = function(){
 
-  }
-
-  /// add an order to the user's order history array
-  UserSchema.methods.addOrder = function(){
-
-  }
-
-  /// remove an order from the user's order history array
-  UserSchema.methods.removeOrder = function(){
-
-  }
-
-  /// get the total number of orders in the user's order history 
-  UserSchema.methods.getTotalOrders = function(){
-    return this.orderHistory.length;
-
-  }
   
   /// change the user's status (admin or not)
   UserSchema.methods.changeIsAdmin = function(){
