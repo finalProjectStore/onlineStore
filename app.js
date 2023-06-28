@@ -1,15 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require('path');
-
-
-
+const adminRoutes = require('./src/routes/adminRoute');
+const app = express();
+app.use(express.json());
+app.use('/admin', adminRoutes);
 
 require('dotenv').config();
 // const { default: mongoose } = require("mongoose");
 require('./helpers/init_mongodb');
 
-const app = express();
 const User = require('./src/models/userModel');
 
 app.use(bodyParser.urlencoded({ extended: true }))
