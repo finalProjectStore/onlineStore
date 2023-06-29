@@ -37,7 +37,7 @@ $(document).ready(function () {
       title: 'Apple iPhone 14 pro max',
       description: 'The latest iPhone with cutting-edge features',
       price: 1200,
-      type: 'phone',
+      type: 'phones',
       color: 'space gray',
       quantity: 1,
     },
@@ -47,7 +47,7 @@ $(document).ready(function () {
       title: 'Samsung Galaxy s22',
       description: 'Powerful performance with Samsung Galaxy',
       price: 1100,
-      type: 'phone',
+      type: 'phones',
       color: 'black',
       quantity: 1,
     },
@@ -57,7 +57,7 @@ $(document).ready(function () {
       title: 'LG Smartphone',
       description: 'Enjoy a premium smartphone experience with LG',
       price: 1000,
-      type: 'phone',
+      type: 'phones',
       color: 'silver',
       quantity: 1,
     },
@@ -816,8 +816,8 @@ $(document).ready(function () {
 
 
   // When open mainpage update the counter of the cart  
-  let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
-  $("#cart-counter").text(number_of_products);
+  // let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
+  // $("#cart-counter").text(number_of_products);
   ////
 
   const name = sessionStorage.getItem("name");
@@ -855,7 +855,7 @@ $(document).ready(function () {
   var filterMenuRow = $('#filter-menu-row');
   var filterMenuItems = [
     { id: 'price-sort', label: 'Price:', options: ['all', 'low-high', 'high-low'] },
-    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
+    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets','audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
     { id: 'color', label: 'Color:', options: ['all', 'red', 'blue', 'green', 'white', 'gold', 'black', 'silver', 'gold', 'space gray'] },
   ];
 
@@ -1084,26 +1084,6 @@ $(document).ready(function () {
       $('#weather-container').html('<p>Error retrieving weather information.</p>');
     }
   });
-
-
-  ///////////////////* Facebook *////////////////////////- took from ayrshare website
-
-  // Initialize the Facebook SDK
-  window.fbAsyncInit = function () {
-    FB.init({
-      appId: 'YOUR_APP_ID',
-      cookie: true,
-      xfbml: true,
-      version: 'v13.0'
-    });
-
-    // Render the Facebook plugin
-    FB.XFBML.parse();
-  };
-
-
-
-
 
 
 
