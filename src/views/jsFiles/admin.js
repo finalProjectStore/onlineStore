@@ -23,7 +23,7 @@ $(document).ready(function () {
                             <td><input name="price" type='number' class='form-control' value='${product.price}'></td>
                             <td><input name="quantity" type='number' class='form-control' value='${product.quantity}'></td>
                             <td><img name="image" src='${product.image}' alt='Product Image' width='300' height='100' /></td>
-                            <td><button class='btn btn-sm btn-danger update-button' id='${product.id}_update'>Update</button></td>
+                            <td><button class='btn btn-sm btn-info update-button' id='${product.id}_update'>Update</button></td>
                             <td><button class='btn btn-sm btn-danger delete-button' id='${product.id}_delete'>Delete</button></td>
                         </tr>`;
                     tableBody.append(row);
