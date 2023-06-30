@@ -1,38 +1,43 @@
+function populateProductTable() {
+    $.ajax({
+        url: '/admin/getAllProducts',
+        method: 'GET',
+        // populate the products table
+        success: function (res) {
+            const { products } = res;
+            const tableBody = $("#products #productsTable tbody");
+
+            // Clear existing rows
+            tableBody.empty();
+        
+            // Add new rows
+            for (var i = 0; i < products.length; i++) {
+                const product = products[i];
+                const row = `
+                    <tr id="${product._id}">
+                        <td><input name="title" type='text' class='form-control' value='${product.title}'></td>
+                        <td><input name="description" type='text' class='form-control' value='${product.description}'></td>
+                        <td><input name="price" type='number' class='form-control' value='${product.price}'></td>
+                        <td><input name="quantity" type='number' class='form-control' value='${product.quantity}'></td>
+                        <td><input name="color" type='text' class='form-control' value='${product.color}'></td>
+                        <td><input name="type" type='text' class='form-control' value='${product.type}'></td>
+                        <td><img name="image" src='${product.image}' alt='Product Image' width='300' height='100' /></td>
+                        <td><button class='btn btn-sm btn-info update-button' id='${product._id}_update'>Update</button></td>
+                        <td><button class='btn btn-sm btn-danger delete-button' id='${product._id}_delete'>Delete</button></td>
+                    </tr>`;
+                tableBody.append(row);
+            }
+
+            const productsDiv = $("#products");
+            productsDiv.css('display', 'block');
+        },
+    });
+}
+
 $(document).ready(function () {
     // admin clicks on "products" button
     $("#productListingBtn").click(function () {
-        $.ajax({
-            url: '/admin/getAllProducts',
-            method: 'GET',
-            // populate the products table
-            success: function (res) {
-                const { products } = res;
-                const tableBody = $("#products #productsTable tbody");
-
-                // Clear existing rows
-                tableBody.empty();
-            
-                // Add new rows
-                for (var i = 0; i < products.length; i++) {
-                    const product = products[i];
-                    const row = `
-                        <tr id="${product._id}">
-                            <td><input name="title" type='text' class='form-control' value='${product.title}'></td>
-                            <td><input name="description" type='text' class='form-control' value='${product.description}'></td>
-                            <td><input name="price" type='number' class='form-control' value='${product.price}'></td>
-                            <td><input name="quantity" type='number' class='form-control' value='${product.quantity}'></td>
-                            <td><input name="color" type='text' class='form-control' value='${product.color}'></td>
-                            <td><img name="image" src='${product.image}' alt='Product Image' width='300' height='100' /></td>
-                            <td><button class='btn btn-sm btn-info update-button' id='${product._id}_update'>Update</button></td>
-                            <td><button class='btn btn-sm btn-danger delete-button' id='${product._id}_delete'>Delete</button></td>
-                        </tr>`;
-                    tableBody.append(row);
-                }
-
-                const productsDiv = $("#products");
-                productsDiv.css('display', 'block');
-            },
-        });
+        populateProductTable();
     });
 
     $("#addProductBtn").click(function () {
@@ -44,6 +49,7 @@ $(document).ready(function () {
                 <td><input name="price" type='number' class='form-control' value=''></td>
                 <td><input name="quantity" type='number' class='form-control' value=''></td>
                 <td><input name="color" type='text' class='form-control' value=''></td>
+                <td><input name="type" type='text' class='form-control' value=''></td>
                 <td><input name="image" type='text' class='form-control' value=''></td>
             </tr>`;
         tableBody.prepend(row);
@@ -64,11 +70,11 @@ $(document).ready(function () {
             const price = $('input[name="price"]').val();
             const quantity = $('input[name="quantity"]').val();
             const color = $('input[name="color"]').val();
+            const type = $('input[name="type"]').val();
             const image = $('input[name="image"]').val();
-            const product = { title, description, price, quantity, color, image };
+            const product = { title, description, price, quantity, color, type, image };
             products.push(product);
         });
-        console.log(products);
 
         $.ajax({
             url: '/admin/addProducts',
@@ -77,6 +83,8 @@ $(document).ready(function () {
             data: JSON.stringify(products),
             contentType: 'application/json'
         }); 
+
+        populateProductTable();
     });
 
     $("#productsTable").on('click', 'button', function () {
@@ -94,7 +102,8 @@ $(document).ready(function () {
                     _id: productId
                 }),
                 contentType: 'application/json'
-            });    
+            }); 
+            populateProductTable();   
         } else if (action == "update") {
             // get all the product's values using jquery
             const title = $('input[name="title"]', `#${productId}`).val();

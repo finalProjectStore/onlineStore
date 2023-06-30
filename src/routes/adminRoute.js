@@ -13,8 +13,8 @@ router.get('/getAllProducts', async function (req, res) {
 });
 
 router.post('/removeProduct', async function (req, res) {
-    const { id } = req.body; 
-    await productController.removeProduct(id);
+    const { _id } = req.body; 
+    await productController.removeProduct(_id);
 });
 
 router.post('/updateProduct', async function (req, res) {
