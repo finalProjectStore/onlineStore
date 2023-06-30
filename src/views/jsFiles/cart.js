@@ -47,9 +47,7 @@ $(document).ready(function () {
       cardExists = false;
       continue;
     }
-
-
-
+    
     // Create the card
     var card = $('<div>').addClass('card');
     var cardRow = $('<div>').addClass('row');
@@ -73,7 +71,7 @@ $(document).ready(function () {
     var quantityInput = $('<input>')
       .addClass('form-control quantity-input')
       .attr('type', 'number')
-      .attr('value', '1')
+      .attr('value', cardData.quantity)
       .on('input', function () {
         var value = parseInt($(this).val());
         if (value <= 0) { /// the value of input must be more then 0
@@ -92,8 +90,9 @@ $(document).ready(function () {
 
     var price = $('<p>').addClass('card-text').text(cardData.price);
 
-    card.attr('data-card-id', i);
 
+    card.attr('data-card-id', i);
+    
 
 
 
@@ -141,28 +140,28 @@ $(document).ready(function () {
 
   var nameOnCardLabel = $('<label>').text('Name on Card:');
   var nameOnCardInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'name-on-card')
     .attr('placeholder', 'Enter name on card');
 
   var cardNumberLabel = $('<label>').text('Card Number:');
   var cardNumberInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'card-number')
     .attr('placeholder', 'Enter card number');
 
   var expirationDateLabel = $('<label>').text('Expiration Date:');
   var expirationDateInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'expiration-date')
     .attr('placeholder', 'MM/YY');
 
   var cvvLabel = $('<label>').text('CVV:');
   var cvvInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'cvv')
     .attr('placeholder', 'Enter CVV');
@@ -373,30 +372,29 @@ $(document).ready(function () {
     var cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
 
     // Check if the cart is empty
-    if (!cardsData || cardsData.length === 0) {
-      alert("Your cart is empty!");
+    cardName = $("#name-on-card").val();
+    cardNumber = $("#card-number").val();
+    expirationDate = $("#expiration-date").val();
+    cvv = $("#cvv").val();
+
+    if (cardName === '' || cardNumber === '' || expirationDate === '' || cvv === '') 
+    {
+      alert("Your cart is empty!"); // Change to div_alert
       return;
     }
+
+  
     var validInputs = $('.is-valid');
-    var allInputs = $('.form-control');
-
-
 
     
-    if (validInputs.length === allInputs.length - 2) {
-      // show a success message 
-      alert('Payment Successful');
-
-    } else 
+    if (validInputs.length === 4) 
     {
-      // alert('Please fill in all the card details correctly.');
-
+    
       let username = sessionStorage.getItem("name");
       let stringPrice = $(".total-price").text().slice(14); // Total Price: $900
       let price = parseInt(stringPrice);
       let products = sessionStorage.getItem("cardsData");
      
-
 
       $.ajax({
         url: '/cart',
@@ -416,10 +414,10 @@ $(document).ready(function () {
         },
       });
 
-
-
-
-
+    }
+    else
+    {
+      alert("invalid fields"); 
     }
   }
 
