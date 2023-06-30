@@ -1,10 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require('path');
+const loginRoutes = require('./src/routes/loginRoute');
 const adminRoutes = require('./src/routes/adminRoute');
+const mainPageRoutes = require('./src/routes/mainPageRoute');
 const app = express();
 app.use(express.json());
+app.use('/login', loginRoutes);
 app.use('/admin', adminRoutes);
+app.use('/mainPage', mainPageRoutes);
 
 require('dotenv').config();
 // const { default: mongoose } = require("mongoose");

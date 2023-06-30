@@ -43,7 +43,7 @@ $('form').submit(function (event) {
 
   event.preventDefault();
   $.ajax({
-    url: '/',
+    url: '/login',
     method: 'POST',
     data: JSON.stringify({
       username: username,
@@ -54,13 +54,14 @@ $('form').submit(function (event) {
     success: function (res) {
       // const name = res.name;
       
-      if (res.response !== '') {
+      if (res.response.error) {
         // error accured
-        createAlert(res.response);
+        createAlert(res.response.error);
       } else {
+        localStorage.setItem('jwtToken', token);
         showGreetingMessage('Registration successful!');
         setTimeout(() => {
-          sessionStorage.setItem('name',res.name);
+          sessionStorage.setItem('name', username);
           location.href = '/mainpage';
         }, 2 * 1000);
       }

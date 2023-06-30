@@ -5,7 +5,18 @@ const path = require('path');
 // Controller
 const orderController = require("../controllers/orderController");
 
-router.get('/cart', function (req, res) {
+function verifyToken(req, res, next) {
+    const token = req.headers.authorization;
+    if (!token) {
+        return res.redirect('/login');
+    }
+
+    JsonWebTokenError.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+        next();
+    });
+}
+
+router.get('/cart', verifyToken, function (req, res) {
 
     res.sendFile(path.join(__dirname, '../views/public/cart.html'));
 });

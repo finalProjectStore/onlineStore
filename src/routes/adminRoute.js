@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require('path');
-const productController = require("../controllers/productController")
+const productController = require("../controllers/productController");
 
 router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../views/public/admin.html'));
