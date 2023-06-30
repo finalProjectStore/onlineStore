@@ -10,9 +10,12 @@ router.post('/', async function(req,res) {
   try {
     const {username, password } = req.body;
     const result = await userController.userLogin(username, password);
+    // TODO:
+    console.log('result', JSON.stringify(result));
     if (result['succeeded']) {
-      const token = jwt.sign({ username: user['username'] }, process.env.JWT_SECRET);
-      res.status(200).json({ token });
+      const token = jwt.sign({ username: result['user']['username'] }, process.env.JWT_SECRET);
+      console.log('token', token);
+      res.status(200).cookie('jwtToken', token).json({});
     } else {
       res.status(401).json({ error: result['error'] });
     }
@@ -20,11 +23,9 @@ router.post('/', async function(req,res) {
   } catch (error) {
     console.log(error);
   }
-  
-  res.sendFile(path.join(__dirname,'../views/public/login.html')) // Solve route error. check what is path.join().
 });
 
-router.get('/',function(req,res)
+router.get('/',function(req, res)
 {
   res.sendFile(path.join(__dirname,'../views/public/login.html')) // Solve route error. check what is path.join().
 });
