@@ -17,4 +17,9 @@ router.post('/removeProduct', async function (req, res) {
     await productController.removeProduct(id);
 });
 
+router.post('/updateProduct', async function (req, res) {
+    const product = req.body; 
+    await productController.updateProduct(product);
+});
+
 module.exports = router;
