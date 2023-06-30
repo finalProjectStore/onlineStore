@@ -815,7 +815,9 @@ $(document).ready(function () {
   ];
 
 
-
+  $('#order-history').click(function(){
+    location.href = '/orderHistory'
+})
 
 
 
@@ -829,7 +831,6 @@ $(document).ready(function () {
   else {
     cartCounter = JSON.parse(sessionStorage.getItem("cardsData")).length;
   }
-  console.log(cartCounter);
 
   // Generate the navbar
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
@@ -937,19 +938,6 @@ $(document).ready(function () {
       addToCartButton.click(function (event) {
         cartCounter++;
         cartCounterElement.text(cartCounter);
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
-        // let data = event.target.parentElement.children;
-        // for(var i =0;i<data.length;i++)
-        // {
-        //     console.log(data[i].text);
-        // }
-
-
-
-
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -1001,16 +989,13 @@ $(document).ready(function () {
 
       cartCounter++;
       cartCounterElement.text(cartCounter);
-      alert('Item added to cart! Item ID: ' + itemId + ', Item: ' + itemitem.title);
     });
   }
 
   renderCards(); // render the cards immediately when the page loads
   updateAddToCartButtons();
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* Search function *////////////////////////
-  /////////////////////////////////////////////////////////////
 
   // Search function
   function searchProducts() {
@@ -1037,12 +1022,7 @@ $(document).ready(function () {
   });
 
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* API's */////////////////////////////////
-  /////////////////////////////////////////////////////////////
-
-
-
 
   ///////////////////* Weather *////////////////////////
 

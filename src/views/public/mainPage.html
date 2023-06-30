@@ -15,14 +15,23 @@
 
 <body>
 
-  <div id="navbar-container"></div>
+  <div id="navbar-container">
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Right-aligned menu
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <button id="user-details" class="dropdown-item" type="button">User details</button>
+        <button id="order-history" class="dropdown-item" type="button">Order history</button>
+      </div>
+    </div>
+  </div>
   <div id="username"></div>
   <div class="filter-menu-container">
 
     <div class="container">
       <div class="row" id="filter-menu-row"> </div>
-      <div id="weather-container">
-      </div>
+      <div id="weather-container"></div>
       <!-- facebook api -->
       <div class="fb-like" data-href="https://example.com" data-width="" data-layout="standard" data-action="like"
         data-size="small" data-share="true">
