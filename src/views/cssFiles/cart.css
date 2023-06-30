@@ -103,3 +103,7 @@
 .btn-primary {
   background-color: var(--purple-btn-color);
 }
+
+#div_alert{
+  margin-top: 10px;
+}
