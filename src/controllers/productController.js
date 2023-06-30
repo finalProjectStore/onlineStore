@@ -850,17 +850,30 @@ const getAllProducts = async function () {
     return allProducts;
 }
 
-const removeProduct = async function (id) {
-    await Product.deleteOne({ id });
+const removeProduct = async function (_id) {
+    await Product.deleteOne({ _id });
 }
 
 const updateProduct = async function (product) {
     // pass all product values to 'set' because some/all of the values have been updated
     await Product.updateOne(
-        { id: product['id'] },
+        { _id: product['_id'] },
         { $set: product }
     );
 }
 
-module.exports = { getAllProducts, removeProduct, addProducts, updateProduct };
+const addNewProducts = async function (products){
+    try {
+        console.log('products', JSON.stringify(products));
+        const newProducts = products.map(product => new Product(product));
+        const ret = await Product.create(newProducts);
+        console.log('Products saved successfully:', ret);
+        res.status(201).json(ret);
+      } catch (error) {
+        console.error('Error saving products:', error);
+        res.status(500).json({ error: 'Failed to save products' });
+      }
+}
+
+module.exports = { getAllProducts, removeProduct, addProducts, updateProduct, addNewProducts };
 // module.exports = { addProducts };

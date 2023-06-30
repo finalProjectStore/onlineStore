@@ -22,4 +22,9 @@ router.post('/updateProduct', async function (req, res) {
     await productController.updateProduct(product);
 });
 
+router.post('/addProducts' , async function (req,res){
+    const products = req.body;
+    await productController.addNewProducts(products);
+});
+
 module.exports = router;
