@@ -815,22 +815,27 @@ $(document).ready(function () {
   ];
 
 
-  // When open mainpage update the counter of the cart  
-  // let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
-  // $("#cart-counter").text(number_of_products);
-  ////
+  // When open mainpage update the counter of the cart
+  let productsData = JSON.parse(sessionStorage.getItem("cardsData"));
+  if (productsData === '[]')
+  {
+    $("#cart-counter").text('0');
+  }
+  else
+  {
+    var sum = 0;
+    for (var i =0;i<productsData.length;i++)
+    {
+      sum += productsData[i].quantity;
+    }
+    
+  }
 
+  
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
 
-  var cartCounter = sessionStorage.getItem("cardsData");
-  if (cartCounter === null) {
-    cartCounter = 0;
-  }
-  else {
-    cartCounter = JSON.parse(sessionStorage.getItem("cardsData")).length;
-  }
-  
+
 
   // Generate the navbar
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
@@ -842,7 +847,7 @@ $(document).ready(function () {
 
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
-  var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + cartCounter + '</span>');
+  var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + sum + '</span>');
   
   
 
@@ -946,8 +951,8 @@ $(document).ready(function () {
 
       addToCartButton.click(function (event) 
       {
-        cartCounter++;
-        cartCounterElement.text(cartCounter);
+        sum++; /////////////
+        cartCounterElement.text(sum); ///////////////
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -967,7 +972,8 @@ $(document).ready(function () {
     var addToCartButtons = $('.btn-add-to-cart');
     addToCartButtons.off('click'); // Remove previous click event handlers
 
-    addToCartButtons.click(function () {
+    addToCartButtons.click(function () 
+    {
 
       ////////////////  use this variables to store card data in the session storage and move them to the cart  ///////////
       var card = $(this).closest('.card');
@@ -975,32 +981,72 @@ $(document).ready(function () {
       var cardPrice = card.find('.card-price').text();
       var cardtext = card.find('.card-text').text();
       var cardDetails = card.find('.card-details').text();
-      var cardImgUrl = card.find('.card-details').attr('src');
+      // var cardImgUrl = card.find('.card-img-top').attr('src').text();
 
-      var cardData = {
-        title: cardTitle,
-        price: cardPrice,
-        description: cardtext,
-        details: cardDetails,
-        image: cardImgUrl
-      };
 
+
+    
       const oldData = JSON.parse(sessionStorage.getItem('cardsData')) || []; ///// get the old or get an empty array
+
+
+          // if product is exist in session increase quantity
+          var flag = false;
+          for (let i =0;i<oldData.length;i++)
+          {
+            if (oldData[i].title === cardTitle) 
+            {
+
+              let quantityExistProduct = oldData[i].quantity;
+              quantityExistProduct+=1;
+
+              var updatedProduct = 
+              {
+                title: cardTitle,
+                price: cardPrice,
+                description: cardtext,
+                details: cardDetails,
+                quantity : quantityExistProduct
+                // image: cardImgUrl
+              };
+              
+
+              oldData[i] = updatedProduct;
+              flag = true;
+              break;
+            }
+          }
+          
+      
+       // if not exist create product and push to session
+      
+          if (!flag){
+        var cardData = 
+        {
+          title: cardTitle,
+          price: cardPrice,
+          description: cardtext,
+          details: cardDetails,
+          quantity : 1
+          // image: cardImgUrl
+        };
+    
       oldData.push(cardData);
+      }
       const newData = JSON.stringify(oldData);
       sessionStorage.setItem('cardsData', newData);
-
+      
       ////////// end of updating sessionStorage   /////////////
       var data = $(this).closest('.card-data');
       var itemId = data.data('id');
-      var itemitem = data.find(function (data) {
+      var itemitem = data.find(function (data) 
+      {
         return data.id === itemId;
       });
 
 
 
-      cartCounter++;
-      cartCounterElement.text(cartCounter);
+      sum++;
+      cartCounterElement.text(sum); 
     });
   }
 
