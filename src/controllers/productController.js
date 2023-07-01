@@ -841,18 +841,24 @@ const addProducts = function () {
 
 }
 
-
-
 const getAllProducts = async function () {
+    // 'find' without filtering means - all products
     const query = Product.find({});
     const allProducts = await query.exec();
     return allProducts;
 }
 
 const removeProduct = async function (id) {
-    console.log('removing', id);
     await Product.deleteOne({ id });
 }
 
-module.exports = { getAllProducts, removeProduct, addProducts };
+const updateProduct = async function (product) {
+    // pass all product values to 'set' because some/all of the values have been updated
+    await Product.updateOne(
+        { id: product['id'] },
+        { $set: product }
+    );
+}
+
+module.exports = { getAllProducts, removeProduct, addProducts, updateProduct };
 // module.exports = { addProducts };

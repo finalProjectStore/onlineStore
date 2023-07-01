@@ -18,6 +18,10 @@
 body {
   margin-top: 80px;
 }
+.btn-group {
+  position: relative;
+  top: 300px;
+}
 
 
 .filter-menu-container {
@@ -128,16 +132,15 @@ body {
 
 
 #weather-container {
-  background-color: #82e3f6;
-  border-radius: 100px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  font-family: var(--font);
-  color: #333;
-  width: 300px;
-  left: 243px;
-  top: 100px;
   position: relative;
+  top: -52px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  background-color: #82e3f6;
+  width: 250px;
+  margin-left: 900px;
+  border-radius: 70px;
 }
 
 .add-btn-cart {

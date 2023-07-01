@@ -19,6 +19,7 @@ router.post('/removeProduct', async function (req, res) {
     await productController.removeProduct(id);
 });
 
+
 router.get('/getAllUsers', async function (req, res) {
     const users = await userController.getAllUsers();
     res.json({ users });
@@ -37,6 +38,12 @@ router.get('/getTotalAmount', async function (req, res) {
 
 
 
+
+
+router.post('/updateProduct', async function (req, res) {
+    const product = req.body; 
+    await productController.updateProduct(product);
+});
 
 
 module.exports = router;

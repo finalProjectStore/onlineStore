@@ -1,4 +1,3 @@
-const { response } = require('express');
 var mongoose = require('mongoose');
 const User = require('../models/userModel');
 

@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/src/views/public'));
 app.use('/jsFiles', express.static(__dirname + '/src/views/jsFiles'));
 app.use('/cssFiles', express.static(__dirname + '/src/views/cssFiles'));
-app.use('/productsImages', express.static(path.join(__dirname, 'src/resources/productsImages')));
+app.use('/resources', express.static(path.join(__dirname, 'src/resources')));
 
 
 
