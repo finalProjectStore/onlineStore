@@ -32,8 +32,8 @@ router.get('/getAllUsersCount', async function (req, res) {
 
 router.get('/getTotalAmount', async function (req, res) {
 
-    const getAmountOfUsers = await userController.getTotalAmount();
-    res.json({ getAmountOfUsers });
+    const totalAmount = await userController.getTotalAmount();
+    res.json({ totalAmount });
 });
 
 
