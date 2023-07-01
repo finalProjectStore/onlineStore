@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
   // var data = [
   //   {
   //     id: 1,
@@ -823,11 +824,17 @@ $(document).ready(function () {
 
     success: function (products) {
       data = products;
+
     },
   });
   
 
 
+
+
+  $('#order-history').click(function(){
+    location.href = '/orderHistory'
+})
 
 
   // When open mainpage update the counter of the cart
@@ -846,9 +853,11 @@ $(document).ready(function () {
     
   }
 
+
   
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
+
 
 
 
@@ -862,9 +871,11 @@ $(document).ready(function () {
 
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
+
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + sum + '</span>');
   
   
+
 
   form.append(searchInput, searchButton);
   navbar.append(brand, username, form, cartContainer);
@@ -875,7 +886,7 @@ $(document).ready(function () {
   var filterMenuRow = $('#filter-menu-row');
   var filterMenuItems = [
     { id: 'price-sort', label: 'Price:', options: ['all', 'low-high', 'high-low'] },
-    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets','audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
+    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets', 'audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
     { id: 'color', label: 'Color:', options: ['all', 'red', 'blue', 'green', 'white', 'gold', 'black', 'silver', 'gold', 'space gray'] },
   ];
 
@@ -907,13 +918,11 @@ $(document).ready(function () {
   var cardContainer = $('.card-container');
   var filtereditem = data;
 
-  $("#cartBtn").click(function () 
-  {
+  $("#cartBtn").click(function () {
 
     // Cancel access to cart without items
-    if (parseInt($("#cart-counter").text()) === 0)
-    {
-      return;  
+    if (parseInt($("#cart-counter").text()) === 0) {
+      return;
     }
 
     location.href = 'cart';
@@ -964,10 +973,13 @@ $(document).ready(function () {
       var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
       var footer = $('<div class= "add-btn-cart"></div>');
 
+
       addToCartButton.click(function (event) 
       {
+
         sum++; 
         cartCounterElement.text(sum); 
+
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -1067,23 +1079,23 @@ $(document).ready(function () {
 
 
 
+
       sum++;
       cartCounterElement.text(sum); 
+
     });
   }
 
 
 
- 
+
 
 
 
   renderCards(); // render the cards immediately when the page loads
   updateAddToCartButtons();
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* Search function *////////////////////////
-  /////////////////////////////////////////////////////////////
 
   // Search function
   function searchProducts() {
@@ -1110,12 +1122,7 @@ $(document).ready(function () {
   });
 
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* API's */////////////////////////////////
-  /////////////////////////////////////////////////////////////
-
-
-
 
   ///////////////////* Weather *////////////////////////
 
