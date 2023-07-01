@@ -1,3 +1,4 @@
+@import 'global.css';
 #users ul {
     list-style-type: none;
     padding: 0;
@@ -10,3 +11,8 @@
 }
 
 
+.btn-primary {
+    background-color: var(--purple-btn-color);
+  }
+
+  
