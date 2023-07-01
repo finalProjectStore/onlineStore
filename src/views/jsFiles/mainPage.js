@@ -187,7 +187,7 @@ $(document).ready(function () {
       title: 'Apple HomePod',
       description: 'Smart home speaker with Apple HomePod',
       price: 300,
-      type: 'smart home',
+      type: 'accessory',
       color: 'white',
       quantity: 1,
     },
@@ -197,7 +197,7 @@ $(document).ready(function () {
       title: 'Samsung Home Speaker',
       description: 'Enhance your audio experience with Samsung Home Speaker',
       price: 250,
-      type: 'smart home',
+      type: 'accessory',
       color: 'black',
       quantity: 1,
     },
@@ -207,7 +207,7 @@ $(document).ready(function () {
       title: 'LG Home Speaker',
       description: 'Immerse yourself in music with LG Home Speaker',
       price: 280,
-      type: 'smart home',
+      type: 'accessory',
       color: 'silver',
       quantity: 1,
     },
@@ -397,7 +397,7 @@ $(document).ready(function () {
       title: 'Apple Watch Ultra',
       description: 'Stay connected and track your fitness with Apple Smartwatch',
       price: 400,
-      type: 'wearable',
+      type: 'watch',
       color: 'silver',
       quantity: 1,
     },
@@ -407,7 +407,7 @@ $(document).ready(function () {
       title: 'Samsung Galaxy Watch 4',
       description: 'Stay fit and stylish with Samsung Smartwatch',
       price: 350,
-      type: 'wearable',
+      type: 'watch',
       color: 'black',
       quantity: 1,
     },
@@ -417,7 +417,7 @@ $(document).ready(function () {
       title: 'LG G Watch',
       description: 'Track your health and receive notifications with LG Smartwatch',
       price: 300,
-      type: 'wearable',
+      type: 'watch',
       color: 'black',
       quantity: 1,
     },
@@ -587,7 +587,7 @@ $(document).ready(function () {
       title: 'Toaster',
       description: 'Dualit Architect 4 Slice Toaster',
       price: 25,
-      type: 'litchen',
+      type: 'kitchen',
       color: 'silver',
       quantity: 1,
     },
@@ -757,7 +757,7 @@ $(document).ready(function () {
       title: 'Apple Monitor',
       description: 'Vibrant and detailed display with Apple Monitor',
       price: 600,
-      type: 'accessory',
+      type: 'tv',
       color: 'white',
       quantity: 1,
     },
@@ -767,7 +767,7 @@ $(document).ready(function () {
       title: 'Samsung Monitor',
       description: 'Enhance your productivity with Samsung Monitor',
       price: 550,
-      type: 'accessory',
+      type: 'tv',
       color: 'black',
       quantity: 1,
     },
@@ -777,7 +777,7 @@ $(document).ready(function () {
       title: 'LG Monitor',
       description: 'Immersive visual experience with LG Monitor',
       price: 500,
-      type: 'accessory',
+      type: 'tv',
       color: 'silver',
       quantity: 1,
     },
@@ -836,9 +836,11 @@ $(document).ready(function () {
     
   }
 
+
   
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
+
 
 
 
@@ -852,9 +854,11 @@ $(document).ready(function () {
 
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
+
   var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + sum + '</span>');
   
   
+
 
   form.append(searchInput, searchButton);
   navbar.append(brand, username, form, cartContainer);
@@ -865,7 +869,7 @@ $(document).ready(function () {
   var filterMenuRow = $('#filter-menu-row');
   var filterMenuItems = [
     { id: 'price-sort', label: 'Price:', options: ['all', 'low-high', 'high-low'] },
-    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets','audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
+    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets', 'audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
     { id: 'color', label: 'Color:', options: ['all', 'red', 'blue', 'green', 'white', 'gold', 'black', 'silver', 'gold', 'space gray'] },
   ];
 
@@ -897,13 +901,11 @@ $(document).ready(function () {
   var cardContainer = $('.card-container');
   var filtereditem = data;
 
-  $("#cartBtn").click(function () 
-  {
+  $("#cartBtn").click(function () {
 
     // Cancel access to cart without items
-    if (parseInt($("#cart-counter").text()) === 0)
-    {
-      return;  
+    if (parseInt($("#cart-counter").text()) === 0) {
+      return;
     }
 
     location.href = 'cart';
@@ -954,10 +956,12 @@ $(document).ready(function () {
       var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
       var footer = $('<div class= "add-btn-cart"></div>');
 
+
       addToCartButton.click(function (event) 
       {
         sum++; /////////////
         cartCounterElement.text(sum); ///////////////
+
 
       });
 
@@ -1060,7 +1064,7 @@ $(document).ready(function () {
 
 
 
- 
+
 
 
 

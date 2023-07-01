@@ -81,7 +81,7 @@ $(document).ready(function () {
 
 
 
-   
+
 
 
     var quantityInputAppend = $('<div>').addClass('input-group-append');
@@ -386,30 +386,31 @@ $(document).ready(function () {
   
     var validInputs = $('.is-valid');
 
+
     
     if (validInputs.length === 4) 
     {
     
+
       let username = sessionStorage.getItem("name");
       let stringPrice = $(".total-price").text().slice(14); // Total Price: $900
       let price = parseInt(stringPrice);
       let products = sessionStorage.getItem("cardsData");
-     
+
 
       $.ajax({
         url: '/cart',
         method: 'POST',
         data: JSON.stringify({
           username: username,
-          products,products,
+          products, products,
           price: price
         }),
         contentType: 'application/json',
-    
-        success: function (res) 
-        {
+
+        success: function (res) {
           sessionStorage.clear();
-          sessionStorage.setItem("name",username);
+          sessionStorage.setItem("name", username);
           location.href = "/succeed";
         },
       });
