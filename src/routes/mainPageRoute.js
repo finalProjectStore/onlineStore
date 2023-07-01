@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require('path');
-const Product = require("../controllers/productController");
+const productController = require("../controllers/productController");
 
 router.get('/mainpage',function(req,res)
 {
@@ -9,6 +9,10 @@ router.get('/mainpage',function(req,res)
     res.sendFile(path.join(__dirname,'../views/public/mainPage.html'))
 })
 
+router.post('/mainpage',async function(req,res) {
+    const products = await productController.getAllProducts();
+    res.send(products);
+});
 
 
 
