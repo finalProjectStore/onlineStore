@@ -85,4 +85,52 @@ const updateUserDetails = async function (usernameToFind, valueToChange, type) {
   return result; /// update success.
 };
 
-module.exports = { createUser, userLogin, updateUserDetails };
+
+const getAllUsers = async function () {
+  try {
+    const users = await User.find({});
+    return users;
+  } catch (error) {
+    console.error('Error retrieving users:', error);
+    throw new Error('Failed to retrieve users.');
+  }
+};
+const getAllUsersCount = async function () {
+  try {
+    const users = await User.find({});
+    const userCount = users.length;
+    return userCount;
+  } catch (error) {
+    console.error('Error retrieving users:', error);
+    throw new Error('Failed to retrieve users.');
+  }
+};
+
+
+const getTotalAmount = async function () {
+  try {
+    
+    const users = await User.find().populate('orderHistory');
+    let totalAmount = 0;
+
+    users.forEach((user) => {
+      user.orderHistory.forEach((order) => {
+        totalAmount += order.amount; // Assuming there is an 'amount' field in the Order schema
+      });
+    });
+
+    return totalAmount;
+  } catch (error) {
+    console.error('Error finding total amount from users:', error);
+    throw new Error('Failed to retrieve users.');
+  }
+};
+
+
+
+
+
+
+
+
+module.exports = { createUser, userLogin, updateUserDetails, getAllUsers,getAllUsersCount, getTotalAmount };
