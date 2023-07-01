@@ -832,6 +832,24 @@ $(document).ready(function () {
 
 
 
+
+
+
+
+  $("#logout").click(function()
+  { 
+    var ws = new WebSocket('ws://localhost:3000/');
+
+    ws.onmessage=function(event)
+    {
+        ws.send("bye client");
+    }
+    location.href = "/";
+  })
+
+
+
+
   $('#order-history').click(function(){
     location.href = '/orderHistory'
 })
@@ -852,6 +870,7 @@ $(document).ready(function () {
     }
     
   }
+
 
 
   
@@ -1160,6 +1179,9 @@ $(document).ready(function () {
     }
   });
 
+
+
+  
 
 
 

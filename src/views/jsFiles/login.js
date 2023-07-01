@@ -57,7 +57,24 @@ $('form').submit(function (event) {
       if (res.response !== '') {
         // error accured
         createAlert(res.response);
-      } else {
+      } else 
+      {
+
+
+        
+        var ws = new WebSocket('ws://localhost:3000/');
+
+        ws.onmessage=function(event)
+        {
+            ws.send("client");
+        }
+
+    
+
+
+
+
+
         showGreetingMessage('Registration successful!');
         setTimeout(() => {
           sessionStorage.setItem('name',res.name);
