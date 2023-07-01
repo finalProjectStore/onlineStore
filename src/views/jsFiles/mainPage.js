@@ -815,6 +815,11 @@ $(document).ready(function () {
   ];
 
 
+  $('#order-history').click(function(){
+    location.href = '/orderHistory'
+})
+
+
   // When open mainpage update the counter of the cart
   let productsData = JSON.parse(sessionStorage.getItem("cardsData"));
   if (productsData === '[]')
@@ -953,6 +958,7 @@ $(document).ready(function () {
       {
         sum++; /////////////
         cartCounterElement.text(sum); ///////////////
+
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -1045,8 +1051,10 @@ $(document).ready(function () {
 
 
 
+
       sum++;
       cartCounterElement.text(sum); 
+
     });
   }
 
@@ -1059,9 +1067,7 @@ $(document).ready(function () {
   renderCards(); // render the cards immediately when the page loads
   updateAddToCartButtons();
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* Search function *////////////////////////
-  /////////////////////////////////////////////////////////////
 
   // Search function
   function searchProducts() {
@@ -1088,12 +1094,7 @@ $(document).ready(function () {
   });
 
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* API's */////////////////////////////////
-  /////////////////////////////////////////////////////////////
-
-
-
 
   ///////////////////* Weather *////////////////////////
 
