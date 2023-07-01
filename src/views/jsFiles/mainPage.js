@@ -37,7 +37,7 @@ $(document).ready(function () {
       title: 'Apple iPhone 14 pro max',
       description: 'The latest iPhone with cutting-edge features',
       price: 1200,
-      type: 'phone',
+      type: 'phones',
       color: 'space gray',
       quantity: 1,
     },
@@ -47,7 +47,7 @@ $(document).ready(function () {
       title: 'Samsung Galaxy s22',
       description: 'Powerful performance with Samsung Galaxy',
       price: 1100,
-      type: 'phone',
+      type: 'phones',
       color: 'black',
       quantity: 1,
     },
@@ -57,7 +57,7 @@ $(document).ready(function () {
       title: 'LG Smartphone',
       description: 'Enjoy a premium smartphone experience with LG',
       price: 1000,
-      type: 'phone',
+      type: 'phones',
       color: 'silver',
       quantity: 1,
     },
@@ -820,17 +820,27 @@ $(document).ready(function () {
 })
 
 
+  // When open mainpage update the counter of the cart
+  let productsData = JSON.parse(sessionStorage.getItem("cardsData"));
+  if (productsData === '[]')
+  {
+    $("#cart-counter").text('0');
+  }
+  else
+  {
+    var sum = 0;
+    for (var i =0;i<productsData.length;i++)
+    {
+      sum += productsData[i].quantity;
+    }
+    
+  }
 
+  
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
 
-  var cartCounter = sessionStorage.getItem("cardsData");
-  if (cartCounter === null) {
-    cartCounter = 0;
-  }
-  else {
-    cartCounter = JSON.parse(sessionStorage.getItem("cardsData")).length;
-  }
+
 
   // Generate the navbar
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
@@ -842,7 +852,9 @@ $(document).ready(function () {
 
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
-  var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + cartCounter + '</span>');
+  var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + sum + '</span>');
+  
+  
 
   form.append(searchInput, searchButton);
   navbar.append(brand, username, form, cartContainer);
@@ -853,7 +865,7 @@ $(document).ready(function () {
   var filterMenuRow = $('#filter-menu-row');
   var filterMenuItems = [
     { id: 'price-sort', label: 'Price:', options: ['all', 'low-high', 'high-low'] },
-    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
+    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets','audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
     { id: 'color', label: 'Color:', options: ['all', 'red', 'blue', 'green', 'white', 'gold', 'black', 'silver', 'gold', 'space gray'] },
   ];
 
@@ -885,8 +897,17 @@ $(document).ready(function () {
   var cardContainer = $('.card-container');
   var filtereditem = data;
 
-  $("#cartBtn").click(function () {
+  $("#cartBtn").click(function () 
+  {
+
+    // Cancel access to cart without items
+    if (parseInt($("#cart-counter").text()) === 0)
+    {
+      return;  
+    }
+
     location.href = 'cart';
+
   });
 
   function filteritem() {
@@ -930,14 +951,14 @@ $(document).ready(function () {
       var title = $('<h5 class="card-title">' + data.title + '</h5>');
       var description = $('<p class="card-text">' + data.description + '</p>');
       var price = $('<p class="card-price">$' + data.price + '</p>');
-      var addToCartButton = $(
-        '<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>'
-      );
+      var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
       var footer = $('<div class= "add-btn-cart"></div>');
 
-      addToCartButton.click(function (event) {
-        cartCounter++;
-        cartCounterElement.text(cartCounter);
+      addToCartButton.click(function (event) 
+      {
+        sum++; /////////////
+        cartCounterElement.text(sum); ///////////////
+
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -957,7 +978,8 @@ $(document).ready(function () {
     var addToCartButtons = $('.btn-add-to-cart');
     addToCartButtons.off('click'); // Remove previous click event handlers
 
-    addToCartButtons.click(function () {
+    addToCartButtons.click(function () 
+    {
 
       ////////////////  use this variables to store card data in the session storage and move them to the cart  ///////////
       var card = $(this).closest('.card');
@@ -965,32 +987,82 @@ $(document).ready(function () {
       var cardPrice = card.find('.card-price').text();
       var cardtext = card.find('.card-text').text();
       var cardDetails = card.find('.card-details').text();
-      var cardImgUrl = card.find('.card-details').attr('src');
+      // var cardImgUrl = card.find('.card-img-top').attr('src').text();
 
-      var cardData = {
-        title: cardTitle,
-        price: cardPrice,
-        description: cardtext,
-        details: cardDetails,
-        image: cardImgUrl
-      };
 
+
+    
       const oldData = JSON.parse(sessionStorage.getItem('cardsData')) || []; ///// get the old or get an empty array
+
+
+          // if product is exist in session increase quantity
+          var flag = false;
+          for (let i =0;i<oldData.length;i++)
+          {
+            if (oldData[i].title === cardTitle) 
+            {
+
+              let quantityExistProduct = oldData[i].quantity;
+              quantityExistProduct+=1;
+
+              var updatedProduct = 
+              {
+                title: cardTitle,
+                price: cardPrice,
+                description: cardtext,
+                details: cardDetails,
+                quantity : quantityExistProduct
+                // image: cardImgUrl
+              };
+              
+
+              oldData[i] = updatedProduct;
+              flag = true;
+              break;
+            }
+          }
+          
+      
+       // if not exist create product and push to session
+      
+          if (!flag){
+        var cardData = 
+        {
+          title: cardTitle,
+          price: cardPrice,
+          description: cardtext,
+          details: cardDetails,
+          quantity : 1
+          // image: cardImgUrl
+        };
+    
       oldData.push(cardData);
+      }
       const newData = JSON.stringify(oldData);
       sessionStorage.setItem('cardsData', newData);
-
+      
       ////////// end of updating sessionStorage   /////////////
       var data = $(this).closest('.card-data');
       var itemId = data.data('id');
-      var itemitem = data.find(function (data) {
+      var itemitem = data.find(function (data) 
+      {
         return data.id === itemId;
       });
 
-      cartCounter++;
-      cartCounterElement.text(cartCounter);
+
+
+
+      sum++;
+      cartCounterElement.text(sum); 
+
     });
   }
+
+
+
+ 
+
+
 
   renderCards(); // render the cards immediately when the page loads
   updateAddToCartButtons();
@@ -1059,26 +1131,6 @@ $(document).ready(function () {
       $('#weather-container').html('<p>Error retrieving weather information.</p>');
     }
   });
-
-
-  ///////////////////* Facebook *////////////////////////- took from ayrshare website
-
-  // Initialize the Facebook SDK
-  window.fbAsyncInit = function () {
-    FB.init({
-      appId: 'YOUR_APP_ID',
-      cookie: true,
-      xfbml: true,
-      version: 'v13.0'
-    });
-
-    // Render the Facebook plugin
-    FB.XFBML.parse();
-  };
-
-
-
-
 
 
 
