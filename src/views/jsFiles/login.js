@@ -48,14 +48,14 @@ $('form').submit(function (event) {
     contentType: 'application/json',
 
     success: function (res) {
-      // const name = res.name;
       if (res.error) {
         // error accured
         createAlert(res.error);
       } else {
+        $(document).cookie = `jwtToken=${res.jwtToken}; path=/;`;
+        sessionStorage.setItem('name', res.username);
         showGreetingMessage('Registration successful!');
         setTimeout(() => {
-          sessionStorage.setItem('name', username);
           location.href = '/mainpage';
         }, 2 * 1000);
       }
