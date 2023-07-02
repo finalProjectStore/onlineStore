@@ -21,33 +21,37 @@ const newOrder = async function (username)
 
 const addCartToOrder = async function (username,price,products) 
 {
-
     let titles = [];
     productsJson = JSON.parse(products);
-
 
     for (let i =0;i<productsJson.length;i++)
     {
         titles.push(productsJson[i].title);
     }
 
+    let order = await Order.findOne({username:username});
+    if (!order) {
+        order = await Order.create({ username, carts: [] });
+    }
 
-
-const order = await Order.findOne({username:username})
-
-order.carts.push(
-    {
-        price : price,
-        products : titles
-    })
-order.save();
-
-
+    order.carts.push(
+        {
+            price : price,
+            products : titles
+        })
+    order.save();
 }
 
+const getAllOrders = async function () {
+    const query = Order.find();
+    const allOrders = await query.exec();
+    return allOrders;
+}
 
+const updateConfirmationStatus = async function (_id, created, confirmationStatus) {
+    Order.findOneAndUpdate(
+        { _id, 'carts.created': new Date(created) }, 
+        { $set: { 'carts.$.confirmationStatus': confirmationStatus } });
+}
 
-
-
-
-module.exports = { newOrder , addCartToOrder};
+module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus };
