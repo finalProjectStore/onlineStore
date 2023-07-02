@@ -848,16 +848,15 @@ $(document).ready(function () {
   })
 
 
-
-
   $('#order-history').click(function(){
-    location.href = '/orderHistory'
+    location.href = 'orderHistory'
 })
 
 
   // When open mainpage update the counter of the cart
   let productsData = JSON.parse(sessionStorage.getItem("cardsData")) || [];
-  if (productsData === '[]')
+ 
+  if (productsData.length === 0)
   {
     $("#cart-counter").text('0');
   }
@@ -867,7 +866,10 @@ $(document).ready(function () {
     for (var i =0;i<productsData.length;i++)
     {
       sum += productsData[i].quantity;
+
+      $('#cart-counter').text(sum);
     }
+    
     
   }
 
@@ -876,30 +878,7 @@ $(document).ready(function () {
   
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
-
-
-
-
-  // Generate the navbar
-  var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
-  var brand = $('<a class="navbar-brand" href="#">LOGO</a>');
-
-  var form = $('<form class="form-inline" id="form-inline"></form>');
-  var searchInput = $('<input class="form-control mr-sm-2" id="search-input" type="search" placeholder="Search" aria-label="Search">');
-  var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="search-button" type="submit">Search</button>');
-
-  var cartContainer = $('<div class="cart-container"></div>');
-  var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
-
-  var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + sum + '</span>');
-  
-  
-
-
-  form.append(searchInput, searchButton);
-  navbar.append(brand, username, form, cartContainer);
-  cartContainer.append(cartIcon, cartCounterElement);
-  $('#navbar-container').append(navbar);
+ 
 
   // Generate the filter menu
   var filterMenuRow = $('#filter-menu-row');
@@ -997,7 +976,7 @@ $(document).ready(function () {
       {
 
         sum++; 
-        cartCounterElement.text(sum); 
+        $('#cart-counter').text(sum); 
 
       });
 
@@ -1100,7 +1079,7 @@ $(document).ready(function () {
 
 
       sum++;
-      cartCounterElement.text(sum); 
+      $('#cart-counter').text(sum);
 
     });
   }
