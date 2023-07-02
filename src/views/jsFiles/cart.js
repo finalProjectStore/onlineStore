@@ -379,31 +379,24 @@ $(document).ready(function () {
     }
     var validInputs = $('.is-valid');
     var allInputs = $('.form-control');
-
-
-
     
     if (validInputs.length === allInputs.length - 2) {
       // show a success message 
       alert('Payment Successful');
 
-    } else 
-    {
       // alert('Please fill in all the card details correctly.');
 
       let username = sessionStorage.getItem("name");
       let stringPrice = $(".total-price").text().slice(14); // Total Price: $900
       let price = parseInt(stringPrice);
       let products = sessionStorage.getItem("cardsData");
-     
-
 
       $.ajax({
         url: '/cart',
         method: 'POST',
         data: JSON.stringify({
           username: username,
-          products,products,
+          products: products,
           price: price
         }),
         contentType: 'application/json',

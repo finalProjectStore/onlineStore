@@ -90,14 +90,7 @@ function mainPageLogic(data) {
       return;  
     }
 
-    // TODO:
-    //location.href = 'cart';
-    $.ajax({
-      url: '/cartRedirect',
-      method: 'GET',
-      headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
-    });
-
+    location.href = 'cart';
   });
 
   function filteritem() {
