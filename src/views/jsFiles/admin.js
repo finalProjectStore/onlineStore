@@ -8,9 +8,13 @@ function populateProductTable() {
 
             const div = $("#products");
             div.empty();
-            div.append(`<button id="addProductBtn" class="btn btn-success">Add new product</button>`);
-            div.append(`<button id="submitProductsBtn" class="btn btn-success">Submit new products</button>`);
-            div.append(`<table id="productsTable" class="table"></table>`);
+            div.append(`
+                <div class="toolbar">
+                    <button id="addProductBtn" class="btn btn-success">Add new product</button>
+                    <button id="submitProductsBtn" class="btn btn-success">Submit new products</button>
+                    <table id="productsTable" class="table"></table>
+                </div>
+            `);
 
             if (!products || products.length == 0) {
                 return;
@@ -18,11 +22,6 @@ function populateProductTable() {
 
             const table = $("#products #productsTable");
 
-            const headers = 
-                Object.keys(products[0])
-                    .filter(key => !key.startsWith('_'))
-                    .map(key => `<th>${key}</th>`)
-                    .join('');
             const tableStructure = `
             <thead>
                 <tr>
@@ -67,7 +66,7 @@ function populateOrderTable(search) {
             const { orders } = res;
             const div = $("#orders");
             div.empty();
-            var form = $('<form class="form-inline" id="form-inline"></form>');
+            var form = $('<form class="form-inline toolbar" id="form-inline"></form>');
             var searchInput = $('<input class="form-control mr-sm-2" id="order-search-input" type="search" placeholder="Search" aria-label="Search">');
             var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');          
             form.append(searchInput);
@@ -375,7 +374,7 @@ $(document).ready(function () {
 
     // function to clear the page content
     function clearPage() {
-        $("#products #productsTable tbody").empty();
+        $("#products").empty();
         $("#users").empty();
         $("#numOfUsers").empty();
         $("#income").empty();
