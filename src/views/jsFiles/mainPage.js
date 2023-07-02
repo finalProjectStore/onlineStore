@@ -12,19 +12,46 @@ function mainPageLogic(data) {
   // When open mainpage update the counter of the cart  
   // let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
   // $("#cart-counter").text(number_of_products);
-  ////
+  ////  
+  $("#logout").click(function()
+  { 
+    var ws = new WebSocket('ws://localhost:3000/');
 
+    ws.onmessage=function(event)
+    {
+      ws.send("bye client");
+    }
+    location.href = "/";
+  })
+
+  $('#order-history').click(function(){
+    location.href = '/orderHistory'
+  })
+
+  // When open mainpage update the counter of the cart
+  let productsData = JSON.parse(sessionStorage.getItem("cardsData")) || [];
+  if (productsData === '[]')
+  {
+    $("#cart-counter").text('0');
+  }
+  else
+  {
+    var sum = 0;
+    for (var i =0;i<productsData.length;i++)
+    {
+      sum += productsData[i].quantity;
+    }
+    
+  }
+
+
+
+  
   const name = sessionStorage.getItem("name");
   const username = $('#username').append('<strong> Hello ' + name + '</strong>');
 
-  var cartCounter = sessionStorage.getItem("cardsData");
-  if (cartCounter === null) {
-    cartCounter = 0;
-  }
-  else {
-    cartCounter = JSON.parse(sessionStorage.getItem("cardsData")).length;
-  }
-  
+
+
 
   // Generate the navbar
   var navbar = $('<nav class="navbar navbar-light bg-light justify-content-between fixed-top id="nav-bar""></nav>');
@@ -36,9 +63,11 @@ function mainPageLogic(data) {
 
   var cartContainer = $('<div class="cart-container"></div>');
   var cartIcon = $('<button id="cartBtn"><i class="fas fa-shopping-cart cart-icon"></i></button>');
-  var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + cartCounter + '</span>');
+
+  var cartCounterElement = $('<span id="cart-counter" class="cart-counter"> ' + sum + '</span>');
   
   
+
 
   form.append(searchInput, searchButton);
   navbar.append(brand, username, form, cartContainer);
@@ -49,7 +78,7 @@ function mainPageLogic(data) {
   var filterMenuRow = $('#filter-menu-row');
   var filterMenuItems = [
     { id: 'price-sort', label: 'Price:', options: ['all', 'low-high', 'high-low'] },
-    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets','audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
+    { id: 'product-type', label: 'Product Type:', options: ['all', 'tv', 'computers', 'phones', 'tablets', 'audio', 'office', 'accessory', 'kitchen', 'garden', 'watch'] },
     { id: 'color', label: 'Color:', options: ['all', 'red', 'blue', 'green', 'white', 'gold', 'black', 'silver', 'gold', 'space gray'] },
   ];
 
@@ -81,13 +110,11 @@ function mainPageLogic(data) {
   var cardContainer = $('.card-container');
   var filtereditem = data;
 
-  $("#cartBtn").click(function () 
-  {
+  $("#cartBtn").click(function () {
 
     // Cancel access to cart without items
-    if (parseInt($("#cart-counter").text()) === 0)
-    {
-      return;  
+    if (parseInt($("#cart-counter").text()) === 0) {
+      return;
     }
 
     location.href = 'cart';
@@ -128,7 +155,7 @@ function mainPageLogic(data) {
 
     filtereditem.forEach(function (data) {
       var card = $('<div class="card card-data"></div>');
-      card.attr('data-id', data._id); // Add data-id attribute with data ID
+      card.attr('data-id', data._id).attr('product-quantity',data.quantity); // Add data-id attribute with data ID
       var image = $('<img src="' + data.image + '" class="card-img-top" alt="Card Image">');
       var cardBody = $('<div class="card-body"></div>');
       var title = $('<h5 class="card-title">' + data.title + '</h5>');
@@ -137,10 +164,13 @@ function mainPageLogic(data) {
       var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
       var footer = $('<div class= "add-btn-cart"></div>');
 
+
       addToCartButton.click(function (event) 
       {
-        cartCounter++;
-        cartCounterElement.text(cartCounter);
+
+        sum++; 
+        cartCounterElement.text(sum); 
+
       });
 
       cardBody.append(title, description, price, addToCartButton);
@@ -160,29 +190,76 @@ function mainPageLogic(data) {
     var addToCartButtons = $('.btn-add-to-cart');
     addToCartButtons.off('click'); // Remove previous click event handlers
 
-    addToCartButtons.click(function () {
+    addToCartButtons.click(function () 
+    {
 
       ////////////////  use this variables to store card data in the session storage and move them to the cart  ///////////
       var card = $(this).closest('.card');
       var cardTitle = card.find('.card-title').text();
       var cardPrice = card.find('.card-price').text();
       var cardtext = card.find('.card-text').text();
+      var cardButton = card.find('.btn-add-to-cart');
       var cardDetails = card.find('.card-details').text();
-      var cardImgUrl = card.find('.card-details').attr('src');
-
-      var cardData = {
-        title: cardTitle,
-        price: cardPrice,
-        description: cardtext,
-        details: cardDetails,
-        image: cardImgUrl
-      };
-
+      var quantityInDb = card.attr('product-quantity');
+    
+    
       const oldData = JSON.parse(sessionStorage.getItem('cardsData')) || []; ///// get the old or get an empty array
+
+      
+          // if product is exist in session increase quantity
+          var flag = false;
+          for (let i =0;i<oldData.length;i++)
+          {
+            
+            if (oldData[i].title === cardTitle) 
+            {
+              
+              let quantityExistProduct = oldData[i].quantity;
+              if(quantityInDb <= oldData[i].quantity){
+                cardButton.attr('disabled',true);
+                return;
+                
+              }
+              quantityExistProduct+=1;
+
+              var updatedProduct = 
+              {
+                title: cardTitle,
+                price: cardPrice,
+                description: cardtext,
+                details: cardDetails,
+                quantity : quantityExistProduct
+                
+                // image: cardImgUrl
+              };
+              
+
+              oldData[i] = updatedProduct;
+              flag = true;
+              break;
+            }
+          }
+          
+      
+       // if not exist create product and push to session
+      
+          if (!flag){
+        var cardData = 
+        {
+          title: cardTitle,
+          price: cardPrice,
+          description: cardtext,
+          details: cardDetails,
+          quantity : 1,
+          maxQuantity: quantityInDb 
+          // image: cardImgUrl
+        };
+    
       oldData.push(cardData);
+      }
       const newData = JSON.stringify(oldData);
       sessionStorage.setItem('cardsData', newData);
-
+      
       ////////// end of updating sessionStorage   /////////////
       var data = $(this).closest('.card-data');
       var itemId = data.data('_id');
@@ -192,23 +269,23 @@ function mainPageLogic(data) {
 
 
 
-      cartCounter++;
-      cartCounterElement.text(cartCounter);
+
+      sum++;
+      cartCounterElement.text(sum); 
+
     });
   }
 
 
 
- 
+
 
 
 
   renderCards(); // render the cards immediately when the page loads
   updateAddToCartButtons();
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* Search function *////////////////////////
-  /////////////////////////////////////////////////////////////
 
   // Search function
   function searchProducts() {
@@ -235,12 +312,7 @@ function mainPageLogic(data) {
   });
 
 
-  /////////////////////////////////////////////////////////////
   ///////////////////* API's */////////////////////////////////
-  /////////////////////////////////////////////////////////////
-
-
-
 
   ///////////////////* Weather *////////////////////////
 
@@ -278,6 +350,9 @@ function mainPageLogic(data) {
     }
   });
 
+
+
+  
 
 
 

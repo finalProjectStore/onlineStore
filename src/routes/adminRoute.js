@@ -3,6 +3,8 @@ const router = express.Router();
 const path = require('path');
 const productController = require("../controllers/productController");
 const orderController = require("../controllers/orderController");
+const userController = require("../controllers/userController");
+
 
 router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../views/public/admin.html'));
@@ -27,6 +29,27 @@ router.post('/removeProduct', async function (req, res) {
     const { _id } = req.body; 
     await productController.removeProduct(_id);
 });
+
+
+router.get('/getAllUsers', async function (req, res) {
+    const users = await userController.getAllUsers();
+    res.json({ users });
+});
+
+router.get('/getAllUsersCount', async function (req, res) {
+    const usersCount = await userController.getAllUsersCount();
+    res.json({ usersCount });
+});
+
+router.get('/getTotalAmount', async function (req, res) {
+
+    const getAmountOfUsers = await userController.getTotalAmount();
+    res.json({ getAmountOfUsers });
+});
+
+
+
+
 
 router.post('/updateProduct', async function (req, res) {
     const product = req.body; 

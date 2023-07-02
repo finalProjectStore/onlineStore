@@ -1,6 +1,47 @@
 $(document).ready(function () {
 
 
+  $("#home-btn").click(function () 
+  {
+
+    let userCards = $(".card-body");
+
+    for(var i =0;i<userCards.length;i++)
+    {
+        let childrenOfCard = userCards[i].children;
+        let quantityOfProduct = $("#"+i).val();
+        console.log(quantityOfProduct);
+
+        let titleOfCard = childrenOfCard[0].innerHTML;
+      
+      
+        for(var j=0;j<cardsData.length;j++)
+        {
+          if (cardsData[j].title === titleOfCard)
+          {
+            let updatedProduct = 
+            {
+              title: cardsData[j].title,
+              price: cardsData[j].price,
+              description: cardsData[j].description,
+              details: cardsData[j].details,
+              quantity : parseInt(quantityOfProduct),
+            };
+
+            
+            cardsData[j] = updatedProduct;
+          }
+        }
+
+    }
+
+    sessionStorage.setItem("cardsData",JSON.stringify(cardsData));
+
+    location.href = 'mainpage';
+
+  });
+
+
   //When you click on the button it will take us to the home page of the site
 
 
@@ -10,14 +51,14 @@ $(document).ready(function () {
 
 
   const cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
-
+  
 
 
   var cardContainer = $('#card-container');
 
 
   /////////////////////////////////////////////////////////
-  /Create the cards of products - left side of the sreen/
+  /*Create the cards of products - left side of the sreen*/
   /////////////////////////////////////////////////////////
 
 
@@ -29,6 +70,11 @@ $(document).ready(function () {
   // Loop through the card data and create cards dynamically
   for (var i = 0; i < cardsData.length; i++) {
     var cardData = cardsData[i];
+    console.log(cardData.title);
+
+    var realQuantity = cardData.maxQuantity;
+    
+    
 
 
     // Check if a card with the same title already exists
@@ -47,9 +93,7 @@ $(document).ready(function () {
       cardExists = false;
       continue;
     }
-
-
-
+    
     // Create the card
     var card = $('<div>').addClass('card');
     var cardRow = $('<div>').addClass('row');
@@ -73,7 +117,9 @@ $(document).ready(function () {
     var quantityInput = $('<input>')
       .addClass('form-control quantity-input')
       .attr('type', 'number')
-      .attr('value', '1')
+      .attr('value', cardData.quantity)
+      .attr('id',i)
+      .attr('max',realQuantity)
       .on('input', function () {
         var value = parseInt($(this).val());
         if (value <= 0) { /// the value of input must be more then 0
@@ -81,19 +127,15 @@ $(document).ready(function () {
         }
       });
 
-
-
-   
-
-
     var quantityInputAppend = $('<div>').addClass('input-group-append');
 
     quantityInputGroup.append(quantityInputPrepend, quantityInput, quantityInputAppend);
 
     var price = $('<p>').addClass('card-text').text(cardData.price);
 
-    card.attr('data-card-id', i);
 
+    card.attr('data-card-id', cardData._id);
+    
 
 
 
@@ -122,12 +164,15 @@ $(document).ready(function () {
   }
 
 
+  
+
+
 
 
 
   /////////////////////////////////////////////////////
-  /Create the payment block -right side of the sreen/
-  /////////////////////////////////////////////////////
+  //Create the payment block -right side of the sreen//
+  
   var paymentDiv = $('<div>').addClass('payment');
   var paymentTitle = $('<h2>').text('Card Details');
 
@@ -141,28 +186,28 @@ $(document).ready(function () {
 
   var nameOnCardLabel = $('<label>').text('Name on Card:');
   var nameOnCardInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'name-on-card')
     .attr('placeholder', 'Enter name on card');
 
   var cardNumberLabel = $('<label>').text('Card Number:');
   var cardNumberInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'card-number')
     .attr('placeholder', 'Enter card number');
 
   var expirationDateLabel = $('<label>').text('Expiration Date:');
   var expirationDateInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'expiration-date')
     .attr('placeholder', 'MM/YY');
 
   var cvvLabel = $('<label>').text('CVV:');
   var cvvInput = $('<input>')
-    .addClass('form-control')
+    .addClass('form-control detail')
     .attr('type', 'text')
     .attr('id', 'cvv')
     .attr('placeholder', 'Enter CVV');
@@ -373,18 +418,25 @@ $(document).ready(function () {
     var cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
 
     // Check if the cart is empty
-    if (!cardsData || cardsData.length === 0) {
-      alert("Your cart is empty!");
+    cardName = $("#name-on-card").val();
+    cardNumber = $("#card-number").val();
+    expirationDate = $("#expiration-date").val();
+    cvv = $("#cvv").val();
+
+    if (cardName === '' || cardNumber === '' || expirationDate === '' || cvv === '') 
+    {
+      alert("Your cart is empty!"); // Change to div_alert
       return;
     }
-    var validInputs = $('.is-valid');
-    var allInputs = $('.form-control');
-    
-    if (validInputs.length === allInputs.length - 2) {
-      // show a success message 
-      alert('Payment Successful');
 
-      // alert('Please fill in all the card details correctly.');
+  
+    var validInputs = $('.is-valid');
+
+
+    
+    if (validInputs.length === 4) 
+    {
+    
 
       let username = sessionStorage.getItem("name");
       let stringPrice = $(".total-price").text().slice(14); // Total Price: $900
@@ -400,19 +452,18 @@ $(document).ready(function () {
           price: price
         }),
         contentType: 'application/json',
-    
-        success: function (res) 
-        {
+
+        success: function (res) {
           sessionStorage.clear();
-          sessionStorage.setItem("name",username);
+          sessionStorage.setItem("name", username);
           location.href = "/succeed";
         },
       });
 
-
-
-
-
+    }
+    else
+    {
+      alert("invalid fields"); 
     }
   }
 

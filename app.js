@@ -38,6 +38,30 @@ app.use('/jsFiles', express.static(__dirname + '/src/views/jsFiles'));
 app.use('/cssFiles', express.static(__dirname + '/src/views/cssFiles'));
 app.use('/resources', express.static(path.join(__dirname, 'src/resources')));
 
+///////////////////////////////////////////WebSocket
+var expressWs = require('express-ws')
+expressWs(app);
+
+var clients = 0;
+app.ws('/', (ws, req) => 
+{
+  ws.send(clients)
+
+  ws.on('message', function(message) 
+  {
+      if (message === "client")
+      {
+        clients+=1;
+      }
+
+      if (message === "bye client")
+      {
+        clients-=1;
+      }
+  });
+
+})
+
 const port = process.env.PORT;
 app.listen(port, function () {
   console.log("Server running on port " + port);

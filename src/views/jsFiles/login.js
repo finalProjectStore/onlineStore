@@ -54,6 +54,13 @@ $('form').submit(function (event) {
       } else {
         $(document).cookie = `jwtToken=${res.jwtToken}; path=/;`;
         sessionStorage.setItem('name', res.username);
+
+        var ws = new WebSocket('ws://localhost:3000/');
+        ws.onmessage=function(event)
+        {
+            ws.send("client");
+        }
+
         showGreetingMessage('Registration successful!');
         setTimeout(() => {
           location.href = '/mainpage';
