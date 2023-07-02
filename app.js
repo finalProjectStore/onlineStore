@@ -1,13 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const path = require('path');
-const router = express.Router();
+const { verifyAdmin } = require('./src/helpers/middlewares');
 const loginRoutes = require('./src/routes/loginRoute');
 const adminRoutes = require('./src/routes/adminRoute');
 const mainPageRoutes = require('./src/routes/mainPageRoute');
 const app = express();
+const router = express.Router();
 app.use(express.json());
+app.use(cookieParser());
 app.use('/login', loginRoutes);
+app.use('/admin*', verifyAdmin);
 app.use('/admin', adminRoutes);
 app.use('/mainPage', mainPageRoutes);
 app.use('/', require(__dirname + '/src/routes/registerRoute'));
@@ -17,19 +21,17 @@ app.use('/', require(__dirname + '/src/routes/succeedRoute'));
 
 require('dotenv').config();
 // const { default: mongoose } = require("mongoose");
-require('./helpers/init_mongodb');
+require('./src/helpers/init_mongodb');
 
 const User = require('./src/models/userModel');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
-// TODO:
-router.get('/', function(req, res)
-{
-  return res.redirect('/mainpage');
+router.get('/', function(req, res) {
+  res.redirect('/mainPage');
 });
-
+app.use('/', router);
 //Reload static files and change content type to js
 app.use(express.static(__dirname + '/src/views/public'));
 app.use('/jsFiles', express.static(__dirname + '/src/views/jsFiles'));
