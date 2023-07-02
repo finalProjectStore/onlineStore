@@ -1,4 +1,4 @@
-var cartsData;
+var userCarts;
 $.ajax({
     url: '/orderHistory',
     method: 'POST',
@@ -9,14 +9,14 @@ $.ajax({
 
     success: function(res) {
 
-        cartsData = res;
-        diaplyOrders(cartsData);  
+        userCarts = res;
+        displayOrders(userCarts);  
          
     }
 })
 
 
-function diaplyOrders(carts){
+function displayOrders(carts){
     var cardContainer = $('.container');
 
     for (var i = 0; i < carts.length; i++) {

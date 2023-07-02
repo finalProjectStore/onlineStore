@@ -9,8 +9,8 @@ router.get('/orderHistory', function(req,res) {
 
 });
 router.post('/orderHistory',async function(req,res) {
-    const result = await orderController.getAllOrders(req.body.username);
-    res.send(result);
+    const carts = await orderController.getAllCartsByUser(req.body.username);
+    res.send(carts);
 })
 
 module.exports = router;

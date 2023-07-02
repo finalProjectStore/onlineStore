@@ -70,7 +70,6 @@ $(document).ready(function () {
   // Loop through the card data and create cards dynamically
   for (var i = 0; i < cardsData.length; i++) {
     var cardData = cardsData[i];
-    console.log(cardData.title);
 
     var realQuantity = cardData.maxQuantity;
     

@@ -33,7 +33,7 @@ app.use('/', require(__dirname + '/src/routes/loginRoute'));
 app.use('/', require(__dirname + '/src/routes/registerRoute'));
 app.use('/', require(__dirname + '/src/routes/mainPageRoute'))
 app.use('/', require(__dirname + '/src/routes/cartRoute'));
-
+app.use('/', require(__dirname + '/src/routes/orderHistoryRoute'));
 app.use('/', require(__dirname + '/src/routes/adminRoute'));
 
 app.use('/',require(__dirname + '/src/routes/userDetailsRoute'));
