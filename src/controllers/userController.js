@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 const User = require('../models/userModel');
+const Order = require('../models/orderModel');
 
 const checkPasswordsMatch = function (password, password2) {
   if (password === password2) {
@@ -109,20 +110,20 @@ const getAllUsersCount = async function () {
 
 const getTotalAmount = async function () {
   try {
-    
-    const users = await User.find().populate('orderHistory');
+    const orders = await Order.find(); 
+
     let totalAmount = 0;
 
-    users.forEach((user) => {
-      user.orderHistory.forEach((order) => {
-        totalAmount += order.amount; // Assuming there is an 'amount' field in the Order schema
+    orders.forEach((order) => {
+      order.carts.forEach((cart) => {
+        totalAmount += cart.price;
       });
     });
 
     return totalAmount;
   } catch (error) {
-    console.error('Error finding total amount from users:', error);
-    throw new Error('Failed to retrieve users.');
+    console.error('Error calculating total amount:', error);
+    throw error;
   }
 };
 
