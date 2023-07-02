@@ -108,14 +108,14 @@ function populateOrderTable(search) {
                 order.carts.forEach(cart => {
                     const isPending = cart.confirmationStatus === 'Pending';
                     const row = `
-                    <tr id="${order._id}_${order.created}">
+                    <tr id="${cart._id}">
                         <td>${order.username}</td>
                         <td>${cart.created}</td>
                         <td>${cart.price}</td>
                         <td>${cart.products.join(', ')}</td>
                         <td>${cart.confirmationStatus}</td>
-                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-info confirm-button' id='${order._id}_${cart.created}_confirm'>Confirm</button></td>
-                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-danger cancel-button' id='${order._id}_${cart.created}_cancel'>Cancel</button></td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-info confirm-button' id='${cart._id}_confirm'>Confirm</button></td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-danger cancel-button' id='${cart._id}_cancel'>Cancel</button></td>
                     </tr>`;
                     if (!search 
                         || order.username.includes(search) 
@@ -191,8 +191,8 @@ $(document).ready(function () {
     });
 
     $("#orders").on('click', 'button', function() {
-        const [orderId, created, action] = $(this).attr('id').split('_');
-        if (!orderId || !created || !action) {
+        const [cartId, action] = $(this).attr('id').split('_');
+        if (!cartId || !action) {
             return;
         }
 
@@ -204,8 +204,7 @@ $(document).ready(function () {
             url: '/admin/updateOrder',
             method: 'POST',
             data: JSON.stringify({
-                _id: orderId,
-                created,
+                cartId,
                 confirmationStatus
             }),
             contentType: 'application/json'

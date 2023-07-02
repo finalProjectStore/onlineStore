@@ -11,8 +11,8 @@ router.get('/', function (req, res) {
 });
 
 router.post('/updateOrder', async function (req, res) {
-    const { _id, created, confirmationStatus } = req.body;
-    orderController.updateConfirmationStatus(_id, created, confirmationStatus);
+    const { cartId, confirmationStatus } = req.body;
+    orderController.updateConfirmationStatus(cartId, confirmationStatus);
 });
 
 router.get('/getAllOrders', async function (req, res) {

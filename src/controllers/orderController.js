@@ -48,9 +48,9 @@ const getAllOrders = async function () {
     return allOrders;
 }
 
-const updateConfirmationStatus = async function (_id, created, confirmationStatus) {
+const updateConfirmationStatus = async function (cartId, confirmationStatus) {
     Order.findOneAndUpdate(
-        { _id, 'carts.created': new Date(created) }, 
+        {  'carts._id': cartId }, 
         { $set: { 'carts.$.confirmationStatus': confirmationStatus } });
 }
 
