@@ -11,8 +11,15 @@
 }
 
 
+
 .btn-primary {
     background-color: var(--purple-btn-color);
   }
 
   
+
+#usersCounter
+{
+    margin: 20px;
+}
+

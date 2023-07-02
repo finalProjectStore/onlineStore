@@ -1,6 +1,47 @@
 $(document).ready(function () {
 
 
+  $("#home-btn").click(function () 
+  {
+
+    let userCards = $(".card-body");
+
+    for(var i =0;i<userCards.length;i++)
+    {
+        let childrenOfCard = userCards[i].children;
+        let quantityOfProduct = $("#"+i).val();
+        console.log(quantityOfProduct);
+
+        let titleOfCard = childrenOfCard[0].innerHTML;
+      
+      
+        for(var j=0;j<cardsData.length;j++)
+        {
+          if (cardsData[j].title === titleOfCard)
+          {
+            let updatedProduct = 
+            {
+              title: cardsData[j].title,
+              price: cardsData[j].price,
+              description: cardsData[j].description,
+              details: cardsData[j].details,
+              quantity : parseInt(quantityOfProduct),
+            };
+
+            
+            cardsData[j] = updatedProduct;
+          }
+        }
+
+    }
+
+    sessionStorage.setItem("cardsData",JSON.stringify(cardsData));
+
+    location.href = 'mainpage';
+
+  });
+
+
   //When you click on the button it will take us to the home page of the site
 
 
@@ -10,14 +51,14 @@ $(document).ready(function () {
 
 
   const cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
-
+  
 
 
   var cardContainer = $('#card-container');
 
 
   /////////////////////////////////////////////////////////
-  /Create the cards of products - left side of the sreen/
+  /*Create the cards of products - left side of the sreen*/
   /////////////////////////////////////////////////////////
 
 
@@ -29,6 +70,11 @@ $(document).ready(function () {
   // Loop through the card data and create cards dynamically
   for (var i = 0; i < cardsData.length; i++) {
     var cardData = cardsData[i];
+    console.log(cardData.title);
+
+    var realQuantity = cardData.maxQuantity;
+    
+    
 
 
     // Check if a card with the same title already exists
@@ -72,17 +118,14 @@ $(document).ready(function () {
       .addClass('form-control quantity-input')
       .attr('type', 'number')
       .attr('value', cardData.quantity)
+      .attr('id',i)
+      .attr('max',realQuantity)
       .on('input', function () {
         var value = parseInt($(this).val());
         if (value <= 0) { /// the value of input must be more then 0
           $(this).val('1');
         }
       });
-
-
-
-
-
 
     var quantityInputAppend = $('<div>').addClass('input-group-append');
 
@@ -91,7 +134,7 @@ $(document).ready(function () {
     var price = $('<p>').addClass('card-text').text(cardData.price);
 
 
-    card.attr('data-card-id', i);
+    card.attr('data-card-id', cardData._id);
     
 
 
@@ -121,12 +164,15 @@ $(document).ready(function () {
   }
 
 
+  
+
+
 
 
 
   /////////////////////////////////////////////////////
-  /Create the payment block -right side of the sreen/
-  /////////////////////////////////////////////////////
+  //Create the payment block -right side of the sreen//
+  
   var paymentDiv = $('<div>').addClass('payment');
   var paymentTitle = $('<h2>').text('Card Details');
 

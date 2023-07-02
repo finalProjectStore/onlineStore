@@ -206,4 +206,14 @@ $(document).ready(function () {
 
     }
 
+
+
+
+    var ws = new WebSocket('ws://localhost:3000/');
+        
+    ws.onmessage=function(event)
+    {  
+       $("#usersCounter").text("Online users: " + event.data);
+    }
+
 });
