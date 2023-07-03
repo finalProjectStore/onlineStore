@@ -1,5 +1,5 @@
 const Order = require('../models/orderModel');
-
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 const newOrder = async function (username) 
 {
@@ -49,8 +49,8 @@ const getAllOrders = async function () {
 }
 
 const updateConfirmationStatus = async function (cartId, confirmationStatus) {
-    Order.findOneAndUpdate(
-        {  'carts._id': cartId }, 
+    await Order.findOneAndUpdate(
+        { 'carts._id': new ObjectId(cartId) }, 
         { $set: { 'carts.$.confirmationStatus': confirmationStatus } });
 }
 

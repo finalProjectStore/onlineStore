@@ -212,7 +212,7 @@ $(document).ready(function () {
         populateOrderTable();
     });
 
-    $("#productsTable").on('click', 'button', function () {
+    $("#products").on('click', 'button', function () {
         // parse the button id, and figure out the product and the action
         const [productId, action] = $(this).attr('id').split('_');
 
@@ -235,9 +235,9 @@ $(document).ready(function () {
             const description = $('input[name="description"]', `#${productId}`).val();
             const price = $('input[name="price"]', `#${productId}`).val();
             const quantity = $('input[name="quantity"]', `#${productId}`).val();
-            const color = $('input[name="color"]', `#${id}`).val();
+            const color = $('input[name="color"]', `#${productId}`).val();
             const image = $('img[name="image"]', `#${productId}`).attr('src');
-            const product = { id: productId, title, description, price, quantity, color, image };
+            const product = { _id: productId, title, description, price, quantity, color, image };
             
             // pass all the current values to the server, because some/all of them are updated
             $.ajax({
