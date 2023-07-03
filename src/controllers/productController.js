@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 const Product = require('../models/productModel');
-
+const ObjectId = require('mongoose').Types.ObjectId;
 
 
 ////////////////////////////////////////////////// Save in resources.
@@ -848,17 +848,22 @@ const getAllProducts = async function () {
     return allProducts;
 }
 
-const removeProduct = async function (id) {
-    await Product.deleteOne({ id });
+const removeProduct = async function (_id) {
+    await Product.deleteOne({ _id: new ObjectId(_id) });
 }
 
 const updateProduct = async function (product) {
     // pass all product values to 'set' because some/all of the values have been updated
     await Product.updateOne(
-        { id: product['id'] },
+        { _id: new ObjectId(product['_id']) },
         { $set: product }
     );
 }
 
-module.exports = { getAllProducts, removeProduct, addProducts, updateProduct };
+const addNewProducts = async function (products){
+    const newProducts = products.map(product => new Product(product));
+    await Product.insertMany(newProducts);
+}
+
+module.exports = { getAllProducts, removeProduct, addProducts, updateProduct, addNewProducts };
 // module.exports = { addProducts };

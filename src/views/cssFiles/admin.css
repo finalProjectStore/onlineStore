@@ -10,7 +10,13 @@
     border-radius: 5px;
 }
 
+.toolbar {
+    margin-top: 5px;
 
+    .button {
+        margin-right: 5px;
+    }
+}
 
 .btn-primary {
     background-color: var(--purple-btn-color);

@@ -39,14 +39,15 @@ const createUser = async function (username, email, age, password1, password2) {
 const userLogin = async function (usernameToFind, passwordToFind) {
   const user = await User.findOne({ username: usernameToFind });
   if (!user) {
-    return 'username or password is not valid.';
+    return { succeeded: false, error: 'username or password is not valid.' };
   }
 
   const passwordMatch = await user.comparePassword(passwordToFind);
   if (passwordMatch) {
-    return '';
+    return { succeeded: true, user };
   }
-  return 'username or password is not valid.';
+
+  return { succeeded: false, error: 'username or password is not valid.' };
   /// ADD CHECK PASSWORD IN THE SERVER ///
 };
 

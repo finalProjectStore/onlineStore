@@ -443,13 +443,12 @@ $(document).ready(function () {
       let price = parseInt(stringPrice);
       let products = sessionStorage.getItem("cardsData");
 
-
       $.ajax({
         url: '/cart',
         method: 'POST',
         data: JSON.stringify({
           username: username,
-          products, products,
+          products: products,
           price: price
         }),
         contentType: 'application/json',
