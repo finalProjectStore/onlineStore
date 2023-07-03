@@ -137,56 +137,9 @@ $(document).ready(function () {
         populateProductTable();
     });
 
-    $("#addProductBtn").click(function () {
-        const tableBody = $("#products #productsTable tbody");
-        const row = `
-            <tr name="NEW-PRODUCT">
-                <td><input name="title" type='text' class='form-control' value=''></td>
-                <td><input name="description" type='text' class='form-control' value=''></td>
-                <td><input name="price" type='number' class='form-control' value=''></td>
-                <td><input name="quantity" type='number' class='form-control' value=''></td>
-                <td><input name="color" type='text' class='form-control' value=''></td>
-                <td><input name="type" type='text' class='form-control' value=''></td>
-                <td><input name="image" type='text' class='form-control' value=''></td>
-            </tr>`;
-        tableBody.prepend(row);
-    });
-
     $('#ordersBtn').click(function() {
         clearPage();
         populateOrderTable();
-    });
-
-    $('#submitProductsBtn').click(function() {
-        const elements = $('[name="NEW-PRODUCT"]');
-        
-        elements.each(function() {
-            $(this).attr('name', '');
-        });
-
-        const products = [];
-        elements.each(function() {
-            const id = $(this).attr('id');
-            const title = $('input[name="title"]').val();
-            const description = $('input[name="description"]').val();
-            const price = $('input[name="price"]').val();
-            const quantity = $('input[name="quantity"]').val();
-            const color = $('input[name="color"]').val();
-            const type = $('input[name="type"]').val();
-            const image = $('input[name="image"]').val();
-            const product = { title, description, price, quantity, color, type, image };
-            products.push(product);
-        });
-
-        $.ajax({
-            url: '/admin/addProducts',
-            method: 'POST',
-            // the server knows which product to delete by its id
-            data: JSON.stringify(products),
-            contentType: 'application/json'
-        }); 
-
-        populateProductTable();
     });
 
     $("#orders").on('click', 'button', function() {
@@ -213,6 +166,53 @@ $(document).ready(function () {
     });
 
     $("#products").on('click', 'button', function () {
+        if ($(this).attr('id') == 'addProductBtn') {
+            const tableBody = $("#products #productsTable tbody");
+            const row = `
+                <tr name="NEW-PRODUCT">
+                    <td><input name="title" type='text' class='form-control' value=''></td>
+                    <td><input name="description" type='text' class='form-control' value=''></td>
+                    <td><input name="price" type='number' class='form-control' value=''></td>
+                    <td><input name="quantity" type='number' class='form-control' value=''></td>
+                    <td><input name="color" type='text' class='form-control' value=''></td>
+                    <td><input name="type" type='text' class='form-control' value=''></td>
+                    <td><input name="image" type='text' class='form-control' value=''></td>
+                </tr>`;
+            tableBody.prepend(row);
+        };
+        
+        if ($(this).attr('id') == 'submitProductsBtn') {
+            const elements = $('[name="NEW-PRODUCT"]');
+            
+            elements.each(function() {
+                $(this).attr('name', '');
+            });
+    
+            const products = [];
+            elements.each(function() {
+                const id = $(this).attr('id');
+                const title = $('input[name="title"]').val();
+                const description = $('input[name="description"]').val();
+                const price = $('input[name="price"]').val();
+                const quantity = $('input[name="quantity"]').val();
+                const color = $('input[name="color"]').val();
+                const type = $('input[name="type"]').val();
+                const image = $('input[name="image"]').val();
+                const product = { title, description, price, quantity, color, type, image };
+                products.push(product);
+            });
+    
+            $.ajax({
+                url: '/admin/addProducts',
+                method: 'POST',
+                // the server knows which product to delete by its id
+                data: JSON.stringify(products),
+                contentType: 'application/json'
+            }); 
+    
+            populateProductTable();
+        };   
+
         // parse the button id, and figure out the product and the action
         const [productId, action] = $(this).attr('id').split('_');
 
