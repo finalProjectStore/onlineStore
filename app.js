@@ -38,7 +38,7 @@ app.use('/', require(__dirname + '/src/routes/adminRoute'));
 
 app.use('/',require(__dirname + '/src/routes/userDetailsRoute'));
 app.use('/', require(__dirname + '/src/routes/succeedRoute'));
-app.use('/'),require(__dirname + '/src/routes/storeRoute');
+app.use('/',require(__dirname + '/src/routes/storeRoute'));
 
 
 
