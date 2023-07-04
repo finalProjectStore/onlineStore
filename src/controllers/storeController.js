@@ -21,11 +21,8 @@ const stores = [
     {
         name: 'Store E',
         address: 'Ben Yehuda 31 St, Tel Aviv, Israel'
-    },
-    {
-        name: 'Store F',
-        address: 'HaYarkon 55 St, Tel Aviv, Israel'
     }
+
 
 ];
 
