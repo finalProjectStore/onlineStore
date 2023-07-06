@@ -851,7 +851,7 @@ $(document).ready(function () {
   $('#order-history').click(function(){
     location.href = 'orderHistory'
 })
-
+var sum = 0;
 
   // When open mainpage update the counter of the cart
   let productsData = JSON.parse(sessionStorage.getItem("cardsData")) || [];
@@ -862,7 +862,7 @@ $(document).ready(function () {
   }
   else
   {
-    var sum = 0;
+    
     for (var i =0;i<productsData.length;i++)
     {
       sum += productsData[i].quantity;
@@ -974,7 +974,7 @@ $(document).ready(function () {
 
       addToCartButton.click(function (event) 
       {
-
+        
         sum++; 
         $('#cart-counter').text(sum); 
 
