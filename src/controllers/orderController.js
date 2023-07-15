@@ -54,4 +54,10 @@ const updateConfirmationStatus = async function (cartId, confirmationStatus) {
         { $set: { 'carts.$.confirmationStatus': confirmationStatus } });
 }
 
-module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus };
+const getAllCartsByUser = async function(username){
+    const userOrders = await Order.findOne({username});
+    const carts = userOrders.carts;
+    return carts;
+}
+
+module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus, getAllCartsByUser };

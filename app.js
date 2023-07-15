@@ -18,6 +18,7 @@ app.use('/', require(__dirname + '/src/routes/registerRoute'));
 app.use('/', require(__dirname + '/src/routes/cartRoute'));
 app.use('/',require(__dirname + '/src/routes/userDetailsRoute'));
 app.use('/', require(__dirname + '/src/routes/succeedRoute'));
+app.use('/', require(__dirname + '/src/routes/orderHistoryRoute'));
 
 require('dotenv').config();
 // const { default: mongoose } = require("mongoose");
