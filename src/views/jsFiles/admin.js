@@ -12,7 +12,7 @@ $(document).ready(function () {
 
                 // Clear existing rows
                 tableBody.empty();
-            
+
                 // Add new rows
                 for (var i = 0; i < products.length; i++) {
                     const product = products[i];
@@ -48,7 +48,7 @@ $(document).ready(function () {
                     id: productId
                 }),
                 contentType: 'application/json'
-            });    
+            });
         } else if (action == "update") {
             // get all the product's values using jquery
             const title = $('input[name="title"]', `#${productId}`).val();
@@ -57,14 +57,14 @@ $(document).ready(function () {
             const quantity = $('input[name="quantity"]', `#${productId}`).val();
             const image = $('img[name="image"]', `#${productId}`).attr('src');
             const product = { id: productId, title, description, price, quantity, image };
-            
+
             // pass all the current values to the server, because some/all of them are updated
             $.ajax({
                 url: '/admin/updateProduct',
                 method: 'POST',
                 data: JSON.stringify(product),
                 contentType: 'application/json'
-            }); 
+            });
         }
     })
 
@@ -94,29 +94,28 @@ $(document).ready(function () {
         });
     });
 
-
-    ////// Website Statistics Button ////////
-    $("#websiteStatsBtn").click(function () {
+    //////// Website Statistics Button ////////
+    d3.select("#websiteStatsBtn").on("click", function () {
         clearPage();
-        $.ajax({
-            url: '/admin/getAllUsersCount',
-            method: 'GET',
-            success: function (res) {
+        d3.json("/admin/getAllUsersCount")
+            .then(function (res) {
                 const numOfUsers = res.usersCount;
 
                 // Create or update the chart
                 createOrUpdateChart(numOfUsers);
-            },
-            error: function (xhr, status, error) {
+            })
+            .catch(function (error) {
                 console.log("Error:", error); // Handle the error in an appropriate way
-            }
-        });
+            });
     });
 
     // function to create or update the chart
     function createOrUpdateChart(numOfUsers) {
 
-        var chartElement = $('#userChart')[0].getContext('2d');
+        ///////////////////////
+        /////// using D3.js ///
+        ///////////////////////    
+        var chartElement = d3.select("#userChart").node().getContext("2d");
 
         // check if the chart already exists
         if (window.userChart instanceof Chart) {
@@ -141,43 +140,47 @@ $(document).ready(function () {
             data.push(numOfUsers); // add initial data
 
             window.userChart = new Chart(chartElement, {
-                type: 'line',
+                type: "line",
                 data: {
                     labels: labels,
-                    datasets: [{
-                        label: 'The number of users in the last week',
-                        data: data,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
+                    datasets: [
+                        {
+                            label: "The number of users in the last week",
+                            data: data,
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
                 },
                 options: {
                     scales: {
                         y: {
                             beginAtZero: true,
-                            precision: 0 // Display integers only
-                        }
-                    }
-                }
+                            precision: 0, // Display integers only
+                        },
+                    },
+                },
             });
         }
     }
 
 
     $("#incomeBtn").click(function () {
-        // clearPage();
+        clearPage();
+
         $.ajax({
             url: '/admin/getTotalAmount',
             method: 'GET',
             success: function (res) {
-                
-                console.log('Total amount:', res.totalAmount); 
+                const total = res.totalAmount;
+                $('#income').html('<h2>Total income: <span id="totalAmount">' + total + '$' + '</span></h2>');
 
-                // update the page with the total amount
-                $('#totalAmount').text('Total Amount: ' + res.totalAmount);
+                // Use D3 to style the total income in gray
+                d3.select('#totalAmount')
+                    .style('color', 'gray');
             },
             error: function (xhr, status, error) {
-                console.log("Error:", error); 
+                console.log("Error:", error);
             }
         });
     });
@@ -187,11 +190,13 @@ $(document).ready(function () {
 
 
 
+
     // function to clear the page content
     function clearPage() {
-        $("#products").empty();
+        $("#products #productsTable tbody").empty();
         $("#users").empty();
         $("#numOfUsers").empty();
+        $("#income").empty();
 
         // this if solved the problem of refresh the page with the Chart
         if (window.userChart instanceof Chart) {
