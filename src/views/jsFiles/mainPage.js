@@ -848,6 +848,12 @@ $(document).ready(function () {
   })
 
 
+
+
+  $('#user-details').click(function() {
+    location.href = '/userDetails'
+  })
+
   $('#order-history').click(function(){
     location.href = 'orderHistory'
 })

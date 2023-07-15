@@ -45,9 +45,14 @@ order.save();
 
 }
 
+const getAllCartsByUser = async function(username){
+    const userOrders = await Order.findOne({username});
+    const carts = userOrders.carts;
+    return carts;
+}
 
 
 
 
 
-module.exports = { newOrder , addCartToOrder};
+module.exports = { newOrder , addCartToOrder,getAllCartsByUser};
