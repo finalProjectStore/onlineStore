@@ -39,7 +39,7 @@ function displayOrders(carts){
         var colRight = $('<div>').addClass('col right');
         colLeft.append(date,price);
 
-        var productsArray = cart.products[0];
+        var productsArray = cart.products;
         var productList = $('<ul>').addClass('list-group');
         
         ////////  cardData.products[i] ==== products array inside cart[i]
