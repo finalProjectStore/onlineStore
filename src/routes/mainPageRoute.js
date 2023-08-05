@@ -9,6 +9,7 @@ router.get('/',function(req,res)
 })
 
 router.get('/getAllProducts', async function (req, res) {
+    // productController.addProducts(); add only if you need to load products to the db 
     const products = await productController.getAllProducts();
     res.json({ products });
 });
