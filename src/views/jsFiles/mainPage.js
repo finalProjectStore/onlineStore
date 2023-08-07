@@ -190,6 +190,7 @@ function mainPageLogic(data) {
       var cardButton = card.find('.btn-add-to-cart');
       var cardDetails = card.find('.card-details').text();
       var quantityInDb = card.attr('product-quantity');
+      var imgUrl = card.find('img').attr('src');
     
     
       const oldData = JSON.parse(sessionStorage.getItem('cardsData')) || []; ///// get the old or get an empty array
@@ -217,9 +218,9 @@ function mainPageLogic(data) {
                 price: cardPrice,
                 description: cardtext,
                 details: cardDetails,
-                quantity : quantityExistProduct
-                
-                // image: cardImgUrl
+                quantity : quantityExistProduct,
+                maxQuantity: quantityInDb, 
+                url: imgUrl
               };
               
 
@@ -240,8 +241,8 @@ function mainPageLogic(data) {
           description: cardtext,
           details: cardDetails,
           quantity : 1,
-          maxQuantity: quantityInDb 
-          // image: cardImgUrl
+          maxQuantity: quantityInDb, 
+          url: imgUrl
         };
     
       oldData.push(cardData);
