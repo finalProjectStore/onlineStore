@@ -10,7 +10,7 @@ $(document).ready(function () {
     {
         let childrenOfCard = userCards[i].children;
         let quantityOfProduct = $("#"+i).val();
-        console.log(quantityOfProduct);
+
 
         let titleOfCard = childrenOfCard[0].innerHTML;
       
@@ -26,6 +26,8 @@ $(document).ready(function () {
               description: cardsData[j].description,
               details: cardsData[j].details,
               quantity : parseInt(quantityOfProduct),
+              maxQuantity: parseInt(cardsData[i].quantity),
+              url: cardsData[j].url
             };
 
             
@@ -46,10 +48,11 @@ $(document).ready(function () {
 
 
   $("#home-btn").click(function () {
-    location.href = 'mainpage';
+    // location.href = 'mainpage';
   });
 
 
+  /// cardsData = key in the session storage ///
   const cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
   
 
@@ -100,7 +103,7 @@ $(document).ready(function () {
 
     // Create the left side with the image
     var leftCol = $('<div>').addClass('col-md-4').attr('id', 'img-container');
-    var image = $('<img>').addClass('card-img').attr('src', cardData.image).attr('alt', 'Product Image');
+    var image = $('<img>').addClass('card-img').attr('src', cardData.url).attr('alt', 'Product Image');
     leftCol.append(image);
     cardRow.append(leftCol);
 
@@ -123,6 +126,9 @@ $(document).ready(function () {
         var value = parseInt($(this).val());
         if (value <= 0) { /// the value of input must be more then 0
           $(this).val('1');
+        }
+        if(value >= realQuantity) {
+          $(this).val(realQuantity);
         }
       });
 
@@ -373,6 +379,8 @@ $(document).ready(function () {
 
 
   function removeCardItem() {
+    /// refresh page for updating the sessionStorage ///
+    location.reload();
     var card = $(this).closest('.card');
     var title = card.find('.card-title').text();
 
