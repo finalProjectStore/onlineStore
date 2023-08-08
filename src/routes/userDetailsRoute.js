@@ -12,6 +12,18 @@ router.get('/userdetails',function(req,res)
   res.sendFile(path.join(__dirname,'../views/public/userDetails.html')) // Solve route error. check what is path.join().
 });
 
+router.post('/userdetails/isadmin',async function (req,res) {
+  try {
+    const user = await userController.getUser(req.body.username);
+    var response = '';
+    response = user.isAdmin ? 'ok' : 'not admin';
+    res.status(200).send({response});
+  } catch(err) {
+    res.status(404).send({error:err});
+  }
+ 
+})
+
 router.post('/userdetails', async function(req,res) {
 
   try {
