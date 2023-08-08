@@ -1,4 +1,19 @@
 $(document).ready(function () {
+  var name = sessionStorage.getItem('name');
+  $.ajax( {
+    url: '/userdetails/isadmin',
+    async: false,
+    method: 'POST',
+    data: JSON.stringify({username : name}),
+    contentType:'application/json',
+
+    success : function(data) {
+      //// render button for admin mode ////
+      if(data.response === 'ok'){
+        addAdminButton();
+      }
+    }
+  })
   $.ajax({
     url: '/mainPage/getAllProducts',
     method: 'GET',
@@ -7,7 +22,19 @@ $(document).ready(function () {
       mainPageLogic(data['products']);
     }
   });
+  
 })
+function addAdminButton() {
+  /// render button for admin ////
+  var buttonElement = $('<button>', {
+    type: 'button',
+    class: 'btn btn-primary',
+    text: 'Admin', 
+  });
+  $('.btn-admin').append(buttonElement);
+}
+
+
 function mainPageLogic(data) {
   // When open mainpage update the counter of the cart  
   // let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
@@ -26,6 +53,9 @@ function mainPageLogic(data) {
 
 
 
+  $('.btn-admin').click(function() {
+    location.href = '/admin';
+  })
 
   $('#user-details').click(function() {
     location.href = '/userDetails'
