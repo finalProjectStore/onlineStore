@@ -451,6 +451,11 @@ $(document).ready(function () {
       {
         let updatedQuantity = products_json[i].maxQuantity - products_json[i].quantity;
         
+        if (updatedQuantity < 0)
+        {
+          updatedQuantity = 0
+        }
+
         updated_product = 
         {
           description : products_json[i].description,

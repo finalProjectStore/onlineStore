@@ -822,9 +822,9 @@ $(document).ready(function () {
     async:false,
     contentType: 'application/json',
 
-    success: function (products) {
+    success: function (products) 
+    {
       data = products;
-
     },
   });
   
@@ -991,14 +991,19 @@ $(document).ready(function () {
       var price = $('<p class="card-price">$' + data.price + '</p>');
       var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
       var footer = $('<div class= "add-btn-cart"></div>');
+      
+      
+      if (data.quantity == 0)
+      {
+        addToCartButton.attr("disabled",true)
+      }
 
 
       addToCartButton.click(function (event) 
       {
-
+        
         sum++; 
         cartCounterElement.text(sum); 
-
       });
 
       cardBody.append(title, description, price, addToCartButton);
