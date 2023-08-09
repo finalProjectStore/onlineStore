@@ -2,13 +2,6 @@ const mongoose = require('mongoose');
 
 
 const productSchema = new mongoose.Schema({
-
-    id:
-    {
-        type:Number,
-        required:[true,"Entry id"]
-    },
-
         image:
         {
             type:String,

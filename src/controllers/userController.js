@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 const User = require('../models/userModel');
+const Order = require('../models/orderModel');
 
 const checkPasswordsMatch = function (password, password2) {
   if (password === password2) {
@@ -38,14 +39,15 @@ const createUser = async function (username, email, age, password1, password2) {
 const userLogin = async function (usernameToFind, passwordToFind) {
   const user = await User.findOne({ username: usernameToFind });
   if (!user) {
-    return 'username or password is not valid.';
+    return { succeeded: false, error: 'username or password is not valid.' };
   }
 
   const passwordMatch = await user.comparePassword(passwordToFind);
   if (passwordMatch) {
-    return '';
+    return { succeeded: true, user };
   }
-  return 'username or password is not valid.';
+
+  return { succeeded: false, error: 'username or password is not valid.' };
   /// ADD CHECK PASSWORD IN THE SERVER ///
 };
 
@@ -84,6 +86,16 @@ const updateUserDetails = async function (usernameToFind, valueToChange, type) {
   return result; /// update success.
 };
 
+const getUser = async function (username) {
+  try {
+    const user = await User.findOne({username});
+    return user;
+  } catch (error) {
+    console.error('getUser Error: ',error);
+    throw new Error('Error getting user');
+  }
+}
+
 
 const getAllUsers = async function () {
   try {
@@ -108,20 +120,20 @@ const getAllUsersCount = async function () {
 
 const getTotalAmount = async function () {
   try {
-    
-    const users = await User.find().populate('orderHistory');
+    const orders = await Order.find(); 
+
     let totalAmount = 0;
 
-    users.forEach((user) => {
-      user.orderHistory.forEach((order) => {
-        totalAmount += order.amount; // Assuming there is an 'amount' field in the Order schema
+    orders.forEach((order) => {
+      order.carts.forEach((cart) => {
+        totalAmount += cart.price;
       });
     });
 
     return totalAmount;
   } catch (error) {
-    console.error('Error finding total amount from users:', error);
-    throw new Error('Failed to retrieve users.');
+    console.error('Error calculating total amount:', error);
+    throw error;
   }
 };
 
@@ -132,4 +144,4 @@ const getTotalAmount = async function () {
 
 
 
-module.exports = { createUser, userLogin, updateUserDetails, getAllUsers,getAllUsersCount, getTotalAmount };
+module.exports = { createUser,getUser, userLogin, updateUserDetails, getAllUsers,getAllUsersCount, getTotalAmount };

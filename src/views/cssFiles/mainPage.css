@@ -1,7 +1,5 @@
 @import 'global.css';
 
-
-
 @media screen and (max-width: 992px) {
   .card {
     flex-basis: calc(50% - 20px);
@@ -14,15 +12,62 @@
   }
 }
 
-
 body {
   margin-top: 80px;
 }
-.btn-group {
+
+#username {
   position: relative;
-  top: 300px;
+  right: 50px;
+  top: 5px;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+.btn-admin {
+  position: relative;
+  left: 100px;
 }
 
+.dropdown-toggle {
+  border: solid var(--purple-btn-color) 0.1rem;
+}
+#cartBtn {
+  border: none;
+  background: none;
+  position: relative;
+  top: 2px;
+  right: 19px;
+  outline: none;
+}
+
+.cart-icon {
+  font-size: 25px;
+  opacity: 0.5;
+}
+
+.cart-icon:hover {
+  opacity: 0.5;
+}
+/* .btn-light {
+  width: auto;
+  padding-left: 8px;
+  padding-right: 8px;
+} */
+
+.form-inline {
+  left: 3rem;
+  position: relative;
+}
+
+#search-input {
+  width: 300px;
+  margin-right: .625rem;
+  
+}
 
 .filter-menu-container {
   padding: 20px 0;
@@ -54,7 +99,6 @@ body {
   margin-bottom: 20px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: var(--input-border-radius);
-
 }
 
 .card-img-top {
@@ -83,53 +127,21 @@ body {
   width: 100%;
 }
 
-.cart-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  z-index: 9999;
-}
-
-.cart-icon {
-  font-size: 24px;
-}
 
 .cart-counter {
-
   position: relative;
-  top: -16px;
-  right: 9px;
-
-  background-color: red;
+  background-color: var(--purple-btn-color);
+  right: 21px;
+  top: 2px;
+  padding: 1px 6px;
   color: white;
-  font-size: 12px;
-  font-weight: bold;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 21px;
+  border-radius: 10px;
 }
-
-.search-container {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.search-input {
-  width: 200px;
-  margin-right: 10px;
-}
-
 
 .btn.btn-primary {
   background-color: var(--purple-btn-color);
 }
-
 
 #weather-container {
   position: relative;
@@ -154,18 +166,6 @@ body {
   position: relative;
   top: 102px;
   left: 347px;
-}
-
-#username {
-  position: relative;
-  right: 700px;
-
-}
-
-#form-inline {
-  right: 850px;
-  position: relative;
-
 }
 
 #facebook-logo {

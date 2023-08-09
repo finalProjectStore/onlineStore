@@ -1,4 +1,4 @@
-var cartsData;
+var userCarts;
 $.ajax({
     url: '/orderHistory',
     method: 'POST',
@@ -9,14 +9,14 @@ $.ajax({
 
     success: function(res) {
 
-        cartsData = res;
-        diaplyOrders(cartsData);  
+        userCarts = res;
+        displayOrders(userCarts);  
          
     }
 })
 
 
-function diaplyOrders(carts){
+function displayOrders(carts){
     var cardContainer = $('.container');
 
     for (var i = 0; i < carts.length; i++) {
@@ -39,7 +39,7 @@ function diaplyOrders(carts){
         var colRight = $('<div>').addClass('col right');
         colLeft.append(date,price);
 
-        var productsArray = cart.products[0];
+        var productsArray = cart.products;
         var productList = $('<ul>').addClass('list-group');
         
         ////////  cardData.products[i] ==== products array inside cart[i]

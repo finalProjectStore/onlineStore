@@ -3,17 +3,14 @@ const router = express.Router();
 const path = require('path');
 const productController = require("../controllers/productController");
 
-router.get('/mainpage',function(req,res)
-{
-    //Product.addProducts();
-    res.sendFile(path.join(__dirname,'../views/public/mainPage.html'))
+router.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../views/public/mainPage.html'))
 })
 
-router.post('/mainpage',async function(req,res) {
+router.get('/getAllProducts', async function (req, res) {
+    // productController.addProducts(); //add only if you need to load products to the db 
     const products = await productController.getAllProducts();
-    res.send(products);
+    res.json({ products });
 });
-
-
 
 module.exports = router;
