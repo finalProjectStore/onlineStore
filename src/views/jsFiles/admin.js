@@ -37,7 +37,7 @@ function populateProductTable() {
             <tbody></tbody>`;
             table.append(tableStructure);
             const tableBody = $("#products #productsTable tbody");
-            
+
             // Add new rows
             products.forEach(product => {
                 const row = `
@@ -68,7 +68,7 @@ function populateOrderTable(search) {
             div.empty();
             var form = $('<form class="form-inline toolbar" id="form-inline"></form>');
             var searchInput = $('<input class="form-control mr-sm-2" id="order-search-input" type="search" placeholder="Search" aria-label="Search">');
-            var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');          
+            var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');
             form.append(searchInput);
             form.append(searchButton);
             div.append(form);
@@ -101,7 +101,7 @@ function populateOrderTable(search) {
             `;
             table.append(tableStructure);
             const tableBody = $("#orders #ordersTable tbody");
-            
+
             // Add new rows
             orders.forEach(order => {
                 order.carts.forEach(cart => {
@@ -116,8 +116,8 @@ function populateOrderTable(search) {
                         <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-info confirm-button' id='${cart._id}_confirm'>Confirm</button></td>
                         <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-danger cancel-button' id='${cart._id}_cancel'>Cancel</button></td>
                     </tr>`;
-                    if (!search 
-                        || order.username.includes(search) 
+                    if (!search
+                        || order.username.includes(search)
                         || cart.products.find(product => product.includes(search))) {
                         tableBody.append(row);
                     }
@@ -137,21 +137,21 @@ $(document).ready(function () {
         populateProductTable();
     });
 
-    $('#ordersBtn').click(function() {
+    $('#ordersBtn').click(function () {
         clearPage();
         populateOrderTable();
     });
 
-    $("#orders").on('click', 'button', function() {
+    $("#orders").on('click', 'button', function () {
         const [cartId, action] = $(this).attr('id').split('_');
         if (!cartId || !action) {
             return;
         }
 
-        const confirmationStatus = 
+        const confirmationStatus =
             action === 'confirm'
-            ? 'Confirmed'
-            : 'Cancelled';
+                ? 'Confirmed'
+                : 'Cancelled';
         $.ajax({
             url: '/admin/updateOrder',
             method: 'POST',
@@ -160,7 +160,7 @@ $(document).ready(function () {
                 confirmationStatus
             }),
             contentType: 'application/json'
-        }); 
+        });
 
         populateOrderTable();
     });
@@ -180,16 +180,16 @@ $(document).ready(function () {
                 </tr>`;
             tableBody.prepend(row);
         };
-        
+
         if ($(this).attr('id') == 'submitProductsBtn') {
             const elements = $('[name="NEW-PRODUCT"]');
-            
-            elements.each(function() {
+
+            elements.each(function () {
                 $(this).attr('name', '');
             });
-    
+
             const products = [];
-            elements.each(function() {
+            elements.each(function () {
                 const id = $(this).attr('id');
                 const title = $('input[name="title"]').val();
                 const description = $('input[name="description"]').val();
@@ -201,17 +201,17 @@ $(document).ready(function () {
                 const product = { title, description, price, quantity, color, type, image };
                 products.push(product);
             });
-    
+
             $.ajax({
                 url: '/admin/addProducts',
                 method: 'POST',
                 // the server knows which product to delete by its id
                 data: JSON.stringify(products),
                 contentType: 'application/json'
-            }); 
-    
+            });
+
             populateProductTable();
-        };   
+        };
 
         // parse the button id, and figure out the product and the action
         const [productId, action] = $(this).attr('id').split('_');
@@ -227,8 +227,8 @@ $(document).ready(function () {
                     _id: productId
                 }),
                 contentType: 'application/json'
-            }); 
-            populateProductTable();   
+            });
+            populateProductTable();
         } else if (action == "update") {
             // get all the product's values using jquery
             const title = $('input[name="title"]', `#${productId}`).val();
@@ -238,7 +238,7 @@ $(document).ready(function () {
             const color = $('input[name="color"]', `#${productId}`).val();
             const image = $('img[name="image"]', `#${productId}`).attr('src');
             const product = { _id: productId, title, description, price, quantity, color, image };
-            
+
             // pass all the current values to the server, because some/all of them are updated
             $.ajax({
                 url: '/admin/updateProduct',
@@ -378,6 +378,7 @@ $(document).ready(function () {
         $("#users").empty();
         $("#numOfUsers").empty();
         $("#income").empty();
+        $("#orders").empty();
 
         // this if solved the problem of refresh the page with the Chart
         if (window.userChart instanceof Chart) {
@@ -387,14 +388,25 @@ $(document).ready(function () {
 
     }
 
-
-
+ 
 
     var ws = new WebSocket('ws://localhost:3000/');
-        
-    ws.onmessage=function(event)
-    {  
-       $("#usersCounter").text("Online users: " + event.data);
+
+    ws.onmessage = function (event) {
+        $("#usersCounter").text("Online users: " + event.data);
     }
 
+
+
+
+       /////// button for return to main page ///////
+      $("#returnToMainBtn").click(function() {
+        window.location.href = "/mainPage"; 
+    });
+
+
+  
 });
+
+
+
