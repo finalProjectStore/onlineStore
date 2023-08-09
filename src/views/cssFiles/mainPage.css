@@ -27,38 +27,46 @@ body {
   width: 100%;
   z-index: 2;
 }
+.btn-admin {
+  position: relative;
+  left: 100px;
+}
+
+.dropdown-toggle {
+  border: solid var(--purple-btn-color) 0.1rem;
+}
 #cartBtn {
   border: none;
   background: none;
   position: relative;
-  top: 17px;
-  right: 37px;
+  top: 2px;
+  right: 19px;
+  outline: none;
 }
 
 .cart-icon {
-  position: relative;
   font-size: 25px;
-  bottom: 14px;
-  left: 18px;
   opacity: 0.5;
 }
 
 .cart-icon:hover {
   opacity: 0.5;
 }
-.btn-light {
-  
+/* .btn-light {
   width: auto;
   padding-left: 8px;
   padding-right: 8px;
-}
+} */
 
 .form-inline {
+  left: 3rem;
   position: relative;
 }
 
 #search-input {
   width: 300px;
+  margin-right: .625rem;
+  
 }
 
 .filter-menu-container {
