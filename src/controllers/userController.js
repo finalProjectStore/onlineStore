@@ -86,6 +86,16 @@ const updateUserDetails = async function (usernameToFind, valueToChange, type) {
   return result; /// update success.
 };
 
+const getUser = async function (username) {
+  try {
+    const user = await User.findOne({username});
+    return user;
+  } catch (error) {
+    console.error('getUser Error: ',error);
+    throw new Error('Error getting user');
+  }
+}
+
 
 const getAllUsers = async function () {
   try {
@@ -134,4 +144,4 @@ const getTotalAmount = async function () {
 
 
 
-module.exports = { createUser, userLogin, updateUserDetails, getAllUsers,getAllUsersCount, getTotalAmount };
+module.exports = { createUser,getUser, userLogin, updateUserDetails, getAllUsers,getAllUsersCount, getTotalAmount };

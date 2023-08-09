@@ -1,4 +1,19 @@
 $(document).ready(function () {
+  var name = sessionStorage.getItem('name');
+  $.ajax( {
+    url: '/userdetails/isadmin',
+    async: false,
+    method: 'POST',
+    data: JSON.stringify({username : name}),
+    contentType:'application/json',
+
+    success : function(data) {
+      //// render button for admin mode ////
+      if(data.response === 'ok'){
+        addAdminButton();
+      }
+    }
+  })
   $.ajax({
     url: '/mainPage/getAllProducts',
     method: 'GET',
@@ -7,7 +22,20 @@ $(document).ready(function () {
       mainPageLogic(data['products']);
     }
   });
+  
 })
+function addAdminButton() {
+  /// render button for admin ////
+  var buttonElement = $('<button>', {
+    type: 'button',
+    class: 'btn btn-outline-primary',
+    id: 'admin-btn',
+    text: 'Admin', 
+  });
+  $('.btn-admin').append(buttonElement);
+}
+
+
 function mainPageLogic(data) {
   // When open mainpage update the counter of the cart  
   // let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
@@ -24,6 +52,9 @@ function mainPageLogic(data) {
 
 
 
+  $('.btn-admin').click(function() {
+    location.href = '/admin';
+  })
 
   $('#user-details').click(function () {
     location.href = '/userDetails'
@@ -85,7 +116,7 @@ function mainPageLogic(data) {
   // Add the "Filter" button
   var filterButtonCol = $('<div class="col-md-2 d-flex align-items-end"></div>');
   var formGroup = $('<div class="form-group"></div>');
-  var filterButton = $('<button class="btn btn-primary">Filter</button>');
+  var filterButton = $('<button class="btn btn-outline-primary">Filter</button>');
   formGroup.append(filterButton);
   filterButtonCol.append(formGroup);
   filterMenuRow.append(filterButtonCol);
@@ -184,58 +215,65 @@ function mainPageLogic(data) {
       var cardDetails = card.find('.card-details').text();
       var quantityInDb = card.attr('product-quantity');
 
-
+      var imgUrl = card.find('img').attr('src');
+    
+    
       const oldData = JSON.parse(sessionStorage.getItem('cardsData')) || []; ///// get the old or get an empty array
 
+      
+          // if product is exist in session increase quantity
+          var flag = false;
+          for (let i =0;i<oldData.length;i++)
+          {
+            
+            if (oldData[i].title === cardTitle) 
+            {
+              
+              let quantityExistProduct = oldData[i].quantity;
+              ///// need to handle disable after refresh ////
+              if(quantityInDb <= oldData[i].quantity){
+                disableButton(cardButton);
+                return;
+                
+              }
+              quantityExistProduct+=1;
 
-      // if product is exist in session increase quantity
-      var flag = false;
-      for (let i = 0; i < oldData.length; i++) {
+              var updatedProduct = 
+              {
+                title: cardTitle,
+                price: cardPrice,
+                description: cardtext,
+                details: cardDetails,
+                quantity : quantityExistProduct,
+                maxQuantity: quantityInDb, 
+                url: imgUrl
+              };
+              
 
-        if (oldData[i].title === cardTitle) {
-
-          let quantityExistProduct = oldData[i].quantity;
-          if (quantityInDb <= oldData[i].quantity) {
-            cardButton.attr('disabled', true);
-            return;
-
+              oldData[i] = updatedProduct;
+              flag = true;
+              break;
+            }
           }
-          quantityExistProduct += 1;
-
-          var updatedProduct =
+          
+      
+       // if not exist create product and push to session
+      
+        if (!flag)
+        {
+          var cardData = 
           {
             title: cardTitle,
             price: cardPrice,
             description: cardtext,
             details: cardDetails,
-            quantity: quantityExistProduct
-
-            // image: cardImgUrl
+            quantity : 1,
+            maxQuantity: quantityInDb, 
+            url: imgUrl
           };
+      
+          oldData.push(cardData);
 
-
-          oldData[i] = updatedProduct;
-          flag = true;
-          break;
-        }
-      }
-
-
-      // if not exist create product and push to session
-
-      if (!flag) {
-        var cardData =
-        {
-          title: cardTitle,
-          price: cardPrice,
-          description: cardtext,
-          details: cardDetails,
-          quantity: 1,
-          maxQuantity: quantityInDb
-          // image: cardImgUrl
-        };
-
-        oldData.push(cardData);
       }
       const newData = JSON.stringify(oldData);
       sessionStorage.setItem('cardsData', newData);
@@ -254,6 +292,10 @@ function mainPageLogic(data) {
       $('#cart-counter').text(sum);
 
     });
+  }
+
+  function disableButton(btn) { 
+    btn.attr('disabled',true);
   }
 
 
