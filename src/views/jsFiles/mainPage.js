@@ -1079,7 +1079,7 @@ $(document).ready(function () {
           description: cardtext,
           details: cardDetails,
           quantity : 1,
-          maxQuantity: quantityInDb 
+          maxQuantity: parseInt(quantityInDb)
           // image: cardImgUrl
         };
     
