@@ -28,7 +28,8 @@ function addAdminButton() {
   /// render button for admin ////
   var buttonElement = $('<button>', {
     type: 'button',
-    class: 'btn btn-primary',
+    class: 'btn btn-outline-primary',
+    id: 'admin-btn',
     text: 'Admin', 
   });
   $('.btn-admin').append(buttonElement);
@@ -120,7 +121,7 @@ function mainPageLogic(data) {
   // Add the "Filter" button
   var filterButtonCol = $('<div class="col-md-2 d-flex align-items-end"></div>');
   var formGroup = $('<div class="form-group"></div>');
-  var filterButton = $('<button class="btn btn-primary">Filter</button>');
+  var filterButton = $('<button class="btn btn-outline-primary">Filter</button>');
   formGroup.append(filterButton);
   filterButtonCol.append(formGroup);
   filterMenuRow.append(filterButtonCol);
@@ -235,8 +236,9 @@ function mainPageLogic(data) {
             {
               
               let quantityExistProduct = oldData[i].quantity;
+              ///// need to handle disable after refresh ////
               if(quantityInDb <= oldData[i].quantity){
-                cardButton.attr('disabled',true);
+                disableButton(cardButton);
                 return;
                 
               }
@@ -263,19 +265,20 @@ function mainPageLogic(data) {
       
        // if not exist create product and push to session
       
-          if (!flag){
-        var cardData = 
+        if (!flag)
         {
-          title: cardTitle,
-          price: cardPrice,
-          description: cardtext,
-          details: cardDetails,
-          quantity : 1,
-          maxQuantity: quantityInDb, 
-          url: imgUrl
-        };
-    
-      oldData.push(cardData);
+          var cardData = 
+          {
+            title: cardTitle,
+            price: cardPrice,
+            description: cardtext,
+            details: cardDetails,
+            quantity : 1,
+            maxQuantity: quantityInDb, 
+            url: imgUrl
+          };
+      
+          oldData.push(cardData);
       }
       const newData = JSON.stringify(oldData);
       sessionStorage.setItem('cardsData', newData);
@@ -294,6 +297,10 @@ function mainPageLogic(data) {
       $('#cart-counter').text(sum);
 
     });
+  }
+
+  function disableButton(btn) { 
+    btn.attr('disabled',true);
   }
 
 
