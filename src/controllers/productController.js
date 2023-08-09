@@ -854,11 +854,28 @@ const removeProduct = async function (id) {
 
 const updateProduct = async function (product) {
     // pass all product values to 'set' because some/all of the values have been updated
+    
     await Product.updateOne(
         { id: product['id'] },
         { $set: product }
     );
 }
 
-module.exports = { getAllProducts, removeProduct, addProducts, updateProduct };
-// module.exports = { addProducts };
+const updateManyProducts = async function(products)
+{
+    for(var i=0;i<products.length;i++)
+    {
+        let productToUpdate = products[i];
+        await Product.updateOne(
+            { title: productToUpdate['title'] },
+            { $set: productToUpdate }
+        );
+    }
+}
+
+
+
+
+
+module.exports = { getAllProducts, removeProduct, addProducts, updateProduct ,updateManyProducts};
+
