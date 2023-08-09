@@ -829,7 +829,7 @@ const addProducts = function () {
 
                 id: Number.parseInt(data[i].id),
                 image: data[i].image,
-                title: data[i].title + i,
+                title: data[i].title ,
                 description: data[i].description,
                 quantity: 1,
                 price: Number.parseInt(data[i].price),

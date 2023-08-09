@@ -142,9 +142,7 @@ function mainPageLogic(data) {
       card.attr('data-id', data._id).attr('product-quantity', data.quantity); // Add data-id attribute with data ID
       var image = $('<img src="' + data.image + '" class="card-img-top" alt="Card Image">');
       var cardBody = $('<div class="card-body"></div>');
-      var titleWithoutNumbers = data.title.replace(/\d+$/, ''); // Remove numbers from the end of the title
-      var title = $('<h5 class="card-title">' + titleWithoutNumbers + '</h5>');
-
+      var title = $('<h5 class="card-title">' + data.title+ '</h5>');
       var description = $('<p class="card-text">' + data.description + '</p>');
       var price = $('<p class="card-price">$' + data.price + '</p>');
       var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
