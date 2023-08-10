@@ -12,6 +12,32 @@
 <body>
     <h4><span id="usersCounter" class="badge badge-secondary"></span></h4>
     <div class="container">
+
+        <h1>Welcome to the admin panel</h1>
+
+        <button id="mapsBtn" class="btn btn-primary">Go to Maps of Stores</button> 
+        <!-- <button id="addProductBtn" class="btn btn-primary">Add Product</button> -->
+        <button id="productListingBtn" class="btn btn-primary">Products List</button>
+        <button id="ordersBtn" class="btn btn-primary">Orders</button>
+
+        <!-- <button id="websiteStatsBtn" class="btn btn-primary">Website Statistics</button>
+        <button id="userssBtn" class="btn btn-primary">Users</button>
+        <button id="incomeBtn" class="btn btn-primary">Income</button> -->
+        <div id="products">
+            <table id="productsTable" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
         <div class="row">
             <div class="col-12">
                 <button id="returnToMainBtn" class="btn btn-secondary ml-2 mt-2">Return to Main Page</button>
@@ -40,6 +66,7 @@
                 <canvas id="userChart"></canvas>
                 <div id="income"></div>
             </div>
+
         </div>
     </div>
 

@@ -388,6 +388,12 @@ $(document).ready(function () {
 
     }
 
+
+    $("#mapsBtn").click(function() {
+        window.location.href = "/mapOfStores"; // Replace with your actual URL
+    });
+
+
  
 
     var ws = new WebSocket('ws://localhost:3000/');
