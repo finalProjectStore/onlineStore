@@ -10,8 +10,8 @@ function populateProductTable() {
             div.empty();
             div.append(`
                 <div class="toolbar">
-                    <button id="addProductBtn" class="btn btn-success">Add new product</button>
-                    <button id="submitProductsBtn" class="btn btn-success">Submit new products</button>
+                    <button id="addProductBtn" class="btn btn-outline-success">Add new product</button>
+                    <button id="submitProductsBtn" class="btn btn-outline-success">Submit new products</button>
                     <table id="productsTable" class="table"></table>
                 </div>
             `);
@@ -49,8 +49,8 @@ function populateProductTable() {
                         <td><input name="color" type='text' class='form-control' value='${product.color}'></td>
                         <td><input name="type" type='text' class='form-control' value='${product.type}'></td>
                         <td><img name="image" src='${product.image}' alt='Product Image' width='300' height='100' /></td>
-                        <td><button class='btn btn-sm btn-info update-button' id='${product._id}_update'>Update</button></td>
-                        <td><button class='btn btn-sm btn-danger delete-button' id='${product._id}_delete'>Delete</button></td>
+                        <td><button class='btn btn-sm btn-outline-info update-button' id='${product._id}_update'>Update</button></td>
+                        <td><button class='btn btn-sm btn-outline-danger delete-button' id='${product._id}_delete'>Delete</button></td>
                     </tr>`;
                 tableBody.append(row);
             });
@@ -68,7 +68,7 @@ function populateOrderTable(search) {
             div.empty();
             var form = $('<form class="form-inline toolbar" id="form-inline"></form>');
             var searchInput = $('<input class="form-control mr-sm-2" id="order-search-input" type="search" placeholder="Search" aria-label="Search">');
-            var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');
+            var searchButton = $('<button class="btn btn-outline-primary my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');
             form.append(searchInput);
             form.append(searchButton);
             div.append(form);
@@ -113,8 +113,8 @@ function populateOrderTable(search) {
                         <td>${cart.price}</td>
                         <td>${cart.products.join(', ')}</td>
                         <td>${cart.confirmationStatus}</td>
-                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-info confirm-button' id='${cart._id}_confirm'>Confirm</button></td>
-                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-danger cancel-button' id='${cart._id}_cancel'>Cancel</button></td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-outline-info confirm-button' id='${cart._id}_confirm'>Confirm</button></td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-outline-danger cancel-button' id='${cart._id}_cancel'>Cancel</button></td>
                     </tr>`;
                     if (!search
                         || order.username.includes(search)
