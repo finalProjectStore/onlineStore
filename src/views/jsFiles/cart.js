@@ -450,13 +450,44 @@ $(document).ready(function () {
       let price = parseInt(stringPrice);
       let products = sessionStorage.getItem("cardsData");
 
+
+      let products_json = JSON.parse(products);
+
+      updatedProducts = [];
+      
+      for (let i =0;i<products_json.length;i++)
+      {
+        let updatedQuantity = products_json[i].maxQuantity - products_json[i].quantity;
+        
+        if (updatedQuantity < 0)
+        {
+          updatedQuantity = 0
+        }
+
+        updated_product = 
+        {
+          description : products_json[i].description,
+          details : products_json[i].details,
+          price: price,
+          quantity:updatedQuantity,
+          title:products_json[i].title
+        }
+
+        updatedProducts.push(updated_product);
+      }
+      
+
+
+
+
       $.ajax({
         url: '/cart',
         method: 'POST',
         data: JSON.stringify({
           username: username,
           products: products,
-          price: price
+          price: price,
+          updatedProducts : updatedProducts
         }),
         contentType: 'application/json',
 
@@ -468,8 +499,7 @@ $(document).ready(function () {
       });
 
     }
-    else
-    {
+    else{
       alert("invalid fields"); 
     }
   }

@@ -42,13 +42,13 @@ const productSchema = new mongoose.Schema({
         type:
         {
             type:String,
-            required:[true,"Enter product"]
+            // required:[true,"Enter product"]
         },
 
         color:
         {
             type:String,
-        required:[true,"Enter color"]
+        // required:[true,"Enter color"]
         }
 
 

@@ -21,6 +21,7 @@ $(document).ready(function () {
     success: function (data) {
       mainPageLogic(data['products']);
     }
+
   });
   
 })
@@ -178,6 +179,13 @@ function mainPageLogic(data) {
       var price = $('<p class="card-price">$' + data.price + '</p>');
       var addToCartButton = $('<button class="btn btn-primary btn-add-to-cart">Add to Cart</button>');
       var footer = $('<div class= "add-btn-cart"></div>');
+      
+      
+      if (data.quantity == 0)
+      {
+        addToCartButton.attr("disabled",true)
+      }
+
 
 
       addToCartButton.click(function (event) {
@@ -273,7 +281,6 @@ function mainPageLogic(data) {
           };
       
           oldData.push(cardData);
-
       }
       const newData = JSON.stringify(oldData);
       sessionStorage.setItem('cardsData', newData);
