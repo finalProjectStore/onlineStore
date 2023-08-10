@@ -26,11 +26,7 @@ body{
     justify-content: center;
 }
 
-.card-title {
-    margin-bottom: 20px;
-}
-.list-group {
-    
-    
-
+.total-price {
+    display: flex;
+    justify-content: center;
 }

@@ -34,6 +34,13 @@ hr{
   width: 500px;
   height: 635px;
 }
+.home-btn {
+  position: relative;
+  bottom: 251px;
+  right: 100px;
+  
+}
+
 #div_alert{
   height: 80px;
 }

@@ -14,13 +14,20 @@ $.ajax({
          
     }
 })
+$('.home-page').click(function() {
+    location.href = '/mainPage'
+})
 
 
 function displayOrders(carts){
     var cardContainer = $('.container');
+    var totalPrice = 0;
 
     for (var i = 0; i < carts.length; i++) {
         var cart = carts[i];
+        totalPrice += cart.price;
+        console.log(cart.products);
+        
 
      
 
@@ -53,4 +60,5 @@ function displayOrders(carts){
         cardRow.append(colLeft,colRight);
         cardContainer.append(cardRow);
     }
+    $(".total-price").text('Total: '+'$'+totalPrice);
 }

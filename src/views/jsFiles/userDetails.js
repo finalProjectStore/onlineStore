@@ -13,6 +13,10 @@ $('input[name="checkboxGroup"]').click(function() {
     }
 });
 
+$('.home-btn').click( function() {
+    location.href = '/mainPage'
+})
+
 $('#btn-save').click(function(event) {
     event.preventDefault();
     
