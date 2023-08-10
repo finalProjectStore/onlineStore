@@ -64,17 +64,17 @@ app.ws('/', (ws, req) =>
 
 
 
-//routes
-app.use('/', require(__dirname + '/src/routes/loginRoute'));
-app.use('/', require(__dirname + '/src/routes/registerRoute'));
-app.use('/', require(__dirname + '/src/routes/mainPageRoute'))
-app.use('/', require(__dirname + '/src/routes/cartRoute'));
+// //routes
+// app.use('/', require(__dirname + '/src/routes/loginRoute'));
+// app.use('/', require(__dirname + '/src/routes/registerRoute'));
+// app.use('/', require(__dirname + '/src/routes/mainPageRoute'))
+// app.use('/', require(__dirname + '/src/routes/cartRoute'));
 
-app.use('/', require(__dirname + '/src/routes/adminRoute'));
+// app.use('/', require(__dirname + '/src/routes/adminRoute'));
 
-app.use('/',require(__dirname + '/src/routes/userDetailsRoute'));
-app.use('/', require(__dirname + '/src/routes/succeedRoute'));
-app.use('/',require(__dirname + '/src/routes/storeRoute'));
+// app.use('/',require(__dirname + '/src/routes/userDetailsRoute'));
+// app.use('/', require(__dirname + '/src/routes/succeedRoute'));
+// app.use('/',require(__dirname + '/src/routes/storeRoute'));
 
 
 
