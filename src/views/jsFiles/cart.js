@@ -1,23 +1,67 @@
 $(document).ready(function () {
 
 
+  $("#home-btn").click(function () 
+  {
+
+    let userCards = $(".card-body");
+
+    for(var i =0;i<userCards.length;i++)
+    {
+        let childrenOfCard = userCards[i].children;
+        let quantityOfProduct = $("#"+i).val();
+
+
+        let titleOfCard = childrenOfCard[0].innerHTML;
+      
+      
+        for(var j=0;j<cardsData.length;j++)
+        {
+          if (cardsData[j].title === titleOfCard)
+          {
+            let updatedProduct = 
+            {
+              title: cardsData[j].title,
+              price: cardsData[j].price,
+              description: cardsData[j].description,
+              details: cardsData[j].details,
+              quantity : parseInt(quantityOfProduct),
+              maxQuantity: parseInt(cardsData[i].quantity),
+              url: cardsData[j].url
+            };
+
+            
+            cardsData[j] = updatedProduct;
+          }
+        }
+
+    }
+
+    sessionStorage.setItem("cardsData",JSON.stringify(cardsData));
+
+    location.href = 'mainpage';
+
+  });
+
+
   //When you click on the button it will take us to the home page of the site
 
 
   $("#home-btn").click(function () {
-    location.href = 'mainpage';
+    // location.href = 'mainpage';
   });
 
 
+  /// cardsData = key in the session storage ///
   const cardsData = JSON.parse(sessionStorage.getItem("cardsData"));
-
+  
 
 
   var cardContainer = $('#card-container');
 
 
   /////////////////////////////////////////////////////////
-  /Create the cards of products - left side of the sreen/
+  /*Create the cards of products - left side of the sreen*/
   /////////////////////////////////////////////////////////
 
 
@@ -29,6 +73,10 @@ $(document).ready(function () {
   // Loop through the card data and create cards dynamically
   for (var i = 0; i < cardsData.length; i++) {
     var cardData = cardsData[i];
+
+    var realQuantity = cardData.maxQuantity;
+    
+    
 
 
     // Check if a card with the same title already exists
@@ -55,7 +103,7 @@ $(document).ready(function () {
 
     // Create the left side with the image
     var leftCol = $('<div>').addClass('col-md-4').attr('id', 'img-container');
-    var image = $('<img>').addClass('card-img').attr('src', cardData.image).attr('alt', 'Product Image');
+    var image = $('<img>').addClass('card-img').attr('src', cardData.url).attr('alt', 'Product Image');
     leftCol.append(image);
     cardRow.append(leftCol);
 
@@ -72,17 +120,17 @@ $(document).ready(function () {
       .addClass('form-control quantity-input')
       .attr('type', 'number')
       .attr('value', cardData.quantity)
+      .attr('id',i)
+      .attr('max',realQuantity)
       .on('input', function () {
         var value = parseInt($(this).val());
         if (value <= 0) { /// the value of input must be more then 0
           $(this).val('1');
         }
+        if(value >= realQuantity) {
+          $(this).val(realQuantity);
+        }
       });
-
-
-
-
-
 
     var quantityInputAppend = $('<div>').addClass('input-group-append');
 
@@ -91,7 +139,7 @@ $(document).ready(function () {
     var price = $('<p>').addClass('card-text').text(cardData.price);
 
 
-    card.attr('data-card-id', i);
+    card.attr('data-card-id', cardData._id);
     
 
 
@@ -121,12 +169,15 @@ $(document).ready(function () {
   }
 
 
+  
+
+
 
 
 
   /////////////////////////////////////////////////////
-  /Create the payment block -right side of the sreen/
-  /////////////////////////////////////////////////////
+  //Create the payment block -right side of the sreen//
+  
   var paymentDiv = $('<div>').addClass('payment');
   var paymentTitle = $('<h2>').text('Card Details');
 
@@ -328,6 +379,8 @@ $(document).ready(function () {
 
 
   function removeCardItem() {
+    /// refresh page for updating the sessionStorage ///
+    location.reload();
     var card = $(this).closest('.card');
     var title = card.find('.card-title').text();
 
@@ -397,13 +450,12 @@ $(document).ready(function () {
       let price = parseInt(stringPrice);
       let products = sessionStorage.getItem("cardsData");
 
-
       $.ajax({
         url: '/cart',
         method: 'POST',
         data: JSON.stringify({
           username: username,
-          products, products,
+          products: products,
           price: price
         }),
         contentType: 'application/json',

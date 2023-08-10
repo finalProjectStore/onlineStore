@@ -1,39 +1,218 @@
+function populateProductTable() {
+    $.ajax({
+        url: '/admin/getAllProducts',
+        method: 'GET',
+        // populate the products table
+        success: function (res) {
+            const { products } = res;
+
+            const div = $("#products");
+            div.empty();
+            div.append(`
+                <div class="toolbar">
+                    <button id="addProductBtn" class="btn btn-success">Add new product</button>
+                    <button id="submitProductsBtn" class="btn btn-success">Submit new products</button>
+                    <table id="productsTable" class="table"></table>
+                </div>
+            `);
+
+            if (!products || products.length == 0) {
+                return;
+            }
+
+            const table = $("#products #productsTable");
+
+            const tableStructure = `
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Color</th>
+                    <th>Type</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody></tbody>`;
+            table.append(tableStructure);
+            const tableBody = $("#products #productsTable tbody");
+
+            // Add new rows
+            products.forEach(product => {
+                const row = `
+                    <tr id="${product._id}">
+                        <td><input name="title" type='text' class='form-control' value='${product.title}'></td>
+                        <td><input name="description" type='text' class='form-control' value='${product.description}'></td>
+                        <td><input name="price" type='number' class='form-control' value='${product.price}'></td>
+                        <td><input name="quantity" type='number' class='form-control' value='${product.quantity}'></td>
+                        <td><input name="color" type='text' class='form-control' value='${product.color}'></td>
+                        <td><input name="type" type='text' class='form-control' value='${product.type}'></td>
+                        <td><img name="image" src='${product.image}' alt='Product Image' width='300' height='100' /></td>
+                        <td><button class='btn btn-sm btn-info update-button' id='${product._id}_update'>Update</button></td>
+                        <td><button class='btn btn-sm btn-danger delete-button' id='${product._id}_delete'>Delete</button></td>
+                    </tr>`;
+                tableBody.append(row);
+            });
+        },
+    });
+}
+
+function populateOrderTable(search) {
+    $.ajax({
+        url: `/admin/getAllOrders`,
+        method: 'GET',
+        success: function (res) {
+            const { orders } = res;
+            const div = $("#orders");
+            div.empty();
+            var form = $('<form class="form-inline toolbar" id="form-inline"></form>');
+            var searchInput = $('<input class="form-control mr-sm-2" id="order-search-input" type="search" placeholder="Search" aria-label="Search">');
+            var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');
+            form.append(searchInput);
+            form.append(searchButton);
+            div.append(form);
+
+            $('#order-search-button').click(function (event) {
+                event.preventDefault();
+                const inputButton = $('#order-search-input');
+                const input = inputButton.val();
+                populateOrderTable(input);
+            });
+
+            if (!orders || orders.length == 0) {
+                return;
+            }
+
+            div.append(`<table id="ordersTable" class="table"></table>`);
+            const table = $("#orders #ordersTable");
+
+            const tableStructure = `
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Created</th>
+                        <th>Price</th>
+                        <th>Products</th>
+                        <th>ConfirmationStatus</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+            table.append(tableStructure);
+            const tableBody = $("#orders #ordersTable tbody");
+
+            // Add new rows
+            orders.forEach(order => {
+                order.carts.forEach(cart => {
+                    const isPending = cart.confirmationStatus === 'Pending';
+                    const row = `
+                    <tr id="${cart._id}">
+                        <td>${order.username}</td>
+                        <td>${cart.created}</td>
+                        <td>${cart.price}</td>
+                        <td>${cart.products.join(', ')}</td>
+                        <td>${cart.confirmationStatus}</td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-info confirm-button' id='${cart._id}_confirm'>Confirm</button></td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-danger cancel-button' id='${cart._id}_cancel'>Cancel</button></td>
+                    </tr>`;
+                    if (!search
+                        || order.username.includes(search)
+                        || cart.products.find(product => product.includes(search))) {
+                        tableBody.append(row);
+                    }
+                });
+            });
+
+            const ordersDiv = $("#orders");
+            ordersDiv.css('display', 'block');
+        },
+    });
+}
+
 $(document).ready(function () {
     // admin clicks on "products" button
     $("#productListingBtn").click(function () {
         clearPage();
-        $.ajax({
-            url: '/admin/getAllProducts',
-            method: 'GET',
-            // populate the products table
-            success: function (res) {
-                const { products } = res;
-                const tableBody = $("#products #productsTable tbody");
+        populateProductTable();
+    });
 
-                // Clear existing rows
-                tableBody.empty();
-            
-                // Add new rows
-                for (var i = 0; i < products.length; i++) {
-                    const product = products[i];
-                    const row = `
-                        <tr id="${product.id}">
-                            <td name="id">${product.id}</td>
-                            <td><input name="title" type='text' class='form-control' value='${product.title}'></td>
-                            <td><input name="description" type='text' class='form-control' value='${product.description}'></td>
-                            <td><input name="price" type='number' class='form-control' value='${product.price}'></td>
-                            <td><input name="quantity" type='number' class='form-control' value='${product.quantity}'></td>
-                            <td><img name="image" src='${product.image}' alt='Product Image' width='300' height='100' /></td>
-                            <td><button class='btn btn-sm btn-danger update-button' id='${product.id}_update'>Update</button></td>
-                            <td><button class='btn btn-sm btn-danger delete-button' id='${product.id}_delete'>Delete</button></td>
-                        </tr>`;
-                    tableBody.append(row);
-                }
-            },
+    $('#ordersBtn').click(function () {
+        clearPage();
+        populateOrderTable();
+    });
+
+    $("#orders").on('click', 'button', function () {
+        const [cartId, action] = $(this).attr('id').split('_');
+        if (!cartId || !action) {
+            return;
+        }
+
+        const confirmationStatus =
+            action === 'confirm'
+                ? 'Confirmed'
+                : 'Cancelled';
+        $.ajax({
+            url: '/admin/updateOrder',
+            method: 'POST',
+            data: JSON.stringify({
+                cartId,
+                confirmationStatus
+            }),
+            contentType: 'application/json'
         });
+
+        populateOrderTable();
     });
 
     $("#products").on('click', 'button', function () {
+        if ($(this).attr('id') == 'addProductBtn') {
+            const tableBody = $("#products #productsTable tbody");
+            const row = `
+                <tr name="NEW-PRODUCT">
+                    <td><input name="title" type='text' class='form-control' value=''></td>
+                    <td><input name="description" type='text' class='form-control' value=''></td>
+                    <td><input name="price" type='number' class='form-control' value=''></td>
+                    <td><input name="quantity" type='number' class='form-control' value=''></td>
+                    <td><input name="color" type='text' class='form-control' value=''></td>
+                    <td><input name="type" type='text' class='form-control' value=''></td>
+                    <td><input name="image" type='text' class='form-control' value=''></td>
+                </tr>`;
+            tableBody.prepend(row);
+        };
+
+        if ($(this).attr('id') == 'submitProductsBtn') {
+            const elements = $('[name="NEW-PRODUCT"]');
+
+            elements.each(function () {
+                $(this).attr('name', '');
+            });
+
+            const products = [];
+            elements.each(function () {
+                const id = $(this).attr('id');
+                const title = $('input[name="title"]').val();
+                const description = $('input[name="description"]').val();
+                const price = $('input[name="price"]').val();
+                const quantity = $('input[name="quantity"]').val();
+                const color = $('input[name="color"]').val();
+                const type = $('input[name="type"]').val();
+                const image = $('input[name="image"]').val();
+                const product = { title, description, price, quantity, color, type, image };
+                products.push(product);
+            });
+
+            $.ajax({
+                url: '/admin/addProducts',
+                method: 'POST',
+                // the server knows which product to delete by its id
+                data: JSON.stringify(products),
+                contentType: 'application/json'
+            });
+
+            populateProductTable();
+        };
+
         // parse the button id, and figure out the product and the action
         const [productId, action] = $(this).attr('id').split('_');
 
@@ -45,26 +224,28 @@ $(document).ready(function () {
                 method: 'POST',
                 // the server knows which product to delete by its id
                 data: JSON.stringify({
-                    id: productId
+                    _id: productId
                 }),
                 contentType: 'application/json'
-            });    
+            });
+            populateProductTable();
         } else if (action == "update") {
             // get all the product's values using jquery
             const title = $('input[name="title"]', `#${productId}`).val();
             const description = $('input[name="description"]', `#${productId}`).val();
             const price = $('input[name="price"]', `#${productId}`).val();
             const quantity = $('input[name="quantity"]', `#${productId}`).val();
+            const color = $('input[name="color"]', `#${productId}`).val();
             const image = $('img[name="image"]', `#${productId}`).attr('src');
-            const product = { id: productId, title, description, price, quantity, image };
-            
+            const product = { _id: productId, title, description, price, quantity, color, image };
+
             // pass all the current values to the server, because some/all of them are updated
             $.ajax({
                 url: '/admin/updateProduct',
                 method: 'POST',
                 data: JSON.stringify(product),
                 contentType: 'application/json'
-            }); 
+            });
         }
     })
 
@@ -94,29 +275,28 @@ $(document).ready(function () {
         });
     });
 
-
-    ////// Website Statistics Button ////////
-    $("#websiteStatsBtn").click(function () {
+    //////// Website Statistics Button ////////
+    d3.select("#websiteStatsBtn").on("click", function () {
         clearPage();
-        $.ajax({
-            url: '/admin/getAllUsersCount',
-            method: 'GET',
-            success: function (res) {
+        d3.json("/admin/getAllUsersCount")
+            .then(function (res) {
                 const numOfUsers = res.usersCount;
 
                 // Create or update the chart
                 createOrUpdateChart(numOfUsers);
-            },
-            error: function (xhr, status, error) {
+            })
+            .catch(function (error) {
                 console.log("Error:", error); // Handle the error in an appropriate way
-            }
-        });
+            });
     });
 
     // function to create or update the chart
     function createOrUpdateChart(numOfUsers) {
 
-        var chartElement = $('#userChart')[0].getContext('2d');
+        ///////////////////////
+        /////// using D3.js ///
+        ///////////////////////    
+        var chartElement = d3.select("#userChart").node().getContext("2d");
 
         // check if the chart already exists
         if (window.userChart instanceof Chart) {
@@ -141,46 +321,51 @@ $(document).ready(function () {
             data.push(numOfUsers); // add initial data
 
             window.userChart = new Chart(chartElement, {
-                type: 'line',
+                type: "line",
                 data: {
                     labels: labels,
-                    datasets: [{
-                        label: 'The number of users in the last week',
-                        data: data,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
+                    datasets: [
+                        {
+                            label: "The number of users in the last week",
+                            data: data,
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
                 },
                 options: {
                     scales: {
                         y: {
                             beginAtZero: true,
-                            precision: 0 // Display integers only
-                        }
-                    }
-                }
+                            precision: 0, // Display integers only
+                        },
+                    },
+                },
             });
         }
     }
 
 
     $("#incomeBtn").click(function () {
-        // clearPage();
+        clearPage();
+
         $.ajax({
             url: '/admin/getTotalAmount',
             method: 'GET',
             success: function (res) {
-                
-                console.log('Total amount:', res.totalAmount); 
+                const total = res.totalAmount;
+                $('#income').html('<h2>Total income: <span id="totalAmount">' + total + '$' + '</span></h2>');
 
-                // update the page with the total amount
-                $('#totalAmount').text('Total Amount: ' + res.totalAmount);
+                // Use D3 to style the total income in gray
+                d3.select('#totalAmount')
+                    .style('color', 'gray');
             },
             error: function (xhr, status, error) {
-                console.log("Error:", error); 
+                console.log("Error:", error);
             }
         });
     });
+
 
 
 
@@ -192,6 +377,8 @@ $(document).ready(function () {
         $("#products").empty();
         $("#users").empty();
         $("#numOfUsers").empty();
+        $("#income").empty();
+        $("#orders").empty();
 
         // this if solved the problem of refresh the page with the Chart
         if (window.userChart instanceof Chart) {
@@ -201,8 +388,31 @@ $(document).ready(function () {
 
     }
 
+
     $("#mapsBtn").click(function() {
         window.location.href = "/mapOfStores"; // Replace with your actual URL
     });
 
+
+ 
+
+    var ws = new WebSocket('ws://localhost:3000/');
+
+    ws.onmessage = function (event) {
+        $("#usersCounter").text("Online users: " + event.data);
+    }
+
+
+
+
+       /////// button for return to main page ///////
+      $("#returnToMainBtn").click(function() {
+        window.location.href = "/mainPage"; 
+    });
+
+
+  
 });
+
+
+

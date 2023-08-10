@@ -1,3 +1,5 @@
+@import 'global.css';
+
 #users ul {
     list-style-type: none;
     padding: 0;
@@ -5,8 +7,38 @@
 
 #users ul li {
     margin-bottom: 5px;
-    padding: 5px; /* Adjust the padding size as per your preference */
+    padding: 5px;
+    /* Adjust the padding size as per your preference */
     border-radius: 5px;
 }
 
+.toolbar {
+    margin-top: 5px;
 
+    .button {
+        margin-right: 5px;
+    }
+}
+
+.btn-primary {
+    background-color: var(--purple-btn-color);
+}
+
+
+
+#usersCounter {
+    margin: 20px;
+}
+
+.ml-2,
+.mx-2 {
+    margin-left: -90.5rem !important;
+}
+
+h1 {
+    text-align: center;
+}
+
+.col-12 {
+    text-align: center;
+}

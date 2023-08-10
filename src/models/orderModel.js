@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema(
     {
-        
         username: 
         {
             type: String,
@@ -11,7 +10,7 @@ const OrderSchema = new mongoose.Schema(
             match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
         },
 
-        carts : 
+        carts: 
             [{
                 created: 
                 {
@@ -19,7 +18,11 @@ const OrderSchema = new mongoose.Schema(
                     default: Date.now,
                 },
                 price: Number,
-                products:[[String]]
+                products:[String],
+                confirmationStatus: {
+                    type: String,
+                    default: 'Pending'
+                }
             }]
     })
 

@@ -3,8 +3,6 @@ $('#btn_register').click(function () {
   location.href = 'register';
 });
 
-
-
 const createAlert = function (error) 
 {
   if ($('#div_alert').find('strong')) {
@@ -16,8 +14,6 @@ const createAlert = function (error)
     .append('<p><strong> ' + error + ', try again</strong></p>');
   return true;
 };
-
-
 
 function showGreetingMessage(message) {
   if ($('#div_alert').find('strong')) {
@@ -43,7 +39,7 @@ $('form').submit(function (event) {
 
   event.preventDefault();
   $.ajax({
-    url: '/',
+    url: '/login',
     method: 'POST',
     data: JSON.stringify({
       username: username,
@@ -52,15 +48,21 @@ $('form').submit(function (event) {
     contentType: 'application/json',
 
     success: function (res) {
-      // const name = res.name;
-      
-      if (res.response !== '') {
+      if (res.error) {
         // error accured
-        createAlert(res.response);
+        createAlert(res.error);
       } else {
+        $(document).cookie = `jwtToken=${res.jwtToken}; path=/;`;
+        sessionStorage.setItem('name', res.username);
+
+        var ws = new WebSocket('ws://localhost:3000/');
+        ws.onmessage=function(event)
+        {
+            ws.send("client");
+        }
+
         showGreetingMessage('Registration successful!');
         setTimeout(() => {
-          sessionStorage.setItem('name',res.name);
           location.href = '/mainpage';
         }, 2 * 1000);
       }
