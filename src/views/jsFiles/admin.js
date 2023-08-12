@@ -416,3 +416,30 @@ $(document).ready(function () {
 
 
 
+////New--- Shay
+const data = JSON.parse(document.getElementById('pieChartData').textContent);
+
+const canvas=document.getElementById('pieChartCanvas');
+const ctx=canvas.getContext('2d');
+
+const chartData = {
+    labels: data.map(item => item._id),
+    datasets:[
+        {
+            data: data.map(item=> item.totalAmount),
+            backgroundColor: [
+                '#FF5733',
+                '#36A2EB',
+                '#FFC300',
+            ],
+        },
+    ],
+};
+
+new Chart(ctx, {
+    type: 'pie',
+    data: chartData,
+});
+///////////////////End
+
+
