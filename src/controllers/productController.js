@@ -887,3 +887,23 @@ const addNewProducts = async function (products){
 module.exports = { getAllProducts, removeProduct,updateManyProducts, addProducts, updateProduct, addNewProducts, addProducts };
 // module.exports = { addProducts };
 
+
+////New----------------Shay
+exports.getPieChartData = (req, res, next) =>{
+    Product.aggregate([
+        {
+            $group: {
+                _id: '$category',
+                totalQuantity: { $sum: '$quantity' },
+            },
+        },
+    ])
+    .then(aggregatedData =>{
+        res.render('pieChart' , {data: aggregatedData});
+    })
+    .catch(err =>{
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    });
+};
+//End---------------------------------------
