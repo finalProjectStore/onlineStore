@@ -148,6 +148,7 @@ $(document).ready(function () {
             return;
         }
 
+
         const confirmationStatus =
             action === 'confirm'
                 ? 'Confirmed'
@@ -250,9 +251,14 @@ $(document).ready(function () {
     })
 
 
+
+
     ////// Users Button ////////
 
-    $("#usersBtn").click(function () {
+    
+
+    $("#usersBtn").click(function () 
+    {
         clearPage();
         $.ajax({
             url: '/admin/getAllUsers',
@@ -264,16 +270,80 @@ $(document).ready(function () {
                 usersDiv.empty(); // clear the usersDiv before appending new users
 
                 const userList = $('<ul>'); // create a <ul> element to hold the user list
+                userList.attr("id","contrainerUsers");
                 const titleInPage = $('<h2>').text("Users list");
                 users.forEach(user => {
-                    const usernameElement = $('<li>').text(user.username); // create <li> element to display the username
+
+                    
+
+                    const usernameElement = $('<li>').attr("id","userList") // create <li> element to display the username
+                
+                    
+                    let username = $("<h4>").text(user.username)
+
+                    let deleteBtn = $('<button>', 
+                    {
+                        type: 'button',
+                        class: 'btn btn-outline-primary deleteUser',
+                        id: 'deleteUser',
+                        text: 'Delete', 
+                      });
+                      usernameElement.append(username,deleteBtn)
                     userList.append(usernameElement); // append the username element to the userList
                 });
 
+
+
+    
+            
+                
+
+
+
                 usersDiv.append(titleInPage, userList); // append the userList to the usersDiv
+
+
+
+                $(".deleteUser").click(function(event)
+                {            
+
+
+                    var username = event.target.closest("li").firstChild.textContent
+
+                    if (username == sessionStorage.getItem("name"))
+                    {
+                        return;
+                    }
+                    
+
+                    $.ajax({
+                        url: '/admin/deleteUser',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            
+                            username
+                        }),
+                        contentType: 'application/json',
+                        success: function (res) 
+                        {
+                            location.reload()
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error:", error);
+                        }
+                    });
+                });
+
             },
         });
     });
+
+
+    function deleteUser()
+    {
+        alert()
+    }
+
 
     //////// Website Statistics Button ////////
     d3.select("#websiteStatsBtn").on("click", function () {
