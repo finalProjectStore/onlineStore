@@ -127,12 +127,6 @@ function mainPageLogic(data) {
   var filtereditem = data;
 
   $("#cartBtn").click(function () {
-
-    // Cancel access to cart without items
-    if (parseInt($("#cart-counter").text()) === 0) {
-      return;
-    }
-
     location.href = 'cart';
   });
 
