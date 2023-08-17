@@ -35,6 +35,22 @@
     margin-left: -75.5rem !important;
 }
 
+#contrainerUsers
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#userList
+{ 
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between;
+    width: 400px;
+}
+
 h1 {
     text-align: center;
 }
