@@ -477,7 +477,6 @@ $(document).ready(function () {
 
 
 
-
       $.ajax({
         url: '/cart',
         method: 'POST',
@@ -489,7 +488,8 @@ $(document).ready(function () {
         }),
         contentType: 'application/json',
 
-        success: function (res) {
+        success: function (res) 
+        {
           sessionStorage.clear();
           sessionStorage.setItem("name", username);
           location.href = "/succeed";
@@ -503,6 +503,9 @@ $(document).ready(function () {
   }
 
   // Event listener for checkout button click
+
+
+
   checkoutButton.on('click', checkout);
 
 

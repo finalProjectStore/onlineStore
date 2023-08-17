@@ -48,7 +48,12 @@ router.get('/getTotalAmount', async function (req, res) {
 });
 
 
-
+router.post('/deleteUser' , async function (req,res)
+{
+    const username = req.body.username;
+    await userController.deleteUser(username);
+    res.status(200).send()
+});
 
 
 router.post('/updateProduct', async function (req, res) {

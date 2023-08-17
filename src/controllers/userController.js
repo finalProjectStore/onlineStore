@@ -138,10 +138,14 @@ const getTotalAmount = async function () {
 };
 
 
+const deleteUser = async function(username)
+{
+    const result =  await User.deleteOne({ username : username });
+    return result
+}
 
 
 
 
 
-
-module.exports = { createUser,getUser, userLogin, updateUserDetails, getAllUsers,getAllUsersCount, getTotalAmount };
+module.exports = { createUser,getUser, userLogin, updateUserDetails, getAllUsers,getAllUsersCount, deleteUser,getTotalAmount };

@@ -26,7 +26,9 @@ body{
     justify-content: center;
 }
 
-.card-title {
+.card-title 
+{
+    margin-right: 300px;
     margin-bottom: 20px;
 }
 .list-group {

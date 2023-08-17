@@ -29,10 +29,12 @@ const addCartToOrder = async function (username,price,products)
         titles.push(productsJson[i].title);
     }
 
+
+
     let order = await Order.findOne({username:username});
     if (!order) {
         order = await Order.create({ username, carts: [] });
-    }
+   }
 
     order.carts.push(
         {
