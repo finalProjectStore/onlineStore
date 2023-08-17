@@ -4,33 +4,25 @@
 <head>
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/35b1bd6e9b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../cssFiles/admin.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+
 </head>
 
 <body>
     <h4><span id="usersCounter" class="badge badge-secondary"></span></h4>
+    <button id="returnToMainBtn" class="btn btn-outline-primary ">Return to Main Page</button>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <button id="returnToMainBtn" class="btn btn-secondary ml-2 mt-2">Return to Main Page</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h1>Welcome to the admin panel</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <button id="mapsBtn" class="btn btn-primary">Go to Maps of Stores</button> 
-                <button id="productListingBtn" class="btn btn-primary">Products List</button>
-                <button id="ordersBtn" class="btn btn-primary">Orders</button>
-                <button id="websiteStatsBtn" class="btn btn-primary">Website Statistics</button>
-                <button id="usersBtn" class="btn btn-primary">Users</button>
-                <button id="incomeBtn" class="btn btn-primary">Income</button>
-            </div>
+        <h1>Welcome to the admin panel</h1>
+        <div class="tab-btns">
+            <button id="mapsBtn" class="btn btn-outline-primary">Go to Maps of Stores</button> 
+            <button id="productListingBtn" class="btn btn-outline-primary">Products List</button>
+            <button id="ordersBtn" class="btn btn-outline-primary">Orders</button>
+            <button id="websiteStatsBtn" class="btn btn-outline-primary">Website Statistics</button>
+            <button id="usersBtn" class="btn btn-outline-primary">Users</button>
+            <button id="incomeBtn" class="btn btn-outline-primary">Income</button>
         </div>
         <div class="row">
             <div class="col-12">
