@@ -48,6 +48,8 @@ function mainPageLogic(data) {
     ws.onmessage = function (event) {
       ws.send("bye client");
     }
+    sessionStorage.setItem("name", "");
+    document.cookie = "jwtToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     location.href = "/";
   })
 
@@ -87,8 +89,9 @@ function mainPageLogic(data) {
 
 
   const name = sessionStorage.getItem("name");
-  const username = $('#username').append('<strong> Hello ' + name + '</strong>');
-
+  if (name) {
+    const username = $('#username').append('<strong> Hello ' + name + '</strong>');
+  }
 
   // Generate the filter menu
   var filterMenuRow = $('#filter-menu-row');
