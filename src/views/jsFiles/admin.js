@@ -10,8 +10,8 @@ function populateProductTable() {
             div.empty();
             div.append(`
                 <div class="toolbar">
-                    <button id="addProductBtn" class="btn btn-success">Add new product</button>
-                    <button id="submitProductsBtn" class="btn btn-success">Submit new products</button>
+                    <button id="addProductBtn" class="btn btn-outline-success">Add new product</button>
+                    <button id="submitProductsBtn" class="btn btn-outline-success">Submit new products</button>
                     <table id="productsTable" class="table"></table>
                 </div>
             `);
@@ -49,8 +49,8 @@ function populateProductTable() {
                         <td><input name="color" type='text' class='form-control' value='${product.color}'></td>
                         <td><input name="type" type='text' class='form-control' value='${product.type}'></td>
                         <td><img name="image" src='${product.image}' alt='Product Image' width='300' height='100' /></td>
-                        <td><button class='btn btn-sm btn-info update-button' id='${product._id}_update'>Update</button></td>
-                        <td><button class='btn btn-sm btn-danger delete-button' id='${product._id}_delete'>Delete</button></td>
+                        <td><button class='btn btn-sm btn-outline-info update-button' id='${product._id}_update'>Update</button></td>
+                        <td><button class='btn btn-sm btn-outline-danger delete-button' id='${product._id}_delete'>Delete</button></td>
                     </tr>`;
                 tableBody.append(row);
             });
@@ -68,7 +68,7 @@ function populateOrderTable(search) {
             div.empty();
             var form = $('<form class="form-inline toolbar" id="form-inline"></form>');
             var searchInput = $('<input class="form-control mr-sm-2" id="order-search-input" type="search" placeholder="Search" aria-label="Search">');
-            var searchButton = $('<button class="btn btn-outline-success my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');
+            var searchButton = $('<button class="btn btn-outline-primary my-2 my-sm-0" id="order-search-button" type="submit">Search</button>');
             form.append(searchInput);
             form.append(searchButton);
             div.append(form);
@@ -113,8 +113,8 @@ function populateOrderTable(search) {
                         <td>${cart.price}</td>
                         <td>${cart.products.join(', ')}</td>
                         <td>${cart.confirmationStatus}</td>
-                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-info confirm-button' id='${cart._id}_confirm'>Confirm</button></td>
-                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-danger cancel-button' id='${cart._id}_cancel'>Cancel</button></td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-outline-info confirm-button' id='${cart._id}_confirm'>Confirm</button></td>
+                        <td><button ${!isPending ? 'disabled' : ''} class='btn btn-sm btn-outline-danger cancel-button' id='${cart._id}_cancel'>Cancel</button></td>
                     </tr>`;
                     if (!search
                         || order.username.includes(search)
@@ -147,6 +147,7 @@ $(document).ready(function () {
         if (!cartId || !action) {
             return;
         }
+
 
         const confirmationStatus =
             action === 'confirm'
@@ -250,9 +251,14 @@ $(document).ready(function () {
     })
 
 
+
+
     ////// Users Button ////////
 
-    $("#usersBtn").click(function () {
+    
+
+    $("#usersBtn").click(function () 
+    {
         clearPage();
         $.ajax({
             url: '/admin/getAllUsers',
@@ -264,16 +270,80 @@ $(document).ready(function () {
                 usersDiv.empty(); // clear the usersDiv before appending new users
 
                 const userList = $('<ul>'); // create a <ul> element to hold the user list
+                userList.attr("id","contrainerUsers");
                 const titleInPage = $('<h2>').text("Users list");
                 users.forEach(user => {
-                    const usernameElement = $('<li>').text(user.username); // create <li> element to display the username
+
+                    
+
+                    const usernameElement = $('<li>').attr("id","userList") // create <li> element to display the username
+                
+                    
+                    let username = $("<h4>").text(user.username)
+
+                    let deleteBtn = $('<button>', 
+                    {
+                        type: 'button',
+                        class: 'btn btn-outline-primary deleteUser',
+                        id: 'deleteUser',
+                        text: 'Delete', 
+                      });
+                      usernameElement.append(username,deleteBtn)
                     userList.append(usernameElement); // append the username element to the userList
                 });
 
+
+
+    
+            
+                
+
+
+
                 usersDiv.append(titleInPage, userList); // append the userList to the usersDiv
+
+
+
+                $(".deleteUser").click(function(event)
+                {            
+
+
+                    var username = event.target.closest("li").firstChild.textContent
+
+                    if (username == sessionStorage.getItem("name"))
+                    {
+                        return;
+                    }
+                    
+
+                    $.ajax({
+                        url: '/admin/deleteUser',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            
+                            username
+                        }),
+                        contentType: 'application/json',
+                        success: function (res) 
+                        {
+                            location.reload()
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error:", error);
+                        }
+                    });
+                });
+
             },
         });
     });
+
+
+    function deleteUser()
+    {
+        alert()
+    }
+
 
     //////// Website Statistics Button ////////
     d3.select("#websiteStatsBtn").on("click", function () {

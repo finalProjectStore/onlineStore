@@ -42,13 +42,17 @@ function mainPageLogic(data) {
   // let number_of_products = JSON.parse(sessionStorage.getItem("cardsData")).length;
   // $("#cart-counter").text(number_of_products);
   ////  
-  $("#logout").click(function () {
+  $("#logout").click(function () 
+  {
+    sessionStorage.clear()
+
+
     var ws = new WebSocket('ws://localhost:3000/');
 
     ws.onmessage = function (event) {
       ws.send("bye client");
     }
-    location.href = "/";
+    location.href = "/login";
   })
 
 
