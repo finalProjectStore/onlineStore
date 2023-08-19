@@ -60,31 +60,4 @@ const getAllCartsByUser = async function(username){
     return carts;
 }
 
-const calculateAvgCartPrice = async function (username) {
-    
-    try {
-        const result = await Order.aggregate([
-            {
-                $match: {username:username}
-            },
-            {// break carts array to single objects
-                $unwind: "$carts"
-            },
-            {
-                // $group - groups the documents back together based on the _id field. 
-                // $avg - calculates the average price within each group.
-                $group: { 
-                    _id: "$username",
-                    avgCartPrice: { $avg: "$carts.price" }
-                }
-            }
-        ]);
-        return result;
-    } catch (error) {
-        console.error(error);
-    }
-
-
-}
-
-module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus, getAllCartsByUser,calculateAvgCartPrice };
+module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus, getAllCartsByUser };
