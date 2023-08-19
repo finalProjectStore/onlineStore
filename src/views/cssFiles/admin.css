@@ -1,5 +1,26 @@
 @import 'global.css';
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+#returnToMainBtn {
+    position: relative;
+    bottom: 26px;
+    left: 17px;
+}
+
+.tab-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#users {
+    margin-top: 30px;
+    position: relative;
+    left: 45px;
+}
 #users ul {
     list-style-type: none;
     padding: 0;
@@ -11,13 +32,17 @@
     /* Adjust the padding size as per your preference */
     border-radius: 5px;
 }
+#userChart {
+    width:600px;
+    height: 300px;
+}
 
 .toolbar {
     margin-top: 5px;
 
-    .button {
+    /* .button {
         margin-right: 5px;
-    }
+    } */
 }
 
 .btn-primary {
@@ -35,10 +60,33 @@
     margin-left: -75.5rem !important;
 }
 
+#contrainerUsers
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#userList
+{ 
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between;
+    width: 400px;
+}
+
 h1 {
     text-align: center;
 }
 
 .col-12 {
     text-align: center;
+}
+
+#income {
+    position: relative;
+    bottom: 200px;
+    justify-content: center;
+    display: flex;
 }
