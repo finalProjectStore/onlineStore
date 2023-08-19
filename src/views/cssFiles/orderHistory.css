@@ -26,9 +26,15 @@ body{
     justify-content: center;
 }
 
+
 .total-price {
     display: flex;
     justify-content: center;
+}
+.card-title 
+{
+    margin-right: 300px;
+    margin-bottom: 20px;
 }
 
 .avg-price {
