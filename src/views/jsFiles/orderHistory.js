@@ -1,4 +1,5 @@
 var userCarts;
+var average;
 $.ajax({
     url: '/orderHistory',
     method: 'POST',
@@ -7,10 +8,10 @@ $.ajax({
     }),
     contentType: 'application/json',
 
-    success: function(res) {
-
-        userCarts = res;
-        displayOrders(userCarts);  
+    success: function(response) {
+        average = response.listOfDetails[0].avgCartPrice;
+        userCarts = response.carts;
+        displayOrders(userCarts,average);  
          
     }
 })
@@ -19,19 +20,18 @@ $('.home-page').click(function() {
 })
 
 
-function displayOrders(carts){
+function displayOrders(carts,average){
     var cardContainer = $('.container');
     var totalPrice = 0;
 
     for (var i = 0; i < carts.length; i++) {
         var cart = carts[i];
         totalPrice += cart.price;
-        console.log(cart.products);
         
 
      
 
-        var price = $('<h4>').addClass('card-title').text('Total price: $'+cart.price); 
+        var Total = $('<h4>').addClass('card-title').text('Total price: $'+cart.price); 
 
         var dateTimeString = cart.created;
          //// transform from yyyy/dd/mm  to  dd/mm/yyyy
@@ -44,7 +44,7 @@ function displayOrders(carts){
         var cardRow = $('<div>').addClass('row');
         var colLeft = $('<div>').addClass('col left');
         var colRight = $('<div>').addClass('col right');
-        colLeft.append(date,price);
+        colLeft.append(date,Total);
 
         var productsArray = cart.products;
         var productList = $('<ul>').addClass('list-group');
@@ -61,4 +61,5 @@ function displayOrders(carts){
         cardContainer.append(cardRow);
     }
     $(".total-price").text('Total: '+'$'+totalPrice);
+    $(".avg-price").text('Average purchases: '+'$'+average);
 }
