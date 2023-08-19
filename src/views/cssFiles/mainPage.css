@@ -26,13 +26,16 @@ body {
   width: 100%;
   z-index: 2;
 }
+.btn-admin-andGroup {
+  display: flex;
+  left: 10%;
+}
 .btn-admin {
-  position: relative;
-  left: 100px;
+  padding-right: 10px;
 }
 
 .dropdown-toggle {
-  border: solid var(--purple-btn-color) 0.1rem;
+  /* border: solid var(--purple-btn-color) 0.1rem; */
 }
 #cartBtn {
   border: none;
@@ -58,14 +61,14 @@ body {
 } */
 
 .form-inline {
-  left: 18rem;
   position: relative;
+  left: 10%;
 }
 
 #settingsBtn
 {
-  position: relative;
-  left: 240px;
+  /* position: relative;
+  left: 240px; */
 }
 
 #search-input {
@@ -145,7 +148,7 @@ body {
 }
 
 .btn.btn-primary {
-  background-color: var(--purple-btn-color);
+  /* background-color: var(--purple-btn-color); */
 }
 
 #weather-container {
