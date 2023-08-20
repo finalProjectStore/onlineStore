@@ -24,23 +24,23 @@ $('#btn-save').click(function(event) {
     if($('#check1').is(':checked')){
         // const oldUsername = localStorage.getItem('name');
         var newUsername = $('#usernameInput1').val();
-        createPost(newUsername,'username');
+        changeDetails(newUsername,'username');
 
     }
     if($('#check2').is(':checked')){
         const newEmail = $('#usernameInput2').val();
-        createPost(newEmail,'email');
+        changeDetails(newEmail,'email');
 
     }
     if($('#check3').is(':checked')){
         const newPassword = $('#usernameInput3').val();
-        createPost(newPassword, 'password');
+        changeDetails(newPassword, 'password');
     }
 
 
 });
 
-function createPost(newValue,valueType){
+function changeDetails(newValue,valueType){
 
     $.ajax(
     {
@@ -52,16 +52,20 @@ function createPost(newValue,valueType){
             type:valueType
         }),
         contentType: 'application/json',
+
         success: function(res) {
-            if(typeof res.response === 'string'){
-                createAlert(res.response);
-            } else {
-                showGreetingMessage(('Updated successfuly!'));
-                // console.log(res.response);
-                sessionStorage.setItem('name',res.response[0].newUsername);
-                sessionStorage.setItem('email',res.response[0].email);
-            }
-            
+            // console.log("RES inside SUCCESS:",res);
+            // console.log("RES.User:",res.user);
+            ////// successs
+            showGreetingMessage(res.message);
+            // console.log("Username:",res['user']['username'], "Email:",res['user']['email']);
+            sessionStorage.setItem('name',res['user']['username']);
+            sessionStorage.setItem('email',res['user']['email']);
+        },
+        error: function(error) {
+            const errorToShow = error['responseJSON']['message'];
+            // console.log("message:",errorToShow);
+            createAlert(errorToShow);
         }
     })
 

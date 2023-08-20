@@ -11,17 +11,17 @@ const checkPasswordsMatch = function (password, password2) {
 
 const createUser = async function (username, email, age, password1, password2) {
   if (!checkPasswordsMatch(password1, password2)) {
-    return 'wrong password';
+    return {status:401, message:'wrong password'};
   }
 
   const doesExist = await User.findOne({ email: email });
   if (doesExist) {
-    return 'choose different email';
+    return {status: 409, message:'choose different email'};
   }
 
   const usernameExist = await User.findOne({ username: username });
   if (usernameExist) {
-    return 'username already exist.';
+    return {status: 409,message:'username already exist'};
   }
 
   const newUser = new User({
@@ -33,7 +33,7 @@ const createUser = async function (username, email, age, password1, password2) {
 
   const savedUser = await newUser.save(); //take time to load the user into the db
 
-  return '';
+  return {status:200,user:savedUser, message:'User created successfuly'}
 };
 
 const userLogin = async function (usernameToFind, passwordToFind) {
@@ -52,38 +52,47 @@ const userLogin = async function (usernameToFind, passwordToFind) {
 };
 
 const updateUserDetails = async function (usernameToFind, valueToChange, type) {
-  var result;
-  const user = await User.findOne({ username: usernameToFind });
 
-  if (!user) {
-    return 'could not find the user';
-  }
-  switch (type) {
-    case 'username':
-      const isUsernameExist = await User.findOne({ username: valueToChange });
-      if (isUsernameExist) {
-        return 'this username already exist,';
+  try {
+      const user = await User.findOne({ username: usernameToFind });
+    if (!user) {
+      return { 
+        status: 404,
+        message: 'User not found'
       }
-      result = await user.changeUsername(valueToChange);
-      break;
+    }
+    var updatedUser;
+    switch (type) {
+      case 'username':
+        const isUsernameExist = await User.findOne({ username: valueToChange });
+        if (isUsernameExist) {
+          return { status: 409, message:'Username already exists'}
+        }
+        updatedUser = await user.changeUsername(valueToChange);
+        break;
 
-    case 'email':
-      const isEmailExist = await User.findOne({ email: valueToChange });
-      if (isEmailExist) {
-        return 'this email already exist,';
-      }
-      result = await user.changeEmail(valueToChange);
-      break;
+      case 'email':
+        const isEmailExist = await User.findOne({ email: valueToChange });
+        if (isEmailExist) {
+          return { status: 409, message: 'Email already exist'}
+        }
+        updatedUser = await user.changeEmail(valueToChange);
+        break;
 
-    case 'password':
-      result = await user.changePassword(valueToChange);
-      break;
+      case 'password':
+        updatedUser = await user.changePassword(valueToChange);
+        break;
 
-    default:
-      break;
+      default:
+        break;
+    }
+
+    return { status: 200, message: 'Update successful', user:updatedUser }
+  } catch (error) {
+    console.error(error);
+    return { status: 500, message: 'Internal server error'}
+    
   }
-
-  return result; /// update success.
 };
 
 const getUser = async function (username) {

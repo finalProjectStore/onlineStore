@@ -48,10 +48,6 @@ $('form').submit(function (event) {
     contentType: 'application/json',
 
     success: function (res) {
-      if (res.error) {
-        // error accured
-        createAlert(res.error);
-      } else {
         $(document).cookie = `jwtToken=${res.jwtToken}; path=/;`;
         sessionStorage.setItem('name', res.username);
 
@@ -60,12 +56,15 @@ $('form').submit(function (event) {
         {
             ws.send("client");
         }
-
         showGreetingMessage('Registration successful!');
         setTimeout(() => {
           location.href = '/mainpage';
         }, 2 * 1000);
-      }
     },
+    /// if status 401 returned
+    error: function(error) { 
+      text_error = error['responseJSON']['error'];
+      createAlert(text_error);
+    }
   });
 });

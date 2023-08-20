@@ -20,9 +20,15 @@ router.post('/register',async function(req, res)
     const {username, email, age, password1, password2 } = req.body;
     const result = await userController.createUser(username,email,age,password1,password2); // new user.
     orderController.newOrder(req.body.username); // new order for user.
-    res.send({response: result});
+    if(result['status'] !== 200) {
+      res.status(result['status']).json({message:result['message']})
+    }
+    else {
+      res.status(result['status']).json({message:result['message'], user:result['user']});
+    }
   } catch (error) {
     console.log(error);
+    res.status(404).json({error:error});
   }
  
 });

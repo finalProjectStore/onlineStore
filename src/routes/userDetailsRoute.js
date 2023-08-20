@@ -31,18 +31,17 @@ router.post('/userdetails', async function(req,res) {
     const type = req.body.type;
     const newValue = req.body.newValue;
     const result = await userController.updateUserDetails(username,newValue,type);
-    if(typeof result === 'string') {res.send({response:result});}
-    else{
-      res.send({response:[
-        {
-          newUsername:result.username,
-          email:result.email
-        }]
-      });  
+
+    if(result['status'] !== 200) {
+      res.status(result['status']).json({ message:result['message'] });
+    }
+    else {
+      res.status(result['status']).json({ message:result['message'], user:result['user'] })
     }
     
   } catch (error) {
-    res.status(404).send(console.error(error));
+    console.error("Error:",error);
+    res.status(404).json({error:error});
   }
 });
 
