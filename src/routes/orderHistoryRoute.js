@@ -9,8 +9,15 @@ router.get('/orderHistory', function(req,res) {
 
 });
 router.post('/orderHistory',async function(req,res) {
-    const carts = await orderController.getAllCartsByUser(req.body.username);
-    res.send(carts);
+    try {
+        const carts = await orderController.getAllCartsByUser(req.body.username);
+        const listOfDetails = await orderController.calculateAvgCartPrice(req.body.username);
+        var response = {carts,listOfDetails};
+        res.send(response);
+    } catch (error) {
+        res.status(400);
+        console.error(error);
+    }
 })
 
 module.exports = router;
