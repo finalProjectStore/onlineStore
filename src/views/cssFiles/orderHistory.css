@@ -37,7 +37,52 @@ body{
     margin-bottom: 20px;
 }
 
+
+aside{
+    width: 20%;
+    max-width: 150px;
+    min-width: 100px;
+    float: left;
+}
+
+
+
+@font-face {
+    font-family: 'CoolFont';
+    src: url('cool-font.woff2') format('woff2'),
+         url('cool-font.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+#title {
+    
+    position: relative;
+    right: 80px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: text-shadow 0.3s ease-in-out;
+  }
+
+  #title:hover {
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+  }
+
 .avg-price {
     display: flex;
     justify-content: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+

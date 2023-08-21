@@ -184,3 +184,57 @@ body {
   right: -100px;
 
 }
+
+
+
+ .footer {
+  background-color: #e8e8e8;
+  color: rgb(115, 115, 115);
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;  
+  column-count: 2;
+  column-gap: 40px;
+  column-rule-style: solid;
+  column-rule-width: 4px;
+  column-rule-color: white;
+}
+
+.footer-content {
+  flex: 2;
+}
+
+.footer-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.footer-content p span {
+  color: #7962bb;
+}
+
+.footer-register p {
+  margin: 5px 0;
+}
+
+.footer-register a {
+  color: #7962bb;
+  text-decoration: none;
+}
+
+.footer-social a {
+  margin-right: 10px;
+}
+
+.footer-social img {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.footer-social img:hover {
+  transform: scale(1.2);
+} 
+
+
+
