@@ -21,8 +21,12 @@ router.get('/getAllOrders', async function (req, res) {
 });
 
 router.get('/getAllProducts', async function (req, res) {
-    const products = await productController.getAllProducts();
-    res.status(200).json({ products });
+    try {
+        const products = await productController.getAllProducts();
+        res.status(200).json({success:true, products });
+    } catch (error) {
+        res.status(404).json({success:false, error:error })
+    }
 });
 
 router.post('/removeProduct', async function (req, res) {
@@ -32,8 +36,13 @@ router.post('/removeProduct', async function (req, res) {
 
 
 router.get('/getAllUsers', async function (req, res) {
-    const users = await userController.getAllUsers();
-    res.json({ users });
+    try {
+        const users = await userController.getAllUsers();
+        res.status(200).json({ users });
+    } catch (error) {
+        res.status(404).json({error:error})
+    }
+    
 });
 
 router.get('/getAllUsersCount', async function (req, res) {
