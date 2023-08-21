@@ -68,7 +68,10 @@ $(document).ready(function () {
   // Initialize a flag variable
   var cardExists = false;
 
-
+  if (cardsData?.length == null) {
+    $('#num-of-items').text("no");
+    return;
+  }
 
   // Loop through the card data and create cards dynamically
   for (var i = 0; i < cardsData.length; i++) {
@@ -353,22 +356,17 @@ $(document).ready(function () {
     var totalPrice = 0;
     var countProducts = 0;
 
-
-
     $('.card').each(function () {
-      $('#num-of-items').text(countProducts);
       var card = $(this);
       var quantity = card.find('.quantity-input').val();
       var priceText = card.find('.card-text').last().text(); //.card-test = price on card
       var price = parseFloat(priceText.replace(/[^0-9.]/g, '')); //split the price with '$' and integer
       countProducts += parseInt(quantity);
-
-
       totalPrice += quantity * price;
     });
 
     $('.total-price').text('Total Price: $' + totalPrice);
-    $('#num-of-items').text(countProducts);
+    $('#num-of-items').text(countProducts === 0 ? "no" : countProducts);
   }
 
   // Event listener for quantity input change
