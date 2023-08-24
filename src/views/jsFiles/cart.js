@@ -70,6 +70,9 @@ $(document).ready(function () {
 
   if (cardsData?.length == null) {
     $('#num-of-items').text("no");
+    if (countProducts === 0) {
+      $('#payment-container').addClass('hide');
+    }
     return;
   }
 
@@ -245,7 +248,6 @@ $(document).ready(function () {
 
   // Append the footer section to the footer container
   $('#payment-container').append(paymentDiv, footerDiv);
-
   calculateTotalPrice(); // the price will update all the time!
 
 
@@ -356,8 +358,6 @@ $(document).ready(function () {
     var totalPrice = 0;
     var countProducts = 0;
 
-
-
     $('.card').each(function () {
       var card = $(this);
       var quantity = card.find('.quantity-input').val();
@@ -371,7 +371,12 @@ $(document).ready(function () {
 
     $('.total-price').text('Total Price: $' + totalPrice);
     $('#num-of-items').text(countProducts === 0 ? "no" : countProducts);
+    if (countProducts === 0) {
+      $('#payment-container').addClass('hide');
+    } else {
+      $('#payment-container').removeClass('hide');
     }
+  }
 
   // Event listener for quantity input change
   $('.quantity-input').on('input', calculateTotalPrice);
