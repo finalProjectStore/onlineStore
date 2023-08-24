@@ -484,5 +484,3 @@ $(document).ready(function () {
   
 });
 
-
-

@@ -70,9 +70,11 @@ $(document).ready(function () {
 
   if (cardsData?.length == null) {
     $('#num-of-items').text("no");
+
     if (countProducts === 0) {
       $('#payment-container').addClass('hide');
     }
+
     return;
   }
 
@@ -364,18 +366,18 @@ $(document).ready(function () {
       var priceText = card.find('.card-text').last().text(); //.card-test = price on card
       var price = parseFloat(priceText.replace(/[^0-9.]/g, '')); //split the price with '$' and integer
       countProducts += parseInt(quantity);
-
-
       totalPrice += quantity * price;
     });
 
     $('.total-price').text('Total Price: $' + totalPrice);
     $('#num-of-items').text(countProducts === 0 ? "no" : countProducts);
+
     if (countProducts === 0) {
       $('#payment-container').addClass('hide');
     } else {
       $('#payment-container').removeClass('hide');
     }
+
   }
 
   // Event listener for quantity input change
