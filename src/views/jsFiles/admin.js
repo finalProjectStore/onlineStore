@@ -419,25 +419,97 @@ $(document).ready(function () {
     }
 
 
-    $("#incomeBtn").click(function () {
+
+
+    d3.select("#incomeBtn").on("click", function () {
         clearPage();
-
-        $.ajax({
-            url: '/admin/getTotalAmount',
-            method: 'GET',
-            success: function (res) {
-                const total = res.totalAmount;
-                $('#income').html('<h2>Total income: <span id="totalAmount">' + total + '$' + '</span></h2>');
-
-                // Use D3 to style the total income in gray
-                d3.select('#totalAmount')
-                    .style('color', 'gray');
-            },
-            error: function (xhr, status, error) {
-                console.log("Error:", error);
-            }
-        });
+        d3.json("/admin/lastWeekAmountPerDay")
+            .then(function (res) {
+                const arrayData = res;
+    
+                // Create or update the chart
+                createOrUpdateChart1(arrayData);
+            })
+            .catch(function (error) {
+                console.log("Error:", error); // Handle the error in an appropriate way
+            });
     });
+    
+    // function to create or update the chart
+    function createOrUpdateChart1(orders) {
+        ///////////////////////
+        /////// using D3.js ///
+        ///////////////////////    
+        const orders1 = orders.orders;
+        console.log("orders:",orders1);
+        var chartElement = document.getElementById("incomeChart").getContext("2d"); // Use `getElementById` instead of D3.select
+        // const currentDate = new Date();
+        // const currentLabel = currentDate.toLocaleDateString();
+
+        // orders:[
+            // { _id: 'jon', avgCartPrice: 1525 },
+            // { _id: 'ori', avgCartPrice: 1550 }
+        // ]
+        // const labels = []
+        // const avgCost = []
+
+        // orders1.forEach(user => {
+        //     labels.push(user._id);
+        // })
+        // console.log("label:",labels)
+        // orders1.forEach(price => {
+        //     avgCost.push(price.avgCartPrice);
+        // })
+        // console.log("avg:",avgCost)
+        
+        
+        // check if the chart already exists
+        if (window.userChart instanceof Chart) {
+            // update the existing chart with new data
+            window.userChart.data.labels.push(lables);
+            window.userChart.data.datasets[0].data.push(avgCost);
+            window.userChart.update();
+        } else {
+            const labels = []
+            const avgCost = []
+
+            orders1.forEach(user => {
+                labels.push(user._id);
+            })
+            console.log("label:",labels)
+            orders1.forEach(price => {
+                avgCost.push(price.avgCartPrice);
+            })
+            console.log("avg:",avgCost)
+            // create a new chart
+            
+        
+    
+            window.userChart = new Chart(chartElement, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Total income per day",
+                            data: avgCost,
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            precision: 0, // Display integers only
+                        },
+                    },
+                },
+            });
+        }
+    }
+    
 
 
 

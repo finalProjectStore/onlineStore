@@ -93,5 +93,34 @@ const calculateAvgCartPrice = async function (username) {
 
 
 }
+async function getOrdersWithinRange(listOfUsernames) {
+    console.log("listOfUsernames:",listOfUsernames);
+    const nameList = [];
+    listOfUsernames.forEach(object =>{
+        nameList.push(object.username);
+    });
 
-module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus, getAllCartsByUser,calculateAvgCartPrice };
+    const result = await Order.aggregate([
+        {
+            $match: {username: {$in: nameList}}
+        },
+        {
+            $unwind: "$carts"
+        },
+        {
+            $group: { 
+                _id: "$username",
+                avgCartPrice: { $avg: "$carts.price" }
+            }
+        }
+    ]);
+    console.log("RES:",result);
+    return result;
+   
+    
+    
+
+}
+
+
+module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus, getAllCartsByUser,calculateAvgCartPrice,getOrdersWithinRange };
