@@ -65,5 +65,39 @@ router.post('/addProducts' , async function (req,res){
     const products = req.body;
     await productController.addNewProducts(products);
 });
+router.get('/lastWeekAmountPerDay', async function (req, res) {
+    const userList = await userController.getAllUsers(); 
+    const orders = await orderController.getOrdersWithinRange(userList);
+    res.json({ orders });
+    // try {
+    //     const today = new Date();
+    //     const lastWeekStartDate = new Date(today);
+    //     lastWeekStartDate.setDate(today.getDate() - 7);
+    
+    //     const orders = await orderController.getOrdersWithinRange(lastWeekStartDate, today);
+    //     console.log("orders:",orders);
+    
+    //     const amountPerDay = {};
+    
+    //     orders.forEach(order => {
+    //         const orderDate = new Date(order.date); // Assuming your order object has a 'date' field
+    //         const day = orderDate.toISOString().split('T')[0];
+    //         console.log(amountPerDay[0]);
+    //         if (!amountPerDay[day]) {
+    //             amountPerDay[day] = 0;
+    //         }
+    
+    //         amountPerDay[day] += order.totalAmount; // Assuming your order object has a 'totalAmount' field
+    //     });
+    //     console.log(amountPerDay);
+       
+    //     res.json({ amountPerDay });
+    // } catch (error) {
+    //     console.error("Error:", error);
+    //     res.status(500).json({ error: "An error occurred while fetching data." });
+    // }
+});
+
+
 
 module.exports = router;
