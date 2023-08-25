@@ -97,6 +97,7 @@ function mainPageLogic(data) {
     const username = $('#username').append('<strong> Hello ' + name + '</strong>');
   }
 
+
   // Generate the filter menu
   var filterMenuRow = $('#filter-menu-row');
   var filterMenuItems = [
@@ -134,6 +135,7 @@ function mainPageLogic(data) {
   var filtereditem = data;
 
   $("#cartBtn").click(function () {
+
     location.href = 'cart';
   });
 
