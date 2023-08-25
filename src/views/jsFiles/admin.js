@@ -58,6 +58,16 @@ function populateProductTable() {
     });
 }
 
+
+$("#refreshBtn").click(function()
+{
+    var ws = new WebSocket('ws://localhost:3000/');
+    ws.onmessage=function(event)
+    {
+        ws.send("admin");
+    }
+})
+
 function populateOrderTable(search) {
     $.ajax({
         url: `/admin/getAllOrders`,
