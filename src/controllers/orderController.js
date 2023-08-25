@@ -57,9 +57,14 @@ const updateConfirmationStatus = async function (cartId, confirmationStatus) {
 }
 
 const getAllCartsByUser = async function(username){
-    const userOrders = await Order.findOne({username});
-    const carts = userOrders.carts;
-    return carts;
+    try {
+        const userOrders = await Order.findOne({username});
+        const carts = userOrders.carts;
+        return {carts};
+    } catch(error) {
+        throw new Error("Can not find cart");
+    }
+    
 }
 
 const calculateAvgCartPrice = async function (username) {

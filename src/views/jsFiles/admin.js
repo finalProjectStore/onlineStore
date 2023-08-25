@@ -55,6 +55,9 @@ function populateProductTable() {
                 tableBody.append(row);
             });
         },
+        error: function(error) {
+            console.error("Error:",error);
+        }
     });
 }
 

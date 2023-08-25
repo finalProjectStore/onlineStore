@@ -13,10 +13,9 @@ router.post('/orderHistory',async function(req,res) {
         const carts = await orderController.getAllCartsByUser(req.body.username);
         const listOfDetails = await orderController.calculateAvgCartPrice(req.body.username);
         var response = {carts,listOfDetails};
-        res.send(response);
+        res.status(200).json(response);
     } catch (error) {
         res.status(400);
-        console.error(error);
     }
 })
 

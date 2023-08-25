@@ -54,16 +54,22 @@ $(document).ready(function () {
       contentType: 'application/json',
 
       success: function (res) {
-        if (res.response !== '') {
-          // error accured
-          createAlert(res.response);
-        } else {
-          showGreetingMessage('Registration successful!');
-          setTimeout(() => {
-            location.href = '/';
-          }, 3 * 1000);
-        }
+        showGreetingMessage(res['message']);
+        /// save username and email to sessionStorage ///
+        sessionStorage.setItem('name',res.user.username);
+        sessionStorage.setItem('email',res.user.email);
+
+        setTimeout(() => {
+          location.href = '/';
+        }, 2 * 1000);
+        // console.log("RES:",res);
       },
+      error: function(error) {
+        const errorToShow = error['responseJSON']['message'];
+        // console.log("message:",errorToShow);
+        createAlert(errorToShow);
+
+      }
     });
   });
 });

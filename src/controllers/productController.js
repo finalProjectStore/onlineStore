@@ -843,9 +843,13 @@ const addProducts = function () {
 
 const getAllProducts = async function () {
     // 'find' without filtering means - all products
-    const query = Product.find({});
-    const allProducts = await query.exec();
-    return allProducts;
+    try {
+        const query = Product.find({});    
+        const allProducts = await query.exec();
+        return allProducts;
+    } catch (error) {
+        throw new Error('Error while fetching products')
+    }
 }
 
 const removeProduct = async function (_id) {
