@@ -30,6 +30,8 @@ function displayOrders(carts,average){
     for (var i = 0; i < carts.length; i++) {
         var cart = carts[i];
         totalPrice += cart.price;
+
+
         
 
      

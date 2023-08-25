@@ -487,5 +487,3 @@ $(document).ready(function () {
   
 });
 
-
-
