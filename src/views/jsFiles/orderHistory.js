@@ -11,8 +11,11 @@ $.ajax({
     success: function(response) {
         average = response.listOfDetails[0].avgCartPrice;
         userCarts = response.carts;
-        displayOrders(userCarts,average);  
+        displayOrders(userCarts.carts,average);  
          
+    },
+    error: function() {
+        console.log("ERROR");
     }
 })
 $('.home-page').click(function() {
