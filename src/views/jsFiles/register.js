@@ -60,7 +60,7 @@ $(document).ready(function () {
         } else {
           showGreetingMessage('Registration successful!');
           setTimeout(() => {
-            location.href = '/';
+            location.href = '/login';
           }, 3 * 1000);
         }
       },
