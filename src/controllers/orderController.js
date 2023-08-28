@@ -94,7 +94,6 @@ const calculateAvgCartPrice = async function (username) {
 
 }
 async function getOrdersWithinRange(listOfUsernames) {
-    console.log("listOfUsernames:",listOfUsernames);
     const nameList = [];
     listOfUsernames.forEach(object =>{
         nameList.push(object.username);
@@ -114,13 +113,6 @@ async function getOrdersWithinRange(listOfUsernames) {
             }
         }
     ]);
-    console.log("RES:",result);
     return result;
-   
-    
-    
-
 }
-
-
 module.exports = { newOrder , addCartToOrder, getAllOrders, updateConfirmationStatus, getAllCartsByUser,calculateAvgCartPrice,getOrdersWithinRange };

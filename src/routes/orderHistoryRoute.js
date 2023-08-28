@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const path = require('path');
 const orderController = require('../controllers/orderController');
+const { verifyToken } = require('../helpers/middlewares');
 
 
-router.get('/orderHistory', function(req,res) {
+router.get('/orderHistory',verifyToken, function(req,res) {
     res.sendFile(path.join(__dirname,'../views/public/orderHistory.html'));
 
 });
