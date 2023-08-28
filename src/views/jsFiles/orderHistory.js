@@ -44,12 +44,13 @@ function displayOrders(carts,average){
         var errangedDateFormat = `${dateOnly[2]}-${dateOnly[1]}-${dateOnly[0]}`;
 
         var date = $('<h4>').addClass('card-title').text('Date: '+errangedDateFormat);
+        var confirmation = $('<h4>').addClass('card-title').text('Status: '+cart.confirmationStatus);
 
         // var card = $('<div>').addClass('card');
         var cardRow = $('<div>').addClass('row');
         var colLeft = $('<div>').addClass('col left');
         var colRight = $('<div>').addClass('col right');
-        colLeft.append(date,Total);
+        colLeft.append(date,Total,confirmation);
 
         var productsArray = cart.products;
         var productList = $('<ul>').addClass('list-group');
