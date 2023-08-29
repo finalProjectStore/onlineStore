@@ -67,6 +67,7 @@ $(document).ready(function () {
 
   // Initialize a flag variable
   var cardExists = false;
+  var countProducts = 0;
 
   if (cardsData?.length == null) {
     $('#num-of-items').text("no");
@@ -358,7 +359,7 @@ $(document).ready(function () {
 
   function calculateTotalPrice() {
     var totalPrice = 0;
-    var countProducts = 0;
+    
 
     $('.card').each(function () {
       var card = $(this);
