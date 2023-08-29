@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const path = require('path');
 const userController = require('../controllers/userController');
-
+const { verifyToken } = require('../helpers/middlewares');
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 
 
-router.get('/userdetails',function(req,res)
+
+router.get('/userdetails',verifyToken,function(req,res)
 {
   res.sendFile(path.join(__dirname,'../views/public/userDetails.html')) // Solve route error. check what is path.join().
 });

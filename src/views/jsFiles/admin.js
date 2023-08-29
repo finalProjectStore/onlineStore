@@ -452,28 +452,7 @@ $(document).ready(function () {
         /////// using D3.js ///
         ///////////////////////    
         const orders1 = orders.orders;
-        console.log("orders:",orders1);
-        var chartElement = document.getElementById("incomeChart").getContext("2d"); // Use `getElementById` instead of D3.select
-        // const currentDate = new Date();
-        // const currentLabel = currentDate.toLocaleDateString();
-
-        // orders:[
-            // { _id: 'jon', avgCartPrice: 1525 },
-            // { _id: 'ori', avgCartPrice: 1550 }
-        // ]
-        // const labels = []
-        // const avgCost = []
-
-        // orders1.forEach(user => {
-        //     labels.push(user._id);
-        // })
-        // console.log("label:",labels)
-        // orders1.forEach(price => {
-        //     avgCost.push(price.avgCartPrice);
-        // })
-        // console.log("avg:",avgCost)
-        
-        
+        var chartElement = document.getElementById("incomeChart").getContext("2d"); // Use `getElementById` instead of D3.select        
         // check if the chart already exists
         if (window.userChart instanceof Chart) {
             // update the existing chart with new data
@@ -483,26 +462,25 @@ $(document).ready(function () {
         } else {
             const labels = []
             const avgCost = []
-
             orders1.forEach(user => {
                 labels.push(user._id);
             })
-            console.log("label:",labels)
             orders1.forEach(price => {
                 avgCost.push(price.avgCartPrice);
             })
-            console.log("avg:",avgCost)
+
+            /// sort the bars from big to small
+            avgCost.sort((a1,a2) => a2-a1 );
+
             // create a new chart
-            
-        
-    
             window.userChart = new Chart(chartElement, {
                 type: "bar",
+                label: "Total income from user",
                 data: {
                     labels: labels,
                     datasets: [
                         {
-                            label: "Total income per day",
+                            label: "Total income from user",
                             data: avgCost,
                             borderColor: "rgba(75, 192, 192, 1)",
                             borderWidth: 1,

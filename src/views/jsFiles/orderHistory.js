@@ -30,12 +30,6 @@ function displayOrders(carts,average){
     for (var i = 0; i < carts.length; i++) {
         var cart = carts[i];
         totalPrice += cart.price;
-
-
-        
-
-     
-
         var Total = $('<h4>').addClass('card-title').text('Total price: $'+cart.price); 
 
         var dateTimeString = cart.created;
@@ -67,5 +61,5 @@ function displayOrders(carts,average){
         cardContainer.append(cardRow);
     }
     $(".total-price").text('Total: '+'$'+totalPrice);
-    $(".avg-price").text('Average purchases: '+'$'+average);
+    $(".avg-price").text('Average purchases: '+'$'+average.toFixed(3));
 }
