@@ -60,7 +60,7 @@ $(document).ready(function () {
         sessionStorage.setItem('email',res.user.email);
 
         setTimeout(() => {
-          location.href = '/';
+          location.href = '/login';
         }, 2 * 1000);
         // console.log("RES:",res);
       },

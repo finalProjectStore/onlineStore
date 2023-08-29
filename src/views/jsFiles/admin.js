@@ -399,10 +399,9 @@ $(document).ready(function () {
                 const date = new Date(currentDate);
                 date.setDate(currentDate.getDate() - i);
                 labels.push(date.toLocaleDateString());
-                data.push(0); // initialize daily data with 0
+                data.push(numOfUsers-i); // initialize daily data with 0
             }
-            labels.push(currentDate.toLocaleDateString());
-            data.push(numOfUsers); // add initial data
+            
 
             window.userChart = new Chart(chartElement, {
                 type: "line",
