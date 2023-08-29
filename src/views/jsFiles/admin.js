@@ -253,6 +253,7 @@ $(document).ready(function () {
             const color = $('input[name="color"]', `#${productId}`).val();
             const image = $('img[name="image"]', `#${productId}`).attr('src');
             const product = { _id: productId, title, description, price, quantity, color, image };
+            console.log("Product:",product);
 
             // pass all the current values to the server, because some/all of them are updated
             $.ajax({
@@ -532,7 +533,7 @@ $(document).ready(function () {
     var ws = new WebSocket('ws://localhost:3000/');
 
     ws.onmessage = function (event) {
-        $("#usersCounter").text("Online users: " + event.data);
+        $("#usersCounter").text("Total logins: " + event.data);
     }
 
 

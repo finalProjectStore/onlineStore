@@ -359,6 +359,7 @@ $(document).ready(function () {
 
   function calculateTotalPrice() {
     var totalPrice = 0;
+    countProducts = 0;
     
 
     $('.card').each(function () {
@@ -366,7 +367,7 @@ $(document).ready(function () {
       var quantity = card.find('.quantity-input').val();
       var priceText = card.find('.card-text').last().text(); //.card-test = price on card
       var price = parseFloat(priceText.replace(/[^0-9.]/g, '')); //split the price with '$' and integer
-      countProducts += parseInt(quantity);
+      countProducts = parseInt(quantity);
       totalPrice += quantity * price;
     });
 
