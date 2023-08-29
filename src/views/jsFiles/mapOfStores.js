@@ -1,4 +1,9 @@
+
 $(document).ready(function() {
+
+    $("#adminButton").click(function() {
+        window.location.href = "/admin"; 
+    });
     
     // Fetch addresses from the server
     function fetchAddresses(callback) {
