@@ -56,7 +56,7 @@ $('form').submit(function (event) {
         {
             ws.send("client");
         }
-        showGreetingMessage('Registration successful!');
+        showGreetingMessage('Login successful!');
         setTimeout(() => {
           location.href = '/mainpage';
         }, 2 * 1000);

@@ -52,12 +52,12 @@ app.ws('/', (ws, req) =>
   {
       if (message === "client")
       {
-        clients+=1;
+        clients += 1;
       }
 
-      if (message === "bye client")
+      if (message === "admin")
       {
-        clients-=1;
+        clients = 0;
       }
   });
 
